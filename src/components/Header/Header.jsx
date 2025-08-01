@@ -2,7 +2,7 @@ import "./Header.css";
 import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
 
-function Header() {
+function Header({ weather }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
