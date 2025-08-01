@@ -3,7 +3,7 @@ import "./Main.css";
 
 function Main({ weather }) {
   return (
-    <main className="main">
+    <main className="main page__section">
       <WeatherCard weather={weather} />
     </main>
   );

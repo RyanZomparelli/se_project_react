@@ -9,7 +9,7 @@ function Header({ weather }) {
   });
 
   return (
-    <div className="header">
+    <header className="header page__section">
       <div className="header__container">
         <img className="header__logo" src={headerLogo} alt="WTWR Logo." />
         <h1 className="header__date">{currentDate}, Weather API</h1>
@@ -23,7 +23,7 @@ function Header({ weather }) {
           className="header__avatar"
         />
       </div>
-    </div>
+    </header>
   );
 }
 

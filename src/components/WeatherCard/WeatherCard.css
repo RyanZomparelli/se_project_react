@@ -1,0 +1,17 @@
+.weather__card {
+  background-image: url(../../assets/sunny.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 80px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.weather__temp {
+  color: rgba(255, 255, 255, 1);
+  font-size: 36px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0 0 0 16px;
+}
