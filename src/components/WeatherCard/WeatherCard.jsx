@@ -4,7 +4,7 @@ function WeatherCard({ weather }) {
   return (
     <section className="weather">
       <div className="weather__card">
-        <p className="weather__temp">75 F</p>
+        <p className="weather__temp">{Math.round(weather.main.temp)}ºF</p>
       </div>
     </section>
   );

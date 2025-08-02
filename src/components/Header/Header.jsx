@@ -12,7 +12,9 @@ function Header({ weather }) {
     <header className="header page__section">
       <div className="header__container">
         <img className="header__logo" src={headerLogo} alt="WTWR Logo." />
-        <h1 className="header__date">{currentDate}, Weather API</h1>
+        <h1 className="header__date">
+          {currentDate}, {weather.name}
+        </h1>
       </div>
       <div className="header__nav-bar">
         <button className="header__add-btn">+ Add clothes</button>
