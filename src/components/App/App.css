@@ -4,6 +4,24 @@
   padding-right: 40px;
   max-width: 1440px;
   margin: 0 auto;
+  position: relative;
+}
+
+.page__loading-overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page__loading-message {
+  font-size: 36px;
+  color: white;
 }
 
 .page__section {

@@ -8,7 +8,7 @@ function Main({ weather, clothingItem }) {
       <WeatherCard weather={weather} />
       <section className="clothing">
         <p weather={weather} className="clothing__paragraph">
-          Today is 75° F / You may want to wear:
+          Today is {Math.round(weather.main.temp)}° F / You may want to wear:
         </p>
         <ItemCard clothingItem={clothingItem} />
       </section>

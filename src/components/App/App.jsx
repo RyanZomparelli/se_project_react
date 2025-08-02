@@ -10,7 +10,7 @@ import { getWeatherData } from "../../utils/weatherApi.js";
 import "./App.css";
 
 function App() {
-  // Setup API
+  const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState();
   const [clothingItem, setClothingItem] = useState(defaultClothingItems);
 
@@ -18,20 +18,27 @@ function App() {
     getWeatherData(location, apiKey).then((data) => {
       if (data) {
         setWeather(data);
+        setTimeout(() => setIsLoading(false), 1000);
       }
     });
   }, []);
 
-  const temp = weather.weather;
-  console.log(temp);
-
   return (
-    <div className="page">
-      {/* Setup API */}
-      <Header weather={weather} />
-      <Main weather={weather} clothingItem={clothingItem} />
-      <Footer />
-    </div>
+    <>
+      {isLoading ? (
+        <div className="page">
+          <div className="page__loading-overlay">
+            <p className="page__loading-message">Loading...😎</p>
+          </div>
+        </div>
+      ) : (
+        <div className="page">
+          <Header weather={weather} />
+          <Main weather={weather} clothingItem={clothingItem} />
+          <Footer />
+        </div>
+      )}
+    </>
   );
 }
 
