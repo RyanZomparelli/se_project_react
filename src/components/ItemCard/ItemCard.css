@@ -1,0 +1,30 @@
+.clothing__card {
+  list-style: none;
+  max-width: 323px;
+  width: 100%;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.clothing__card-title {
+  position: absolute;
+  left: 125px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  padding: 2px 12px;
+  margin: 15px 0 0;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.clothing__card-image {
+  max-width: 323px;
+  border-radius: 16px;
+  display: block;
+  height: auto;
+}
