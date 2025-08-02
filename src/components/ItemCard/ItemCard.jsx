@@ -1,5 +1,4 @@
 import "../ItemCard/ItemCard.css";
-// import { defaultClothingItems } from "../../utils/data";
 
 function ItemCard({ clothingItem }) {
   const tShirt = clothingItem[4];
