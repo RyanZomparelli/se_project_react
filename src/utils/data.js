@@ -11,53 +11,53 @@ export const weatherCards = [
   },
   {
     isDay: true,
-    weather: 'rain',
-    src: '../assets/rain.png',
+    weather: "rain",
+    src: "../assets/rain.png",
   },
   {
     isDay: true,
-    weather: 'storm',
-    src: '../assets/storm.png',
+    weather: "storm",
+    src: "../assets/storm.png",
   },
   {
     isDay: true,
-    weather: 'snow',
-    src: '../assets/snow.png'
+    weather: "snow",
+    src: "../assets/snow.png",
   },
   {
     isDay: true,
-    weather: 'fog',
-    src: '../assets/fog.png'
+    weather: "fog",
+    src: "../assets/fog.png",
   },
   {
     isDay: false,
-    weather: 'clear',
-    src: '../assets/night_clear.png',
+    weather: "clear",
+    src: "../assets/night_clear.png",
   },
   {
     isDay: false,
-    weather: 'cloudy'
-    src: '../assets/night_cloudy.png',
+    weather: "cloudy",
+    src: "../assets/night_cloudy.png",
   },
   {
     isDay: false,
-    weather: 'rain',
-    src: '../assets/night_rain.png',
+    weather: "rain",
+    src: "../assets/night_rain.png",
   },
   {
     isDay: false,
-    weather: 'storm',
-    src: '../assets/night_storm.png',
+    weather: "storm",
+    src: "../assets/night_storm.png",
   },
   {
     isDay: false,
-    weather: 'snow',
-    src: '../assets/night_snow',
+    weather: "snow",
+    src: "../assets/night_snow",
   },
   {
     isDay: false,
-    weather: 'fog',
-    src: '../assets/night_fog.png'
+    weather: "fog",
+    src: "../assets/night_fog.png",
   },
 ];
 
@@ -97,5 +97,5 @@ export const defaultClothingItems = [
     name: "Coat",
     weather: "cold",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
-  }
-]
+  },
+];
