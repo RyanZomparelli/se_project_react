@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
+import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import Footer from "../Footer/Footer.jsx";
 import { defaultClothingItems } from "../../utils/constants.js";
 import { location } from "../../utils/constants.js";
@@ -18,6 +19,7 @@ function App() {
     getWeatherData(location, apiKey).then((data) => {
       if (data) {
         setWeather(data);
+        //Somtimes loading happens so fast it creates a jarring flash
         setTimeout(() => setIsLoading(false), 1000);
       }
     });
@@ -35,6 +37,7 @@ function App() {
         <div className="page">
           <Header weather={weather} />
           <Main weather={weather} clothingItem={clothingItem} />
+          <ModalWithForm />
           <Footer />
         </div>
       )}
