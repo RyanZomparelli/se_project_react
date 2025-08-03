@@ -1,0 +1,127 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: visible;
+}
+
+.modal__container {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  max-width: 496px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  position: relative;
+}
+
+.modal__btn-close {
+  background-image: url(../../assets/close_btn.svg);
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  cursor: pointer;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__form-title {
+  margin: 28px 0 24px 28px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.modal__text-inputs {
+  border: none;
+  margin-left: 28px;
+  padding: 0;
+}
+
+.modal__form-label {
+  margin: 0 0 8px 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.modal__form-input {
+  margin: 0 0 24px 0;
+  max-width: 440px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.modal__form-input::placeholder {
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.modal__radio-inputs {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0 8px 10px 28px;
+  padding: 0;
+  accent-color: black;
+}
+
+.modal__paragraph {
+  margin: 0 0 17px 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.modal__form-label_type_radio {
+  display: flex;
+  gap: 8px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__form-label_type_radio:has(input:checked) {
+  color: black;
+}
+
+.modal__btn-submit {
+  padding: 8px 16px;
+  align-self: flex-start;
+  margin: 0 0 36px 28px;
+  color: white;
+  background-color: rgba(0, 0, 0, 1);
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+  cursor: pointer;
+  transition: ease-in 0.3s;
+}
+
+.modal__btn-submit:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: ease-out 0.3s;
+}

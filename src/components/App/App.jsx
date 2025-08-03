@@ -37,7 +37,75 @@ function App() {
         <div className="page">
           <Header weather={weather} />
           <Main weather={weather} clothingItem={clothingItem} />
-          <ModalWithForm />
+          <ModalWithForm
+            title="New Garment"
+            name="new-garment"
+            buttonText="Add garment"
+            onClose=""
+          >
+            <fieldset className="modal__text-inputs">
+              <label htmlFor="name" className="modal__form-label">
+                Name
+                <input
+                  placeholder="Name"
+                  type="text"
+                  className="modal__form-input"
+                />
+              </label>
+              <label htmlFor="image" className="modal__form-label">
+                Image
+                <input
+                  placeholder="Image URL"
+                  type="text"
+                  className="modal__form-input"
+                />
+              </label>
+            </fieldset>
+            <fieldset className="modal__radio-inputs">
+              <p className="modal__paragraph">Select the weather type:</p>
+              <label
+                htmlFor="Hot"
+                className="modal__form-label modal__form-label_type_radio"
+              >
+                <input
+                  type="radio"
+                  name="weather"
+                  id="Hot"
+                  value="Hot"
+                  className="modal__radio-input"
+                />
+                Hot
+              </label>
+
+              <label
+                htmlFor="Warm"
+                className="modal__form-label modal__form-label_type_radio"
+              >
+                <input
+                  type="radio"
+                  name="weather"
+                  id="Warm"
+                  value="Warm"
+                  className="modal__radio-input"
+                />
+                Warm
+              </label>
+
+              <label
+                htmlFor="Cold"
+                className="modal__form-label modal__form-label_type_radio"
+              >
+                <input
+                  type="radio"
+                  name="weather"
+                  id="Cold"
+                  value="Cold"
+                  className="modal__radio-input"
+                />
+                Cold
+              </label>
+            </fieldset>
+          </ModalWithForm>
           <Footer />
         </div>
       )}
