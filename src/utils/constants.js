@@ -2,62 +2,66 @@ export const weatherCards = [
   {
     isDay: true,
     weather: "sunny",
-    src: "../assets/sunny.png",
+    //We can’t simply use relative paths to the image files.
+    // Instead, Vite requires a specific syntax:
+    url: new URL("../assets/sunny.png", import.meta.url).href,
   },
   {
     isDay: true,
     weather: "cloudy",
-    src: "../assets/cloudy.png",
+    //This syntax uses the global URL constructor to create a URL object
+    // using the path to the image.
+    url: new URL("../assets/cloudy.png", import.meta.url).href,
   },
   {
     isDay: true,
     weather: "rain",
-    src: "../assets/rain.png",
+    url: new URL("../assets/rain.png", import.meta.url).href,
   },
   {
     isDay: true,
     weather: "storm",
-    src: "../assets/storm.png",
+    url: new URL("../assets/storm.png", import.meta.url).href,
   },
   {
     isDay: true,
     weather: "snow",
-    src: "../assets/snow.png",
+    url: new URL("../assets/snow.png", import.meta.url).href,
   },
   {
     isDay: true,
     weather: "fog",
-    src: "../assets/fog.png",
+    url: new URL("../assets/fog.png", import.meta.url).href,
   },
   {
     isDay: false,
     weather: "clear",
-    src: "../assets/night_clear.png",
+    url: new URL("../assets/night_clear.png", import.meta.url).href,
   },
   {
     isDay: false,
     weather: "cloudy",
-    src: "../assets/night_cloudy.png",
+    url: new URL("../assets/night_cloudy.png", import.meta.url).href,
   },
   {
     isDay: false,
     weather: "rain",
-    src: "../assets/night_rain.png",
+    url: new URL("../assets/night_rain.png", import.meta.url).href,
   },
   {
     isDay: false,
     weather: "storm",
-    src: "../assets/night_storm.png",
+    url: new URL("../assets/night_storm.png", import.meta.url).href,
   },
   {
     isDay: false,
     weather: "snow",
-    src: "../assets/night_snow",
+    url: new URL("../assets/night_snow.png", import.meta.url).href,
   },
   {
     isDay: false,
     weather: "fog",
-    src: "../assets/night_fog.png",
+    url: new URL("../assets/night_fog.png", import.meta.url).href,
   },
 ];
 
