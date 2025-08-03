@@ -1,13 +1,12 @@
 import "../ItemCard/ItemCard.css";
 
 function ItemCard({ clothingItem }) {
-  const tShirt = clothingItem[4];
   return (
     <li className="clothing__card">
-      <p className="clothing__card-title">{tShirt.name}</p>
+      <p className="clothing__card-title">{clothingItem.name}</p>
       <img
-        src={tShirt.link}
-        alt={tShirt.name}
+        src={clothingItem.link}
+        alt={clothingItem.name}
         className="clothing__card-image"
       />
     </li>

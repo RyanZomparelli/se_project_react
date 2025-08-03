@@ -1,8 +1,11 @@
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard.jsx";
+import { setTemperatureRange } from "../../utils/weatherApi.js";
 import "./Main.css";
 
 function Main({ weather, clothingItem }) {
+  const temp = setTemperatureRange(weather.main.temp);
+
   return (
     <main className="main page__section">
       <WeatherCard weather={weather} />
@@ -10,7 +13,15 @@ function Main({ weather, clothingItem }) {
         <p weather={weather} className="clothing__paragraph">
           Today is {Math.round(weather.main.temp)}° F / You may want to wear:
         </p>
-        <ItemCard clothingItem={clothingItem} />
+        <ul className="clothing__list">
+          {clothingItem
+            .filter((item) => {
+              return item.weather === temp;
+            })
+            .map((item) => {
+              return <ItemCard key={item._id} clothingItem={item} />;
+            })}
+        </ul>
       </section>
     </main>
   );

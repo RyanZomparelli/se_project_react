@@ -14,3 +14,15 @@ export function getWeatherData({ latitude, longitude }, apiKey) {
     })
     .catch((error) => console.error(error));
 }
+
+export function setTemperatureRange(temperature) {
+  if (temperature >= 80) {
+    return "hot";
+  } else if (temperature >= 66) {
+    return "warm";
+  } else if (temperature >= 50) {
+    return "cool";
+  } else {
+    return "cold";
+  }
+}
