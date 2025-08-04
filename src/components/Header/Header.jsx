@@ -2,7 +2,7 @@ import "./Header.css";
 import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
 
-function Header({ weather }) {
+function Header({ weather, onOpen }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -17,7 +17,9 @@ function Header({ weather }) {
         </h1>
       </div>
       <div className="header__nav-bar">
-        <button className="header__add-btn">+ Add clothes</button>
+        <button className="header__add-btn" onClick={onOpen}>
+          + Add clothes
+        </button>
         <h2 className="header__name">Terrence Tegegne</h2>
         <img
           src={headerAvatar}

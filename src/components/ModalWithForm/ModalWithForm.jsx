@@ -10,7 +10,7 @@ export default function ModalWithForm({
   return (
     <section className="modal">
       <div className="modal__container">
-        <button className="modal__btn-close"></button>
+        <button className="modal__btn-close" onClick={onClose}></button>
         <form name={name} className={`modal__form modal__form_type_${name}`}>
           <h3 className="modal__form-title">{title}</h3>
           {children}
