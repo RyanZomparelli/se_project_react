@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
-import { defaultClothingItems } from "../../utils/constants.js";
-import { location } from "../../utils/constants.js";
-import { apiKey } from "../../utils/constants.js";
+import {
+  defaultClothingItems,
+  location,
+  apiKey,
+} from "../../utils/constants.js";
 import { getWeatherData } from "../../utils/weatherApi.js";
 import "./App.css";
 
@@ -124,6 +125,7 @@ function App() {
                     placeholder="Name"
                     type="text"
                     className="modal__form-input"
+                    id="name"
                     required
                   />
                 </label>
@@ -131,8 +133,9 @@ function App() {
                   Image
                   <input
                     placeholder="Image URL"
-                    type="text"
+                    type="url"
                     className="modal__form-input"
+                    id="image"
                     required
                   />
                 </label>
