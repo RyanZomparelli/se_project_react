@@ -63,13 +63,18 @@ function App() {
   };
 
   useEffect(() => {
-    getWeatherData(location, apiKey).then((data) => {
-      if (data) {
-        setWeather(data);
-        //Somtimes loading happens so fast it creates a jarring flash
-        setTimeout(() => setIsLoading(false), 1000);
-      }
-    });
+    getWeatherData(location, apiKey)
+      .then((data) => {
+        if (data) {
+          setWeather(data);
+          //Somtimes loading happens so fast it creates a jarring flash
+          setTimeout(() => setIsLoading(false), 1000);
+        }
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        alert(`${error}, Please try again`);
+      });
   }, []);
 
   useEffect(() => {

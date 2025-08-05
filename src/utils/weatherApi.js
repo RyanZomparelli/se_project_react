@@ -12,7 +12,10 @@ export function getWeatherData({ latitude, longitude }, apiKey) {
     .then((data) => {
       return data;
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
 }
 
 export function setTemperatureRange(temperature) {
