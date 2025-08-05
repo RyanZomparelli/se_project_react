@@ -46,7 +46,7 @@ function App() {
       if (isFormModalOpen) {
         setIsFormModalOpen(false);
       } else if (isItemModalOpen) {
-        setIsItemModalOpen;
+        setIsItemModalOpen(false);
       }
     }
   };
