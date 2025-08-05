@@ -92,7 +92,7 @@ function App() {
       document.removeEventListener("keyup", handleEscClose);
       document.removeEventListener("click", handleClickClose);
     };
-  });
+  }, [isItemModalOpen]);
 
   return (
     <>
