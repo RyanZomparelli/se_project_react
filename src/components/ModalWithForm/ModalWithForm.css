@@ -124,3 +124,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   transition: ease-out 0.3s;
 }
+
+.modal__btn-submit_type_disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+}

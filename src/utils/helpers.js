@@ -18,6 +18,8 @@ export function getWeatherCard(isDay, description) {
       return weatherCards[4];
     } else if (description === "mist") {
       return weatherCards[5];
+    } else {
+      return weatherCards[0];
     }
   } else {
     if (description === "clear") {
@@ -25,7 +27,8 @@ export function getWeatherCard(isDay, description) {
     } else if (
       description === "few clouds" ||
       description === "scattered clouds" ||
-      description === "broken clouds"
+      description === "broken clouds" ||
+      description === "overcast clouds"
     ) {
       return weatherCards[7];
     } else if (description === "shower rain" || description === "rain") {
@@ -36,6 +39,8 @@ export function getWeatherCard(isDay, description) {
       return weatherCards[10];
     } else if (description === "mist") {
       return weatherCards[11];
+    } else {
+      return weatherCards[6];
     }
   }
 }

@@ -3,8 +3,8 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 import { setTemperatureRange } from "../../utils/weatherApi.js";
 import "./Main.css";
 
-function Main({ weather, clothingItem }) {
-  const temp = setTemperatureRange(weather.main.temp);
+function Main({ weather, clothingItem, handleItemCardClick }) {
+  const temp = setTemperatureRange(weather?.main?.temp);
 
   return (
     <main className="main page__section">
@@ -19,7 +19,13 @@ function Main({ weather, clothingItem }) {
               return item.weather === temp;
             })
             .map((item) => {
-              return <ItemCard key={item._id} clothingItem={item} />;
+              return (
+                <ItemCard
+                  handleItemCardClick={handleItemCardClick}
+                  key={item._id}
+                  clothingItem={item}
+                />
+              );
             })}
         </ul>
       </section>

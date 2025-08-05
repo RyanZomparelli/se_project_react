@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
+import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import { defaultClothingItems } from "../../utils/constants.js";
 import { location } from "../../utils/constants.js";
@@ -14,26 +15,50 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState();
   const [clothingItem, setClothingItem] = useState(defaultClothingItems);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
+  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleOpenFormModal = (e) => {
+    setIsFormModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseModal = (e) => {
+    setIsFormModalOpen(false);
+  };
+
+  const handleCloseItemModal = () => {
+    setIsItemModalOpen(false);
   };
 
   const handleEscClose = (e) => {
     if (e.key === "Escape") {
-      setIsModalOpen(false);
+      if (isFormModalOpen) {
+        setIsFormModalOpen(false);
+      } else if (isItemModalOpen) {
+        setIsItemModalOpen(false);
+      }
     }
   };
 
   const handleClickClose = (e) => {
     if (e.target === document.querySelector(".modal")) {
-      setIsModalOpen(false);
+      if (isFormModalOpen) {
+        setIsFormModalOpen(false);
+      } else if (isItemModalOpen) {
+        setIsItemModalOpen;
+      }
     }
+  };
+
+  const handleItemCardClick = (item) => {
+    setIsItemModalOpen(true);
+    const data = {
+      name: item.name,
+      link: item.link,
+      weather: item.weather,
+    };
+    setSelectedItem(data);
   };
 
   useEffect(() => {
@@ -47,7 +72,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isModalOpen) {
+    if (isFormModalOpen) {
       document.addEventListener("keyup", handleEscClose);
       document.addEventListener("click", handleClickClose);
     }
@@ -56,7 +81,18 @@ function App() {
       document.removeEventListener("keyup", handleEscClose);
       document.removeEventListener("click", handleClickClose);
     };
-  }, [isModalOpen]);
+  }, [isFormModalOpen]);
+
+  useEffect(() => {
+    if (isItemModalOpen) {
+      document.addEventListener("keyup", handleEscClose);
+      document.addEventListener("click", handleClickClose);
+    }
+    return () => {
+      document.removeEventListener("keyup", handleEscClose);
+      document.removeEventListener("click", handleClickClose);
+    };
+  });
 
   return (
     <>
@@ -68,9 +104,13 @@ function App() {
         </div>
       ) : (
         <div className="page">
-          <Header weather={weather} onOpen={handleOpenModal} />
-          <Main weather={weather} clothingItem={clothingItem} />
-          {isModalOpen && (
+          <Header weather={weather} onOpen={handleOpenFormModal} />
+          <Main
+            weather={weather}
+            clothingItem={clothingItem}
+            handleItemCardClick={handleItemCardClick}
+          />
+          {isFormModalOpen && (
             <ModalWithForm
               title="New Garment"
               name="new-garment"
@@ -84,6 +124,7 @@ function App() {
                     placeholder="Name"
                     type="text"
                     className="modal__form-input"
+                    required
                   />
                 </label>
                 <label htmlFor="image" className="modal__form-label">
@@ -92,6 +133,7 @@ function App() {
                     placeholder="Image URL"
                     type="text"
                     className="modal__form-input"
+                    required
                   />
                 </label>
               </fieldset>
@@ -107,6 +149,7 @@ function App() {
                     id="Hot"
                     value="Hot"
                     className="modal__radio-input"
+                    required
                   />
                   Hot
                 </label>
@@ -121,6 +164,7 @@ function App() {
                     id="Warm"
                     value="Warm"
                     className="modal__radio-input"
+                    required
                   />
                   Warm
                 </label>
@@ -135,13 +179,16 @@ function App() {
                     id="Cold"
                     value="Cold"
                     className="modal__radio-input"
+                    required
                   />
                   Cold
                 </label>
               </fieldset>
             </ModalWithForm>
           )}
-
+          {isItemModalOpen && (
+            <ItemModal close={handleCloseItemModal} data={selectedItem} />
+          )}
           <Footer />
         </div>
       )}
