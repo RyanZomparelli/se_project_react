@@ -10,7 +10,7 @@ function Main({ weather, clothingItem, handleItemCardClick }) {
     <main className="main page__section">
       <WeatherCard weather={weather} />
       <section className="clothing">
-        <p weather={weather} className="clothing__paragraph">
+        <p className="clothing__paragraph">
           Today is {Math.round(weather.main.temp)}° F / You may want to wear:
         </p>
         <ul className="clothing__list">
