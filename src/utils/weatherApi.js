@@ -8,13 +8,6 @@ export function getWeatherData({ latitude, longitude }, apiKey) {
       return Promise.reject(`Error: ${res.status}`);
     }
   });
-  // .then((data) => {
-  //   return data;
-  // });
-  // .catch((error) => {
-  //   console.error(error);
-  //   throw error;
-  // });
 }
 
 export function setTemperatureRange(temperature) {

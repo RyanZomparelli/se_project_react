@@ -156,7 +156,7 @@ function App() {
                     type="radio"
                     name="weather"
                     id="Hot"
-                    value="Hot"
+                    value="hot"
                     className="modal__radio-input"
                     required
                   />
@@ -171,7 +171,7 @@ function App() {
                     type="radio"
                     name="weather"
                     id="Warm"
-                    value="Warm"
+                    value="warm"
                     className="modal__radio-input"
                     required
                   />
@@ -186,7 +186,7 @@ function App() {
                     type="radio"
                     name="weather"
                     id="Cold"
-                    value="Cold"
+                    value="cold"
                     className="modal__radio-input"
                     required
                   />
