@@ -6,9 +6,10 @@ export default function ModalWithForm({
   buttonText,
   onClose,
   children,
+  handleOverlayClick,
 }) {
   return (
-    <section className="modal">
+    <section className="modal" onClick={handleOverlayClick}>
       <div className="modal__container">
         <button className="modal__btn-close" onClick={onClose}></button>
         <form name={name} className={`modal__form modal__form_type_${name}`}>

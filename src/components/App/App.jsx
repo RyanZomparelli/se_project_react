@@ -43,7 +43,7 @@ function App() {
   };
 
   const handleClickClose = (e) => {
-    if (e.target === document.querySelector(".modal")) {
+    if (e.target === e.currentTarget) {
       if (isFormModalOpen) {
         setIsFormModalOpen(false);
       } else if (isItemModalOpen) {
@@ -122,6 +122,7 @@ function App() {
               name="new-garment"
               buttonText="Add garment"
               onClose={handleCloseModal}
+              handleOverlayClick={handleClickClose}
             >
               <fieldset className="modal__text-inputs">
                 <label htmlFor="name" className="modal__form-label">
@@ -195,7 +196,11 @@ function App() {
             </ModalWithForm>
           )}
           {isItemModalOpen && (
-            <ItemModal close={handleCloseItemModal} data={selectedItem} />
+            <ItemModal
+              close={handleCloseItemModal}
+              data={selectedItem}
+              handleOverlayClick={handleClickClose}
+            />
           )}
           <Footer />
         </div>
