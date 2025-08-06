@@ -73,7 +73,7 @@ function App() {
       })
       .catch((error) => {
         setIsLoading(false);
-        alert(`${error}, Please try again`);
+        console.error(error);
       });
   }, []);
 
