@@ -2,7 +2,7 @@ import "./Header.css";
 import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
 
-function Header({ weather, onOpen }) {
+function Header({ weather, handleOpenModal }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -17,7 +17,10 @@ function Header({ weather, onOpen }) {
         </h1>
       </div>
       <div className="header__nav-bar">
-        <button className="header__add-btn" onClick={onOpen}>
+        <button
+          className="header__add-btn"
+          onClick={() => handleOpenModal("add-garment")}
+        >
           + Add clothes
         </button>
         <h2 className="header__name">Terrence Tegegne</h2>

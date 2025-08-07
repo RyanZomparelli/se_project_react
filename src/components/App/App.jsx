@@ -17,43 +17,34 @@ function App() {
   const [weather, setWeather] = useState();
   const [clothingItem, setClothingItem] = useState(defaultClothingItems);
   const [selectedItem, setSelectedItem] = useState({});
-  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
-  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState("");
 
-  const handleOpenFormModal = (e) => {
-    setIsFormModalOpen(true);
+  const handleOpenModal = (modal) => {
+    setActiveModal(modal);
   };
 
-  const handleCloseModal = (e) => {
-    setIsFormModalOpen(false);
+  const handleCloseModal = () => {
+    setActiveModal("");
   };
 
-  const handleCloseItemModal = () => {
-    setIsItemModalOpen(false);
-  };
+  // const handleCloseItemModal = () => {
+  //   setIsItemModalOpen(false);
+  // };
 
   const handleEscClose = (e) => {
     if (e.key === "Escape") {
-      if (isFormModalOpen) {
-        setIsFormModalOpen(false);
-      } else if (isItemModalOpen) {
-        setIsItemModalOpen(false);
-      }
+      setActiveModal("");
     }
   };
 
-  const handleClickClose = (e) => {
+  const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      if (isFormModalOpen) {
-        setIsFormModalOpen(false);
-      } else if (isItemModalOpen) {
-        setIsItemModalOpen(false);
-      }
+      setActiveModal("");
     }
   };
 
   const handleItemCardClick = (item) => {
-    setIsItemModalOpen(true);
+    setActiveModal("preview-item");
     const data = {
       name: item.name,
       link: item.link,
@@ -78,27 +69,16 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isFormModalOpen) {
+    if (activeModal) {
       document.addEventListener("keyup", handleEscClose);
-      document.addEventListener("click", handleClickClose);
+      document.addEventListener("click", handleOverlayClick);
     }
 
     return () => {
       document.removeEventListener("keyup", handleEscClose);
-      document.removeEventListener("click", handleClickClose);
+      document.removeEventListener("click", handleOverlayClick);
     };
-  }, [isFormModalOpen]);
-
-  useEffect(() => {
-    if (isItemModalOpen) {
-      document.addEventListener("keyup", handleEscClose);
-      document.addEventListener("click", handleClickClose);
-    }
-    return () => {
-      document.removeEventListener("keyup", handleEscClose);
-      document.removeEventListener("click", handleClickClose);
-    };
-  }, [isItemModalOpen]);
+  }, [activeModal]);
 
   return (
     <>
@@ -110,19 +90,19 @@ function App() {
         </div>
       ) : (
         <div className="page">
-          <Header weather={weather} onOpen={handleOpenFormModal} />
+          <Header weather={weather} handleOpenModal={handleOpenModal} />
           <Main
             weather={weather}
             clothingItem={clothingItem}
             handleItemCardClick={handleItemCardClick}
           />
-          {isFormModalOpen && (
+          {activeModal === "add-garment" && (
             <ModalWithForm
               title="New Garment"
               name="new-garment"
               buttonText="Add garment"
               onClose={handleCloseModal}
-              handleOverlayClick={handleClickClose}
+              handleOverlayClick={handleOverlayClick}
             >
               <fieldset className="modal__text-inputs">
                 <label htmlFor="name" className="modal__form-label">
@@ -195,11 +175,11 @@ function App() {
               </fieldset>
             </ModalWithForm>
           )}
-          {isItemModalOpen && (
+          {activeModal === "preview-item" && (
             <ItemModal
-              close={handleCloseItemModal}
+              onClose={handleCloseModal}
               data={selectedItem}
-              handleOverlayClick={handleClickClose}
+              handleOverlayClick={handleOverlayClick}
             />
           )}
           <Footer />
