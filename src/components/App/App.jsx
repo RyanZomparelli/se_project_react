@@ -27,10 +27,6 @@ function App() {
     setActiveModal("");
   };
 
-  // const handleCloseItemModal = () => {
-  //   setIsItemModalOpen(false);
-  // };
-
   const handleEscClose = (e) => {
     if (e.key === "Escape") {
       setActiveModal("");
@@ -43,14 +39,9 @@ function App() {
     }
   };
 
-  const handleItemCardClick = (item) => {
+  const handleItemCardClick = (card) => {
     setActiveModal("preview-item");
-    const data = {
-      name: item.name,
-      link: item.link,
-      weather: item.weather,
-    };
-    setSelectedItem(data);
+    setSelectedItem(card);
   };
 
   useEffect(() => {
@@ -178,7 +169,7 @@ function App() {
           {activeModal === "preview-item" && (
             <ItemModal
               onClose={handleCloseModal}
-              data={selectedItem}
+              card={selectedItem}
               handleOverlayClick={handleOverlayClick}
             />
           )}
