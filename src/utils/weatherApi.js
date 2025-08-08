@@ -11,7 +11,7 @@ export function getWeatherData({ latitude, longitude }, apiKey) {
 }
 
 export function setTemperatureRange(temperature) {
-  if (temperature >= 86) {
+  if (temperature >= 80) {
     return "hot";
   } else if (temperature >= 66) {
     return "warm";
