@@ -2,9 +2,8 @@ import { getWeatherCard } from "../../utils/helpers";
 import "./WeatherCard.css";
 
 function WeatherCard({ weather }) {
-  const isDay = weather.weather[0].icon.includes("d");
-  const weatherDescription = weather.weather[0].description;
-  const weatherCard = getWeatherCard(isDay, weatherDescription);
+  const weatherCard = getWeatherCard(weather.isDay, weather.condition);
+
   return (
     <section className="weather">
       <div
@@ -13,7 +12,7 @@ function WeatherCard({ weather }) {
         }}
         className="weather__card"
       >
-        <p className="weather__temp">{Math.round(weather.main.temp)}ºF</p>
+        <p className="weather__temp">{Math.round(weather.temp)}ºF</p>
       </div>
     </section>
   );

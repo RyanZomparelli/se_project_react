@@ -6,10 +6,10 @@ import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import {
   defaultClothingItems,
-  location,
+  coordinates,
   apiKey,
 } from "../../utils/constants.js";
-import { getWeatherData } from "../../utils/weatherApi.js";
+import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
 import "./App.css";
 
 function App() {
@@ -45,11 +45,13 @@ function App() {
   };
 
   useEffect(() => {
-    getWeatherData(location, apiKey)
+    getWeatherData(coordinates, apiKey)
       .then((data) => {
         if (data) {
-          setWeather(data);
+          const weatherData = filterWeatherData(data);
+          setWeather(weatherData);
           //Somtimes loading happens so fast it creates a jarring flash
+          //This smooths out loading
           setTimeout(() => setIsLoading(false), 1000);
         }
       })

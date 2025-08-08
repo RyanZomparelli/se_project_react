@@ -13,7 +13,7 @@ function Header({ weather, handleOpenModal }) {
       <div className="header__container">
         <img className="header__logo" src={headerLogo} alt="WTWR Logo." />
         <h1 className="header__date">
-          {currentDate}, {weather.name}
+          {currentDate}, {weather.location}
         </h1>
       </div>
       <div className="header__nav-bar">

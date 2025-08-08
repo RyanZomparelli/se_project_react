@@ -10,6 +10,16 @@ export function getWeatherData({ latitude, longitude }, apiKey) {
   });
 }
 
+export function filterWeatherData(data) {
+  const weatherData = {
+    temp: data.main.temp,
+    isDay: data.weather[0].icon.includes("d"),
+    condition: data.weather[0].main,
+    location: data.name,
+  };
+  return weatherData;
+}
+
 export function setTemperatureRange(temperature) {
   if (temperature >= 80) {
     return "hot";
