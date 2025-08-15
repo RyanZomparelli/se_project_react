@@ -5,6 +5,7 @@ import Main from "../Main/Main.jsx";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
+import Profile from "../Profile/Profile.jsx";
 import {
   defaultClothingItems,
   coordinates,
@@ -91,6 +92,7 @@ function App() {
         </div>
       ) : (
         <div className="page">
+          <Profile />
           <CurrentTemperatureUnitContext.Provider
             value={{ currentTemperatureUnit, handleToggleSwitchChange }}
           >
