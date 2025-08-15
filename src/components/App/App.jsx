@@ -7,6 +7,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Profile from "../Profile/Profile.jsx";
+import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import {
   defaultClothingItems,
   coordinates,
@@ -121,83 +122,10 @@ function App() {
             </Routes>
           </CurrentTemperatureUnitContext.Provider>
           {activeModal === "add-garment" && (
-            <ModalWithForm
-              title="New Garment"
-              name="new-garment"
-              buttonText="Add garment"
+            <AddItemModal
               onClose={handleCloseModal}
               handleOverlayClick={handleOverlayClick}
-            >
-              <fieldset className="modal__text-inputs">
-                <label htmlFor="name" className="modal__form-label">
-                  Name
-                  <input
-                    placeholder="Name"
-                    type="text"
-                    className="modal__form-input"
-                    id="name"
-                    required
-                  />
-                </label>
-                <label htmlFor="image" className="modal__form-label">
-                  Image
-                  <input
-                    placeholder="Image URL"
-                    type="url"
-                    className="modal__form-input"
-                    id="image"
-                    required
-                  />
-                </label>
-              </fieldset>
-              <fieldset className="modal__radio-inputs">
-                <p className="modal__paragraph">Select the weather type:</p>
-                <label
-                  htmlFor="Hot"
-                  className="modal__form-label modal__form-label_type_radio"
-                >
-                  <input
-                    type="radio"
-                    name="weather"
-                    id="Hot"
-                    value="hot"
-                    className="modal__radio-input"
-                    required
-                  />
-                  Hot
-                </label>
-
-                <label
-                  htmlFor="Warm"
-                  className="modal__form-label modal__form-label_type_radio"
-                >
-                  <input
-                    type="radio"
-                    name="weather"
-                    id="Warm"
-                    value="warm"
-                    className="modal__radio-input"
-                    required
-                  />
-                  Warm
-                </label>
-
-                <label
-                  htmlFor="Cold"
-                  className="modal__form-label modal__form-label_type_radio"
-                >
-                  <input
-                    type="radio"
-                    name="weather"
-                    id="Cold"
-                    value="cold"
-                    className="modal__radio-input"
-                    required
-                  />
-                  Cold
-                </label>
-              </fieldset>
-            </ModalWithForm>
+            />
           )}
           {activeModal === "preview-item" && (
             <ItemModal
