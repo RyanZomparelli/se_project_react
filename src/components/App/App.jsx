@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
@@ -10,7 +11,7 @@ import {
   apiKey,
 } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
-import "./App.css";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,7 @@ function App() {
   const [clothingItem, setClothingItem] = useState(defaultClothingItems);
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   const handleOpenModal = (modal) => {
     setActiveModal(modal);
@@ -42,6 +44,12 @@ function App() {
   const handleItemCardClick = (card) => {
     setActiveModal("preview-item");
     setSelectedItem(card);
+  };
+
+  const handleToggleSwitchChange = () => {
+    currentTemperatureUnit === "F"
+      ? setCurrentTemperatureUnit("C")
+      : setCurrentTemperatureUnit("F");
   };
 
   useEffect(() => {
@@ -83,12 +91,16 @@ function App() {
         </div>
       ) : (
         <div className="page">
-          <Header weather={weather} handleOpenModal={handleOpenModal} />
-          <Main
-            weather={weather}
-            clothingItem={clothingItem}
-            handleItemCardClick={handleItemCardClick}
-          />
+          <CurrentTemperatureUnitContext.Provider
+            value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+          >
+            <Header weather={weather} handleOpenModal={handleOpenModal} />
+            <Main
+              weather={weather}
+              clothingItem={clothingItem}
+              handleItemCardClick={handleItemCardClick}
+            />
+          </CurrentTemperatureUnitContext.Provider>
           {activeModal === "add-garment" && (
             <ModalWithForm
               title="New Garment"

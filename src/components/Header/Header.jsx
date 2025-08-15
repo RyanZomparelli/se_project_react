@@ -1,6 +1,9 @@
+import { useState } from "react";
+
 import "./Header.css";
 import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({ weather, handleOpenModal }) {
   const currentDate = new Date().toLocaleString("default", {
@@ -17,6 +20,7 @@ function Header({ weather, handleOpenModal }) {
         </h1>
       </div>
       <div className="header__nav-bar">
+        <ToggleSwitch />
         <button
           className="header__add-btn"
           onClick={() => handleOpenModal("add-garment")}

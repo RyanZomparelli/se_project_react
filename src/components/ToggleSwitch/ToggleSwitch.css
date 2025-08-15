@@ -1,0 +1,91 @@
+.switch {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.switch__label {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 56px;
+  height: 28px;
+  background: white;
+  border: 2px solid rgba(126, 126, 126, 1);
+  border-radius: 20px;
+  position: relative;
+  transition: background-color, border-color 0.2s;
+}
+
+.switch__label:hover {
+  border-color: black;
+  transition: border-color 0.2s;
+}
+
+.switch__scale {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  z-index: 2;
+}
+
+.switch__scale_type_f {
+}
+
+.switch__scale_type_c {
+  margin: 0 0 0 3px;
+}
+
+.switch:checked + .switch__label .switch__scale_type_c {
+  color: white;
+}
+
+.switch:checked + .switch__label .switch__scale_type_f {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.switch:checked + .switch__label:hover .switch__scale_type_f {
+  color: black;
+}
+
+.switch:not(:checked) + .switch__label .switch__scale_type_f {
+  color: white;
+}
+
+.switch:not(:checked) + .switch__label .switch__scale_type_c {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.switch:not(:checked) + .switch__label:hover .switch__scale_type_c {
+  color: black;
+}
+
+.switch__label .switch__button {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 45px;
+  transition: 0.2s;
+  background: black;
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+  z-index: 1;
+}
+
+.switch:checked + .switch__label .switch__button {
+  left: calc(100% - -2px);
+  transform: translateX(-100%);
+}
+
+.switch__label:active .switch__button {
+  width: 60px;
+}
