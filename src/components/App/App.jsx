@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
-import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Profile from "../Profile/Profile.jsx";
@@ -102,7 +101,7 @@ function App() {
           <CurrentTemperatureUnitContext.Provider
             value={{ currentTemperatureUnit, handleToggleSwitchChange }}
           >
-            <Header weather={weather} handleOpenModal={handleOpenModal} />
+            <Header weather={weather} onModalOpen={handleOpenModal} />
             <Routes>
               <Route
                 path="/"
@@ -121,6 +120,7 @@ function App() {
                     weather={weather}
                     clothingItems={clothingItems}
                     handleItemCardClick={handleItemCardClick}
+                    onModalOpen={handleOpenModal}
                   />
                 }
               />

@@ -1,7 +1,12 @@
 import "./Profile.css";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
-const Profile = ({ weather, clothingItems, handleItemCardClick }) => {
+const Profile = ({
+  weather,
+  clothingItems,
+  handleItemCardClick,
+  onModalOpen,
+}) => {
   return (
     <div className="profile">
       <SideBar />
@@ -9,7 +14,12 @@ const Profile = ({ weather, clothingItems, handleItemCardClick }) => {
         <div className="profile__btn-container">
           <p className="profile__text">Your Items</p>
 
-          <button className="profile__add-btn">+ Add new</button>
+          <button
+            className="profile__add-btn"
+            onClick={() => onModalOpen("add-garment")}
+          >
+            + Add new
+          </button>
         </div>
         <ul className="profile__clothing-list">
           {clothingItems

@@ -4,7 +4,7 @@ import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function Header({ weather, handleOpenModal }) {
+function Header({ weather, onModalOpen }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -24,7 +24,7 @@ function Header({ weather, handleOpenModal }) {
         <ToggleSwitch />
         <button
           className="header__add-btn"
-          onClick={() => handleOpenModal("add-garment")}
+          onClick={() => onModalOpen("add-garment")}
         >
           + Add clothes
         </button>
