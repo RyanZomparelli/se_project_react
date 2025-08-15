@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
@@ -92,16 +93,23 @@ function App() {
         </div>
       ) : (
         <div className="page">
-          <Profile />
           <CurrentTemperatureUnitContext.Provider
             value={{ currentTemperatureUnit, handleToggleSwitchChange }}
           >
             <Header weather={weather} handleOpenModal={handleOpenModal} />
-            <Main
-              weather={weather}
-              clothingItem={clothingItem}
-              handleItemCardClick={handleItemCardClick}
-            />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weather={weather}
+                    clothingItem={clothingItem}
+                    handleItemCardClick={handleItemCardClick}
+                  />
+                }
+              />
+              <Route path="/profile" element={<Profile />}></Route>
+            </Routes>
           </CurrentTemperatureUnitContext.Provider>
           {activeModal === "add-garment" && (
             <ModalWithForm
