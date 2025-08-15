@@ -108,7 +108,16 @@ function App() {
                   />
                 }
               />
-              <Route path="/profile" element={<Profile />}></Route>
+              <Route
+                path="/profile"
+                element={
+                  <Profile
+                    weather={weather}
+                    clothingItem={clothingItem}
+                    handleItemCardClick={handleItemCardClick}
+                  />
+                }
+              />
             </Routes>
           </CurrentTemperatureUnitContext.Provider>
           {activeModal === "add-garment" && (
