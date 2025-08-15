@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import "./Header.css";
 import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
@@ -14,7 +13,9 @@ function Header({ weather, handleOpenModal }) {
   return (
     <header className="header page__section">
       <div className="header__container">
-        <img className="header__logo" src={headerLogo} alt="WTWR Logo." />
+        <Link to="/">
+          <img className="header__logo" src={headerLogo} alt="WTWR Logo." />
+        </Link>
         <h1 className="header__date">
           {currentDate}, {weather.location}
         </h1>
@@ -27,12 +28,15 @@ function Header({ weather, handleOpenModal }) {
         >
           + Add clothes
         </button>
-        <h2 className="header__name">Terrence Tegegne</h2>
-        <img
-          src={headerAvatar}
-          alt="Profile image."
-          className="header__avatar"
-        />
+
+        <Link to="/profile" className="header__name">
+          Terrence Tegegne
+          <img
+            src={headerAvatar}
+            alt="Profile image."
+            className="header__avatar"
+          />
+        </Link>
       </div>
     </header>
   );

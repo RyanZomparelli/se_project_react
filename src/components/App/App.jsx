@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
+import Profile from "../Profile/Profile.jsx";
 import {
   defaultClothingItems,
   coordinates,
@@ -95,11 +97,28 @@ function App() {
             value={{ currentTemperatureUnit, handleToggleSwitchChange }}
           >
             <Header weather={weather} handleOpenModal={handleOpenModal} />
-            <Main
-              weather={weather}
-              clothingItem={clothingItem}
-              handleItemCardClick={handleItemCardClick}
-            />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Main
+                    weather={weather}
+                    clothingItem={clothingItem}
+                    handleItemCardClick={handleItemCardClick}
+                  />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <Profile
+                    weather={weather}
+                    clothingItem={clothingItem}
+                    handleItemCardClick={handleItemCardClick}
+                  />
+                }
+              />
+            </Routes>
           </CurrentTemperatureUnitContext.Provider>
           {activeModal === "add-garment" && (
             <ModalWithForm

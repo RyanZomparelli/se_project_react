@@ -6,6 +6,17 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 
 function Main({ weather, clothingItem, handleItemCardClick }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+
+  const getClothingCards = (clothingItems, Component) => {
+    return clothingItems
+      .filter((item) => {
+        return item.weather === weather.tempFeel;
+      })
+      .map((item) => {
+        return <Component />;
+      });
+  };
+
   return (
     <main className="main page__section">
       <WeatherCard weather={weather} />
