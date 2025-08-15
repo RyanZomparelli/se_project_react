@@ -3,6 +3,7 @@ import "./Main.css";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
+import { BrowserRouter } from "react-router-dom";
 
 function Main({ weather, clothingItem, handleItemCardClick }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
