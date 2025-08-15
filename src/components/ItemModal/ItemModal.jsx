@@ -1,8 +1,8 @@
 import "./ItemModal.css";
 
-export default function ItemModal({ onClose, card, handleOverlayClick }) {
+export default function ItemModal({ onClose, card, onOverlayClick }) {
   return (
-    <section className="modal" onClick={handleOverlayClick}>
+    <section className="modal" onClick={onOverlayClick}>
       <div className="modal__container">
         <button
           className="modal__btn-close_type_item-modal"

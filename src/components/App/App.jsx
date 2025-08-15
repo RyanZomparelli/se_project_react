@@ -19,7 +19,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState();
-  const [clothingItem, setClothingItem] = useState(defaultClothingItems);
+  const [clothingItems, setclothingItems] = useState(defaultClothingItems);
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -53,6 +53,11 @@ function App() {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
       : setCurrentTemperatureUnit("F");
+  };
+
+  const handleAddItemSubmit = (item) => {
+    setclothingItems([item, ...clothingItems]);
+    handleCloseModal();
   };
 
   useEffect(() => {
@@ -104,7 +109,7 @@ function App() {
                 element={
                   <Main
                     weather={weather}
-                    clothingItem={clothingItem}
+                    clothingItems={clothingItems}
                     handleItemCardClick={handleItemCardClick}
                   />
                 }
@@ -114,7 +119,7 @@ function App() {
                 element={
                   <Profile
                     weather={weather}
-                    clothingItem={clothingItem}
+                    clothingItems={clothingItems}
                     handleItemCardClick={handleItemCardClick}
                   />
                 }
@@ -124,14 +129,15 @@ function App() {
           {activeModal === "add-garment" && (
             <AddItemModal
               onClose={handleCloseModal}
-              handleOverlayClick={handleOverlayClick}
+              onOverlayClick={handleOverlayClick}
+              onAddItem={handleAddItemSubmit}
             />
           )}
           {activeModal === "preview-item" && (
             <ItemModal
               onClose={handleCloseModal}
               card={selectedItem}
-              handleOverlayClick={handleOverlayClick}
+              onOverlayClick={handleOverlayClick}
             />
           )}
           <Footer />

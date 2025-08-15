@@ -1,13 +1,39 @@
+import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const AddItemModal = ({ onClose, handleOverlayClick }) => {
+const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
+  const [name, setName] = useState("");
+  const [url, setUrl] = useState("");
+  const [weatherType, setWeatherType] = useState("");
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleUrlChange = (e) => {
+    setUrl(e.target.value);
+  };
+  const handleWeatherTypeChange = (e) => {
+    setWeatherType(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const item = {
+      name,
+      weather: weatherType,
+      link: url,
+    };
+    onAddItem(item);
+  };
+
   return (
     <ModalWithForm
       title="New Garment"
       name="new-garment"
       buttonText="Add garment"
       onClose={onClose}
-      handleOverlayClick={handleOverlayClick}
+      onOverlayClick={onOverlayClick}
+      onSubmit={handleSubmit}
     >
       <fieldset className="modal__text-inputs">
         <label htmlFor="name" className="modal__form-label">
@@ -18,6 +44,8 @@ const AddItemModal = ({ onClose, handleOverlayClick }) => {
             className="modal__form-input"
             id="name"
             required
+            value={name}
+            onChange={handleNameChange}
           />
         </label>
         <label htmlFor="image" className="modal__form-label">
@@ -28,6 +56,8 @@ const AddItemModal = ({ onClose, handleOverlayClick }) => {
             className="modal__form-input"
             id="image"
             required
+            value={url}
+            onChange={handleUrlChange}
           />
         </label>
       </fieldset>
@@ -44,6 +74,8 @@ const AddItemModal = ({ onClose, handleOverlayClick }) => {
             value="hot"
             className="modal__radio-input"
             required
+            checked={weatherType === "hot"}
+            onChange={handleWeatherTypeChange}
           />
           Hot
         </label>
@@ -59,6 +91,8 @@ const AddItemModal = ({ onClose, handleOverlayClick }) => {
             value="warm"
             className="modal__radio-input"
             required
+            checked={weatherType === "warm"}
+            onChange={handleWeatherTypeChange}
           />
           Warm
         </label>
@@ -74,6 +108,8 @@ const AddItemModal = ({ onClose, handleOverlayClick }) => {
             value="cold"
             className="modal__radio-input"
             required
+            checked={weatherType === "cold"}
+            onChange={handleWeatherTypeChange}
           />
           Cold
         </label>

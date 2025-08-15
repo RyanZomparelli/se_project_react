@@ -4,18 +4,8 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 
-function Main({ weather, clothingItem, handleItemCardClick }) {
+function Main({ weather, clothingItems, handleItemCardClick }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-
-  const getClothingCards = (clothingItems, Component) => {
-    return clothingItems
-      .filter((item) => {
-        return item.weather === weather.tempFeel;
-      })
-      .map((item) => {
-        return <Component />;
-      });
-  };
 
   return (
     <main className="main page__section">
@@ -31,7 +21,7 @@ function Main({ weather, clothingItem, handleItemCardClick }) {
           / You may want to wear:
         </p>
         <ul className="clothing__list">
-          {clothingItem
+          {clothingItems
             .filter((item) => {
               return item.weather === weather.tempFeel;
             })

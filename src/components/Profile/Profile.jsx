@@ -1,7 +1,7 @@
 import "./Profile.css";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
-const Profile = ({ weather, clothingItem, handleItemCardClick }) => {
+const Profile = ({ weather, clothingItems, handleItemCardClick }) => {
   return (
     <div className="profile">
       <SideBar />
@@ -12,7 +12,7 @@ const Profile = ({ weather, clothingItem, handleItemCardClick }) => {
           <button className="profile__add-btn">+ Add new</button>
         </div>
         <ul className="profile__clothing-list">
-          {clothingItem
+          {clothingItems
             .filter((item) => {
               return item.weather === weather.tempFeel;
             })
