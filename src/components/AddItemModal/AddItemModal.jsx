@@ -20,8 +20,8 @@ const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
     e.preventDefault();
     const item = {
       name,
+      imageUrl: url,
       weather: weatherType,
-      link: url,
     };
     onAddItem(item);
   };

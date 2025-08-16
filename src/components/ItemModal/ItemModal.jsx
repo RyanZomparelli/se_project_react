@@ -8,7 +8,7 @@ export default function ItemModal({ onClose, card, onOverlayClick }) {
           className="modal__btn-close_type_item-modal"
           onClick={onClose}
         ></button>
-        <img src={card.link} alt={card.name} className="item__modal-img" />
+        <img src={card.imageUrl} alt={card.name} className="item__modal-img" />
         <p className="item__modal-item">{card.name}</p>
         <p className="item__modal-weather">Weather: {card.weather}</p>
       </div>

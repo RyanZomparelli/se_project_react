@@ -7,13 +7,9 @@ import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Profile from "../Profile/Profile.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
-import {
-  defaultClothingItems,
-  coordinates,
-  apiKey,
-} from "../../utils/constants.js";
+import { coordinates, apiKey } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
-import { baseUrl, getClothingItems } from "../../utils/api.js";
+import { getClothingItems, addClothingItem } from "../../utils/api.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 
 function App() {
@@ -56,7 +52,9 @@ function App() {
   };
 
   const handleAddItemSubmit = (item) => {
-    setclothingItems([item, ...clothingItems]);
+    addClothingItem(item).then((data) => {
+      setclothingItems([data, ...clothingItems]);
+    });
     handleCloseModal();
   };
 
@@ -78,7 +76,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getClothingItems(baseUrl)
+    getClothingItems()
       .then((data) => {
         setclothingItems(data);
       })
