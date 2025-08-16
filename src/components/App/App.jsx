@@ -13,12 +13,13 @@ import {
   apiKey,
 } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
+import { baseUrl, getClothingItems } from "../../utils/api.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState();
-  const [clothingItems, setclothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setclothingItems] = useState({});
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -74,6 +75,14 @@ function App() {
         setIsLoading(false);
         console.error(error);
       });
+  }, []);
+
+  useEffect(() => {
+    getClothingItems(baseUrl)
+      .then((data) => {
+        setclothingItems(data);
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   useEffect(() => {
