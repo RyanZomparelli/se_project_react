@@ -1,5 +1,6 @@
-import headerAvatar from "../../assets/header__avatar.svg";
 import "./SideBar.css";
+import headerAvatar from "../../assets/header__avatar.svg";
+
 const SideBar = () => {
   return (
     <h1 className="header__name">
