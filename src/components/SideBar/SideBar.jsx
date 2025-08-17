@@ -1,7 +1,7 @@
-import "./SideBar.css";
+import "./Sidebar.css";
 import headerAvatar from "../../assets/header__avatar.svg";
 
-const SideBar = () => {
+const Sidebar = () => {
   return (
     <h1 className="header__name">
       <img
@@ -13,4 +13,4 @@ const SideBar = () => {
     </h1>
   );
 };
-export default SideBar;
+export default Sidebar;
