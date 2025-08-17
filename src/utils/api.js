@@ -27,3 +27,9 @@ export function addClothingItem({ name, imageUrl, weather }, base = baseUrl) {
     }),
   }).then((res) => handleResponse(res));
 }
+
+export function removeClothingItem(id, base = baseUrl) {
+  return fetch(`${base}/items/${id}`, {
+    method: "DELETE",
+  }).then((res) => handleResponse(res));
+}

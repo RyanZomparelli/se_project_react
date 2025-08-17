@@ -9,12 +9,16 @@ import Profile from "../Profile/Profile.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import { coordinates, apiKey } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
-import { getClothingItems, addClothingItem } from "../../utils/api.js";
+import {
+  getClothingItems,
+  addClothingItem,
+  removeClothingItem,
+} from "../../utils/api.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [weather, setWeather] = useState();
+  const [weather, setWeather] = useState({});
   const [clothingItems, setclothingItems] = useState({});
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
@@ -55,6 +59,15 @@ function App() {
     addClothingItem(item).then((data) => {
       setclothingItems([data, ...clothingItems]);
     });
+    handleCloseModal();
+  };
+
+  const handleItemDelete = (removeId) => {
+    const remainingCards = clothingItems.filter((item) => {
+      return item._id !== removeId;
+    });
+    setclothingItems([...remainingCards]);
+    removeClothingItem(removeId);
     handleCloseModal();
   };
 
@@ -145,6 +158,7 @@ function App() {
               onClose={handleCloseModal}
               card={selectedItem}
               onOverlayClick={handleOverlayClick}
+              onDelete={handleItemDelete}
             />
           )}
           <Footer />
