@@ -22,19 +22,15 @@ const Profile = ({
           </button>
         </div>
         <ul className="profile__clothing-list">
-          {clothingItems
-            .filter((item) => {
-              return item.weather === weather.tempFeel;
-            })
-            .map((item) => {
-              return (
-                <ClothesSection
-                  key={item._id}
-                  clothingItem={item}
-                  handleItemCardClick={handleItemCardClick}
-                />
-              );
-            })}
+          {clothingItems.map((item) => {
+            return (
+              <ClothesSection
+                key={item._id}
+                clothingItem={item}
+                handleItemCardClick={handleItemCardClick}
+              />
+            );
+          })}
         </ul>
       </div>
     </div>

@@ -19,7 +19,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState({});
-  const [clothingItems, setclothingItems] = useState({});
+  const [clothingItems, setclothingItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -56,19 +56,24 @@ function App() {
   };
 
   const handleAddItemSubmit = (item) => {
-    addClothingItem(item).then((data) => {
-      setclothingItems([data, ...clothingItems]);
-    });
-    handleCloseModal();
+    addClothingItem(item)
+      .then((data) => {
+        setclothingItems([data, ...clothingItems]);
+        handleCloseModal();
+      })
+      .catch((error) => console.error(error));
   };
 
   const handleItemDelete = (removeId) => {
-    const remainingCards = clothingItems.filter((item) => {
-      return item._id !== removeId;
-    });
-    setclothingItems([...remainingCards]);
-    removeClothingItem(removeId);
-    handleCloseModal();
+    removeClothingItem(removeId)
+      .then((data) => {
+        const remainingCards = clothingItems.filter((item) => {
+          return item._id !== removeId;
+        });
+        setclothingItems([...remainingCards]);
+        handleCloseModal();
+      })
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {

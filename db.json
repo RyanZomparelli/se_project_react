@@ -118,36 +118,6 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
-    },
-    {
-      "name": "asfdg",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Beanie.png?etag=bc10497cc80fa557f036e94f9999f7b2",
-      "weather": "hot",
-      "_id": 17
-    },
-    {
-      "name": "adf",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Beanie.png?etag=bc10497cc80fa557f036e94f9999f7b2",
-      "weather": "hot",
-      "_id": 18
-    },
-    {
-      "name": "wed",
-      "imageUrl": "ttps://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Boot.png?etag=0953a2ea59f1c6ebc832fabacdc9c70e",
-      "weather": "hot",
-      "_id": 19
-    },
-    {
-      "name": "sdfv",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Boot.png?etag=0953a2ea59f1c6ebc832fabacdc9c70e",
-      "weather": "hot",
-      "_id": 20
-    },
-    {
-      "name": "asdf",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Beanie.png?etag=bc10497cc80fa557f036e94f9999f7b2",
-      "weather": "hot",
-      "_id": 21
     }
   ]
 }

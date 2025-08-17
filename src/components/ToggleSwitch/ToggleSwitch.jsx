@@ -12,11 +12,11 @@ const ToggleSwitch = () => {
         value={currentTemperatureUnit}
         type="checkbox"
         className="switch"
-        id={`react-switch-new`}
+        id="react-switch-new"
         onChange={handleToggleSwitchChange}
       />
       <label
-        htmlFor={`react-switch-new`}
+        htmlFor="react-switch-new"
         className="switch__label"
         // style={{
         //   background: isOn && "#06D6A0",
