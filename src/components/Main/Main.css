@@ -3,12 +3,14 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 34px;
+  max-width: 1360px;
 }
 
 .clothing__list {
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 21px;
 }
