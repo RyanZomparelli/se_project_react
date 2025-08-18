@@ -1,6 +1,9 @@
 import "./Profile.css";
+
+//Internal component imports
 import Sidebar from "../Sidebar/Sidebar";
 import ClothesSection from "../ClothesSection/ClothesSection";
+
 const Profile = ({
   weather,
   clothingItems,

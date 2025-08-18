@@ -1,6 +1,11 @@
+//External library imports
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+
+//Component CSS file
 import "./App.css";
+
+//Internal component imports
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
@@ -8,6 +13,8 @@ import Footer from "../Footer/Footer.jsx";
 import Profile from "../Profile/Profile.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal.jsx";
+
+//Utility/API imports
 import { coordinates, apiKey } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
 import {
@@ -20,7 +27,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState({});
-  const [clothingItems, setclothingItems] = useState([]);
+  const [clothingItems, setClothingItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -35,13 +42,13 @@ function App() {
 
   const handleEscClose = (e) => {
     if (e.key === "Escape") {
-      setActiveModal("");
+      handleCloseModal();
     }
   };
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      setActiveModal("");
+      handleCloseModal();
     }
   };
 
@@ -59,10 +66,10 @@ function App() {
   const handleAddItemSubmit = (item) => {
     addClothingItem(item)
       .then((data) => {
-        setclothingItems([data, ...clothingItems]);
+        setClothingItems([data, ...clothingItems]);
         handleCloseModal();
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Failed to add a new item:", error));
   };
 
   const handleItemDelete = (removeId) => {
@@ -71,10 +78,10 @@ function App() {
         const remainingCards = clothingItems.filter((item) => {
           return item._id !== removeId;
         });
-        setclothingItems([...remainingCards]);
+        setClothingItems(remainingCards);
         handleCloseModal();
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Failed to remove item:", error));
   };
 
   useEffect(() => {
@@ -90,14 +97,14 @@ function App() {
       })
       .catch((error) => {
         setIsLoading(false);
-        console.error(error);
+        console.error("Failed to fetch data:", error);
       });
   }, []);
 
   useEffect(() => {
     getClothingItems()
       .then((data) => {
-        setclothingItems(data);
+        setClothingItems(data);
       })
       .catch((error) => console.error(error));
   }, []);

@@ -1,4 +1,7 @@
+//External library imports
 import { useContext } from "react";
+
+//Utility imports
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import "./ToggleSwitch.css";
 
@@ -9,19 +12,12 @@ const ToggleSwitch = () => {
   return (
     <>
       <input
-        value={currentTemperatureUnit}
         type="checkbox"
         className="switch"
         id="react-switch-new"
         onChange={handleToggleSwitchChange}
       />
-      <label
-        htmlFor="react-switch-new"
-        className="switch__label"
-        // style={{
-        //   background: isOn && "#06D6A0",
-        // }}
-      >
+      <label htmlFor="react-switch-new" className="switch__label">
         <span className={`switch__button`}></span>
         <div className="switch__scale">
           <span className="switch__scale_type_f">F</span>

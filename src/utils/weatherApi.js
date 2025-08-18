@@ -1,13 +1,9 @@
+import { handleResponse } from "./api";
+
 export function getWeatherData({ latitude, longitude }, key) {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${key}`
-  ).then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-  });
+  ).then((res) => handleResponse(res));
 }
 
 export function filterWeatherData(data) {
