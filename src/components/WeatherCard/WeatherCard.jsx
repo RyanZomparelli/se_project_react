@@ -9,22 +9,16 @@ function WeatherCard({ weather }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   return (
-    <section className="weather">
-      <div
-        style={{
-          backgroundImage: `url(${weatherCard.url})`,
-        }}
-        className="weather__card"
-      >
-        <p className="weather__temp">
-          {weather.temp[currentTemperatureUnit]}
-          {currentTemperatureUnit === "F" ? (
-            <span>&deg;F</span>
-          ) : (
-            <span>&deg;C</span>
-          )}
-        </p>
-      </div>
+    <section className="weather-card">
+      <p className="weather-card__temp">
+        {weather.temp[currentTemperatureUnit]}
+        {currentTemperatureUnit === "F" ? (
+          <span>&deg;F</span>
+        ) : (
+          <span>&deg;C</span>
+        )}
+      </p>
+      <img className="weather-card__image" src={weatherCard.url} alt="Sunny!" />
     </section>
   );
 }

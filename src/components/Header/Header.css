@@ -3,6 +3,7 @@
   justify-content: space-between;
   width: 100%;
   margin: 0;
+  max-width: 1360px;
 }
 
 .header__container {
