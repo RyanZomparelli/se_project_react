@@ -1,6 +1,11 @@
 import "./ItemModal.css";
 
-export default function ItemModal({ onClose, card, onOverlayClick, onDelete }) {
+export default function ItemModal({
+  onClose,
+  card,
+  onOverlayClick,
+  onModalOpen,
+}) {
   return (
     <section className="modal" onClick={onOverlayClick}>
       <div className="modal__container">
@@ -9,7 +14,7 @@ export default function ItemModal({ onClose, card, onOverlayClick, onDelete }) {
         <div className="item-modal__items">
           <button
             className="item-modal__btn-delete"
-            onClick={() => onDelete(card._id)}
+            onClick={() => onModalOpen("delete-item")}
           >
             Delete item
           </button>

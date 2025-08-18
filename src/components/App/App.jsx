@@ -7,6 +7,7 @@ import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Profile from "../Profile/Profile.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal.jsx";
 import { coordinates, apiKey } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
 import {
@@ -163,7 +164,15 @@ function App() {
               onClose={handleCloseModal}
               card={selectedItem}
               onOverlayClick={handleOverlayClick}
+              onModalOpen={handleOpenModal}
+            />
+          )}
+          {activeModal === "delete-item" && (
+            <DeleteConfirmationModal
+              card={selectedItem}
               onDelete={handleItemDelete}
+              onClose={handleCloseModal}
+              onOverlayClick={handleOverlayClick}
             />
           )}
           <Footer />
