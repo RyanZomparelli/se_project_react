@@ -3,12 +3,14 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 34px;
+  max-width: 1360px;
 }
 
 .clothing__list {
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 21px;
 }
@@ -19,4 +21,22 @@
   font-weight: 700;
   padding: 0;
   margin: 40px 0 0;
+}
+
+@media screen and (max-width: 650px) {
+  .clothing {
+    max-width: 375px;
+    width: 100%;
+  }
+
+  .clothing__paragraph {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 32px;
+  }
+
+  .clothing__list {
+    gap: 16;
+    max-width: 375px;
+  }
 }

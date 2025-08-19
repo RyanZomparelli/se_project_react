@@ -3,14 +3,20 @@ import headerAvatar from "../../assets/header__avatar.svg";
 
 const Sidebar = () => {
   return (
-    <h1 className="header__name">
+feat/responsive
+    <section className="sidebar">
       <img
         src={headerAvatar}
         alt="Profile image."
         className="sidebar__avatar"
       />
-      Terrence Tegegne
-    </h1>
+feat/responsive
+      <div className="sidebar__content">
+        <h2 className="sidebar__profile">Terrence Tegegne</h2>
+        <button className="sidebar__profile-data">Change profile data</button>
+        <button className="sidebar__profile-logout">Log out</button>
+      </div>
+    </section>
   );
 };
 export default Sidebar;

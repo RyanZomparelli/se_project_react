@@ -31,6 +31,7 @@ function App() {
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
   const handleOpenModal = (modal) => {
     setActiveModal(modal);
@@ -84,6 +85,10 @@ function App() {
       .catch((error) => console.error("Failed to remove item:", error));
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpened(!isMobileMenuOpened);
+  };
+
   useEffect(() => {
     getWeatherData(coordinates, apiKey)
       .then((data) => {
@@ -134,7 +139,12 @@ function App() {
           <CurrentTemperatureUnitContext.Provider
             value={{ currentTemperatureUnit, handleToggleSwitchChange }}
           >
-            <Header weather={weather} onModalOpen={handleOpenModal} />
+            <Header
+              weather={weather}
+              onModalOpen={handleOpenModal}
+              isMobileMenuOpened={isMobileMenuOpened}
+              onMobileMenuToggle={toggleMobileMenu}
+            />
             <Routes>
               <Route
                 path="/"
@@ -143,6 +153,7 @@ function App() {
                     weather={weather}
                     clothingItems={clothingItems}
                     handleItemCardClick={handleItemCardClick}
+                    isMobileMenuOpened={isMobileMenuOpened}
                   />
                 }
               />
@@ -150,10 +161,10 @@ function App() {
                 path="/profile"
                 element={
                   <Profile
-                    weather={weather}
                     clothingItems={clothingItems}
                     handleItemCardClick={handleItemCardClick}
                     onModalOpen={handleOpenModal}
+                    isMobileMenuOpened={isMobileMenuOpened}
                   />
                 }
               />
