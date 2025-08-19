@@ -3,14 +3,12 @@ import headerAvatar from "../../assets/header__avatar.svg";
 
 const Sidebar = () => {
   return (
-feat/responsive
     <section className="sidebar">
       <img
         src={headerAvatar}
         alt="Profile image."
         className="sidebar__avatar"
       />
-feat/responsive
       <div className="sidebar__content">
         <h2 className="sidebar__profile">Terrence Tegegne</h2>
         <button className="sidebar__profile-data">Change profile data</button>

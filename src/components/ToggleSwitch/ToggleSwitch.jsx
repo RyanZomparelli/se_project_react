@@ -16,6 +16,7 @@ const ToggleSwitch = () => {
         className="switch"
         id="react-switch-new"
         onChange={handleToggleSwitchChange}
+        checked={currentTemperatureUnit === "C"}
       />
       <label htmlFor="react-switch-new" className="switch__label">
         <span className={`switch__button`}></span>
