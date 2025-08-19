@@ -22,3 +22,21 @@
   padding: 0;
   margin: 40px 0 0;
 }
+
+@media screen and (max-width: 650px) {
+  .clothing {
+    max-width: 375px;
+    width: 100%;
+  }
+
+  .clothing__paragraph {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 32px;
+  }
+
+  .clothing__list {
+    gap: 16;
+    max-width: 375px;
+  }
+}

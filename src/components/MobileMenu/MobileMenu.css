@@ -1,0 +1,25 @@
+.mobile-menu {
+  max-width: 375px;
+  position: absolute;
+  top: 16px;
+  right: 15px;
+}
+
+.mobile-menu__btn {
+  background-image: url(../../assets/menu_btn.svg);
+  background-color: transparent;
+  background-size: contain;
+  border: none;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  visibility: hidden;
+  /* position: absolute; */
+  padding: 0;
+}
+
+@media screen and (max-width: 650px) {
+  .mobile-menu__btn {
+    visibility: visible;
+  }
+}

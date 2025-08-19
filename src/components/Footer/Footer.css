@@ -9,3 +9,10 @@
   font-weight: 500;
   margin: 85px 2px 24px 0;
 }
+
+@media screen and (max-width: 650px) {
+  /* .footer {
+    max-width: 375px;
+    width: 100%;
+  } */
+}

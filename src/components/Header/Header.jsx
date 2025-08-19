@@ -3,6 +3,7 @@ import "./Header.css";
 import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import MobileMenu from "../MobileMenu/MobileMenu";
 
 function Header({ weather, onModalOpen }) {
   const currentDate = new Date().toLocaleString("default", {
@@ -38,6 +39,7 @@ function Header({ weather, onModalOpen }) {
           />
         </Link>
       </div>
+      <MobileMenu />
     </header>
   );
 }
