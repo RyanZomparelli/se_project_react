@@ -1,5 +1,54 @@
+.sidebar {
+  display: flex;
+  gap: 20px;
+}
+
 .sidebar__avatar {
   width: 56px;
   height: 56px;
   border: 1px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar__profile {
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.sidebar__profile-data {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: none;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.sidebar__profile-logout {
+  margin: 0 0 20px;
+  padding: 0;
+  border: none;
+  background-color: none;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 650px) {
+  .sidebar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    width: 100%;
+  }
 }

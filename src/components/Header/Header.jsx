@@ -5,7 +5,12 @@ import headerAvatar from "../../assets/header__avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import MobileMenu from "../MobileMenu/MobileMenu";
 
-function Header({ weather, onModalOpen }) {
+function Header({
+  weather,
+  isMobileMenuOpened,
+  onMobileMenuToggle,
+  onModalOpen,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -13,11 +18,26 @@ function Header({ weather, onModalOpen }) {
 
   return (
     <header className="header page__section">
+      <MobileMenu
+        onOpen={onModalOpen}
+        menuOpened={isMobileMenuOpened}
+        onToggle={onMobileMenuToggle}
+      />
       <div className="header__container">
         <Link to="/">
-          <img className="header__logo" src={headerLogo} alt="WTWR Logo." />
+          <img
+            className={
+              isMobileMenuOpened ? "header__logo_menu_opened" : "header__logo"
+            }
+            src={headerLogo}
+            alt="WTWR Logo."
+          />
         </Link>
-        <h1 className="header__date">
+        <h1
+          className={
+            isMobileMenuOpened ? "header__date_menu_opened" : "header__date"
+          }
+        >
           {currentDate}, {weather.location}
         </h1>
       </div>
@@ -38,8 +58,13 @@ function Header({ weather, onModalOpen }) {
             className="header__avatar"
           />
         </Link>
+        <button
+          className={
+            isMobileMenuOpened ? "mobile-menu__btn_opened" : "mobile-menu__btn"
+          }
+          onClick={onMobileMenuToggle}
+        ></button>
       </div>
-      <MobileMenu />
     </header>
   );
 }

@@ -2,10 +2,10 @@ import "./Profile.css";
 import Sidebar from "../Sidebar/Sidebar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 const Profile = ({
-  weather,
   clothingItems,
   handleItemCardClick,
   onModalOpen,
+  isMobileMenuOpen,
 }) => {
   return (
     <div className="profile">

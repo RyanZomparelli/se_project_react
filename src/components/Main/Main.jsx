@@ -4,12 +4,17 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 
-function Main({ weather, clothingItems, handleItemCardClick }) {
+function Main({
+  weather,
+  clothingItems,
+  handleItemCardClick,
+  isMobileMenuOpened,
+}) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   return (
     <main className="main page__section">
-      <WeatherCard weather={weather} />
+      <WeatherCard weather={weather} isMobileMenuOpened={isMobileMenuOpened} />
       <section className="clothing">
         <p className="clothing__paragraph">
           Today is {weather.temp[currentTemperatureUnit]}

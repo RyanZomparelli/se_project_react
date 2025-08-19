@@ -3,6 +3,10 @@
   max-width: 1360px;
 }
 
+.weather-card_menu_opened {
+  visibility: hidden;
+}
+
 .weather-card__temp {
   color: rgba(255, 255, 255, 1);
   position: absolute;

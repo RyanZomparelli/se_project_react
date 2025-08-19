@@ -9,7 +9,6 @@ const ToggleSwitch = () => {
   return (
     <>
       <input
-        value={currentTemperatureUnit}
         type="checkbox"
         className="switch"
         id="react-switch-new"

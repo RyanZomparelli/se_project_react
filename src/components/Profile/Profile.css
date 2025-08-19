@@ -44,3 +44,10 @@
   padding: 0;
   margin: 0;
 }
+
+@media screen and (max-width: 650px) {
+  .profile {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

@@ -31,12 +31,6 @@
 
 @media screen and (max-width: 650px) {
   .page {
-    /* width: 100%; */
-    /* max-width: 375px; */
     padding: 0 16px;
   }
-
-  /* .page__section {
-    margin: 0;
-  } */
 }
