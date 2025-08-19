@@ -1,5 +1,10 @@
+//External library imports
 import { useContext } from "react";
+
+//Component CSS file
 import "./WeatherCard.css";
+
+//Utility imports
 import { getWeatherCard } from "../../utils/helpers";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 

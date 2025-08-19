@@ -1,6 +1,6 @@
 export const baseUrl = "http://localhost:3001";
 
-function handleResponse(res) {
+export function handleResponse(res) {
   if (!res.ok) {
     const err = new Error(`HTTP: ${res.status}`);
     console.error(err.stack);

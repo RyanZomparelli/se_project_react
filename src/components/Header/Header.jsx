@@ -1,5 +1,10 @@
+//External library imports
 import { Link } from "react-router-dom";
+
+//Component CSS file
 import "./Header.css";
+
+//Internal component imports
 import headerLogo from "../../assets/wtwr.svg";
 import headerAvatar from "../../assets/header__avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
