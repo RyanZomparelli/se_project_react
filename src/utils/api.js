@@ -11,9 +11,14 @@ export function handleResponse(res) {
 
 //Avoid variable shadowing but pass baseUrl as a default value for the parameter
 export function getClothingItems(base = baseUrl) {
-  return fetch(`${base}/items`).then((res) => handleResponse(res));
+  //Shorthand syntax: .then() automatically passes the resolved value (res as the first argument to handleResponse.
+  // Equivalent to .then((res) => handleResponse(res)).
+  return fetch(`${base}/items`).then(handleResponse);
 }
 
+//I just spent longer than I want to admit on a bug where my object kept returning undefined.
+//The culprit? A parameter order bug. I had the 'base' parameter and the object flipped: (base = baseUrl, { name, imageUrl, weather })
+//but in my App component, I was only calling the function with the object which was being mapped to base.
 export function addClothingItem({ name, imageUrl, weather }, base = baseUrl) {
   return fetch(`${base}/items`, {
     method: "POST",
@@ -25,11 +30,11 @@ export function addClothingItem({ name, imageUrl, weather }, base = baseUrl) {
       imageUrl,
       weather,
     }),
-  }).then((res) => handleResponse(res));
+  }).then(handleResponse);
 }
 
 export function removeClothingItem(id, base = baseUrl) {
   return fetch(`${base}/items/${id}`, {
     method: "DELETE",
-  }).then((res) => handleResponse(res));
+  }).then(handleResponse);
 }

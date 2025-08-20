@@ -3,7 +3,7 @@ import { handleResponse } from "./api";
 export function getWeatherData({ latitude, longitude }, key) {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${key}`
-  ).then((res) => handleResponse(res));
+  ).then(handleResponse);
 }
 
 export function filterWeatherData(data) {
