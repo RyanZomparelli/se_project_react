@@ -1,29 +1,36 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import useForm from "../../hooks/useForm.js";
 
 const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
-  const [name, setName] = useState("");
-  const [url, setUrl] = useState("");
-  const [weatherType, setWeatherType] = useState("");
+  // const [name, setName] = useState("");
+  // const [url, setUrl] = useState("");
+  // const [weatherType, setWeatherType] = useState("");
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-  const handleUrlChange = (e) => {
-    setUrl(e.target.value);
-  };
-  const handleWeatherTypeChange = (e) => {
-    setWeatherType(e.target.value);
-  };
+  // const handleNameChange = (e) => {
+  //   setName(e.target.value);
+  // };
+  // const handleUrlChange = (e) => {
+  //   setUrl(e.target.value);
+  // };
+  // const handleWeatherTypeChange = (e) => {
+  //   setWeatherType(e.target.value);
+  // };
+
+  const { values, handleChange } = useForm({
+    name: "",
+    imageUrl: "",
+    weather: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const item = {
-      name,
-      imageUrl: url,
-      weather: weatherType,
-    };
-    onAddItem(item);
+    // const item = {
+    //   name,
+    //   imageUrl: url,
+    //   weather: weatherType,
+    // };
+    onAddItem(values);
   };
 
   return (
@@ -39,25 +46,27 @@ const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
         <label htmlFor="name" className="modal__form-label">
           Name
           <input
-            placeholder="Name"
             type="text"
-            className="modal__form-input"
+            placeholder="Name"
             id="name"
+            name="name"
+            value={values.name}
+            className="modal__form-input"
             required
-            value={name}
-            onChange={handleNameChange}
+            onChange={handleChange}
           />
         </label>
         <label htmlFor="image" className="modal__form-label">
           Image
           <input
-            placeholder="Image URL"
             type="url"
-            className="modal__form-input"
+            placeholder="Image URL"
             id="image"
+            name="imageUrl"
+            value={values.imageUrl}
+            className="modal__form-input"
             required
-            value={url}
-            onChange={handleUrlChange}
+            onChange={handleChange}
           />
         </label>
       </fieldset>
@@ -69,13 +78,13 @@ const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
         >
           <input
             type="radio"
-            name="weather"
             id="Hot"
+            name="weather"
             value="hot"
             className="modal__radio-input"
             required
-            checked={weatherType === "hot"}
-            onChange={handleWeatherTypeChange}
+            checked={values.weather === "hot"}
+            onChange={handleChange}
           />
           Hot
         </label>
@@ -91,8 +100,8 @@ const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
             value="warm"
             className="modal__radio-input"
             required
-            checked={weatherType === "warm"}
-            onChange={handleWeatherTypeChange}
+            checked={values.weather === "warm"}
+            onChange={handleChange}
           />
           Warm
         </label>
@@ -108,8 +117,8 @@ const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
             value="cold"
             className="modal__radio-input"
             required
-            checked={weatherType === "cold"}
-            onChange={handleWeatherTypeChange}
+            checked={values.weather === "cold"}
+            onChange={handleChange}
           />
           Cold
         </label>

@@ -65,6 +65,7 @@ function App() {
   };
 
   const handleAddItemSubmit = (item) => {
+    //async fetch request
     addClothingItem(item)
       .then((data) => {
         setClothingItems([data, ...clothingItems]);
