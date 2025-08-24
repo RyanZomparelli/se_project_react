@@ -10,22 +10,9 @@ The idea of the application is pretty simple - we make a call to an API, which t
 
 ## Screenshots
 
-<div style="display: flex; gap: 10px; margin-bottom: 20px;">
-  <img src="./src/assets/mobile_profile.png" alt="Mobile profile" width="200"/>
-  <div>
-  <p>👈 Mobile Profile Section</p>
-  <p>Mobile Menu Dropdown 👉</p>
-  </div>
-  <img src="./src/assets/mobile_dropdown.png" alt="Mobile menu" width="200"/>
-</div>
-
-<!-- Mobile Profile Section
-
-![Mobile profile](./src/assets/mobile_profile.png)
-
-Mobile Menu dropdown
-
-![Mobile menu](./src/assets/mobile_dropdown.png) -->
+| Mobile Profile                                                                 | Mobile Menu                                                                  |
+| ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| <img src="./src/assets/mobile_profile.png" width="200" alt="Mobile profile" /> | <img src="./src/assets/mobile_dropdown.png" width="200" alt="Mobile menu" /> |
 
 Add clothes form
 
