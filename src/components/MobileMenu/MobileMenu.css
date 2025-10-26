@@ -1,8 +1,9 @@
 .mobile-menu {
   margin-top: 18px;
-  max-width: 375px;
   position: absolute;
-  right: 0px;
+  z-index: 0;
+  /* This is to prevent blocking the add clothes btn. */
+  height: 1px;
 }
 
 .mobile-menu__btn {
@@ -18,12 +19,12 @@
   right: 0;
   padding: 0;
   cursor: pointer;
-  z-index: 2;
+  z-index: 0;
 }
 
 .mobile-menu__btn_opened {
   visibility: hidden;
-  z-index: 0;
+  z-index: 1;
 }
 
 .mobile-menu__nav-container {
@@ -33,7 +34,7 @@
 
 .mobile-menu__nav-container_opened {
   visibility: visible;
-  width: 343px;
+  max-width: 600px;
   height: 240px;
   opacity: 1;
   background-color: white;
@@ -44,6 +45,7 @@
   justify-content: center;
   align-items: center;
   gap: 24px;
+  z-index: 2;
 }
 
 .mobile-menu__btn-close {
@@ -83,6 +85,11 @@
 }
 
 @media screen and (max-width: 650px) {
+  .mobile-menu {
+    max-width: 600px;
+    width: 100%;
+  }
+
   .mobile-menu__btn {
     visibility: visible;
   }

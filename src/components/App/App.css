@@ -5,7 +5,6 @@
   margin: 0 auto;
   position: relative;
   background-color: rgba(243, 243, 243, 1);
-  height: 100vh;
 }
 
 .page__loading-overlay {
@@ -27,6 +26,7 @@
 
 .page__section {
   margin: 0 auto;
+  max-width: 1440px;
 }
 
 @media screen and (max-width: 650px) {

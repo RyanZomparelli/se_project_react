@@ -1,6 +1,8 @@
 .footer {
   display: flex;
   justify-content: space-between;
+  max-width: 1360px;
+  margin-left: 0;
 }
 
 .footer__text {
@@ -8,11 +10,4 @@
   line-height: 1.2;
   font-weight: 500;
   margin: 85px 2px 24px 0;
-}
-
-@media screen and (max-width: 650px) {
-  /* .footer {
-    max-width: 375px;
-    width: 100%;
-  } */
 }
