@@ -1,8 +1,11 @@
-import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm.js";
 
 const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
+  // Without the custom useForm hook I would have to use seperate state variables
+  // for each form input and create an item object upon submission. The commented
+  // out code in this component reflects that.
+
   // const [name, setName] = useState("");
   // const [url, setUrl] = useState("");
   // const [weatherType, setWeatherType] = useState("");
