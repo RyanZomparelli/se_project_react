@@ -10,12 +10,23 @@ import headerAvatar from "../../assets/header__avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import MobileMenu from "../MobileMenu/MobileMenu";
 
+// Utility imports
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
+
 function Header({
   weather,
   isMobileMenuOpened,
   onMobileMenuToggle,
   onModalOpen,
 }) {
+  // Subscribe to the context
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
+
+  // Extract the first letter of user's name to create the placeholder avatar as
+  // a fall back.
+  const firstLetter = currentUser.user?.name[0];
+
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -48,27 +59,47 @@ function Header({
       </div>
       <div className="header__nav-bar">
         <ToggleSwitch />
-        <button
-          className="header__add-btn"
-          onClick={() => onModalOpen("add-garment")}
-        >
-          + Add clothes
-        </button>
+        {!isLoggedIn ? (
+          <>
+            <button
+              className="header__signup-btn"
+              onClick={() => onModalOpen("sign up")}
+            >
+              Sign Up
+            </button>
+            <button className="header__login-btn">Log In</button>
+          </>
+        ) : (
+          <>
+            <button
+              className="header__add-btn"
+              onClick={() => onModalOpen("add-garment")}
+            >
+              + Add clothes
+            </button>
 
-        <Link to="/profile" className="header__name">
-          Terrence Tegegne
-          <img
-            src={headerAvatar}
-            alt="Profile image."
-            className="header__avatar"
-          />
-        </Link>
-        <button
-          className={
-            isMobileMenuOpened ? "mobile-menu__btn_opened" : "mobile-menu__btn"
-          }
-          onClick={onMobileMenuToggle}
-        ></button>
+            <Link to="/profile" className="header__name">
+              {currentUser.user.name}
+              {!currentUser.avatar ? (
+                <h2 className="header__avatar_placeholder">{firstLetter}</h2>
+              ) : (
+                <img
+                  src={currentUser.user.avatar}
+                  alt="Profile image."
+                  className="header__avatar"
+                />
+              )}
+            </Link>
+            <button
+              className={
+                isMobileMenuOpened
+                  ? "mobile-menu__btn_opened"
+                  : "mobile-menu__btn"
+              }
+              onClick={onMobileMenuToggle}
+            ></button>
+          </>
+        )}
       </div>
     </header>
   );

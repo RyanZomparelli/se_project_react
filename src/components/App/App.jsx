@@ -11,6 +11,7 @@ import Main from "../Main/Main.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Profile from "../Profile/Profile.jsx";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal.jsx";
 
@@ -22,7 +23,9 @@ import {
   addClothingItem,
   removeClothingItem,
 } from "../../utils/api.js";
+import * as auth from "../../utils/auth.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +35,9 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+  // Authorization state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
   const handleOpenModal = (modal) => {
     setActiveModal(modal);
@@ -62,6 +68,22 @@ function App() {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
       : setCurrentTemperatureUnit("F");
+  };
+
+  // App handles navigation and routing and controls global state like isLoggedIn
+  // so it makes sense to handle registration here. We just need to pass the data
+  // from the Register component up to here.
+  const handleRegistration = (data) => {
+    auth
+      .register(data)
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        console.error("Registration failed", err);
+      });
   };
 
   const handleAddItemSubmit = (item) => {
@@ -115,6 +137,11 @@ function App() {
       .catch((error) => console.error(error));
   }, []);
 
+  // When interacting with the DOM directly in React, it must be done in a useEffect
+  // hook. Here we add a listener to the document only when the activeModal state
+  // is truthy. To prevent a build-up of old listeners (memory leaks) remove
+  // them with Reacts cleanup pattern. Return a callback to the useEffect hook for
+  // deferred execution.
   useEffect(() => {
     if (activeModal) {
       document.addEventListener("keyup", handleEscClose);
@@ -136,66 +163,76 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="page">
-          <CurrentTemperatureUnitContext.Provider
-            value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-          >
-            <Header
-              weather={weather}
-              onModalOpen={handleOpenModal}
-              isMobileMenuOpened={isMobileMenuOpened}
-              onMobileMenuToggle={toggleMobileMenu}
-            />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Main
-                    weather={weather}
-                    clothingItems={clothingItems}
-                    handleItemCardClick={handleItemCardClick}
-                    isMobileMenuOpened={isMobileMenuOpened}
-                  />
-                }
+        // Global source of truth for authorization state
+        <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
+          <div className="page">
+            <CurrentTemperatureUnitContext.Provider
+              value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+            >
+              <Header
+                weather={weather}
+                onModalOpen={handleOpenModal}
+                isMobileMenuOpened={isMobileMenuOpened}
+                onMobileMenuToggle={toggleMobileMenu}
               />
-              <Route
-                path="/profile"
-                element={
-                  <Profile
-                    clothingItems={clothingItems}
-                    handleItemCardClick={handleItemCardClick}
-                    onModalOpen={handleOpenModal}
-                    isMobileMenuOpened={isMobileMenuOpened}
-                  />
-                }
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Main
+                      weather={weather}
+                      clothingItems={clothingItems}
+                      handleItemCardClick={handleItemCardClick}
+                      isMobileMenuOpened={isMobileMenuOpened}
+                    />
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <Profile
+                      clothingItems={clothingItems}
+                      handleItemCardClick={handleItemCardClick}
+                      onModalOpen={handleOpenModal}
+                      isMobileMenuOpened={isMobileMenuOpened}
+                    />
+                  }
+                />
+              </Routes>
+            </CurrentTemperatureUnitContext.Provider>
+            {activeModal === "sign up" && (
+              <RegisterModal
+                onClose={handleCloseModal}
+                onOverlayClick={handleOverlayClick}
+                handleRegistration={handleRegistration}
               />
-            </Routes>
-          </CurrentTemperatureUnitContext.Provider>
-          {activeModal === "add-garment" && (
-            <AddItemModal
-              onClose={handleCloseModal}
-              onOverlayClick={handleOverlayClick}
-              onAddItem={handleAddItemSubmit}
-            />
-          )}
-          {activeModal === "preview-item" && (
-            <ItemModal
-              onClose={handleCloseModal}
-              card={selectedItem}
-              onOverlayClick={handleOverlayClick}
-              onModalOpen={handleOpenModal}
-            />
-          )}
-          {activeModal === "delete-item" && (
-            <DeleteConfirmationModal
-              card={selectedItem}
-              onDelete={handleItemDelete}
-              onClose={handleCloseModal}
-              onOverlayClick={handleOverlayClick}
-            />
-          )}
-          <Footer />
-        </div>
+            )}
+            {activeModal === "add-garment" && (
+              <AddItemModal
+                onClose={handleCloseModal}
+                onOverlayClick={handleOverlayClick}
+                onAddItem={handleAddItemSubmit}
+              />
+            )}
+            {activeModal === "preview-item" && (
+              <ItemModal
+                onClose={handleCloseModal}
+                card={selectedItem}
+                onOverlayClick={handleOverlayClick}
+                onModalOpen={handleOpenModal}
+              />
+            )}
+            {activeModal === "delete-item" && (
+              <DeleteConfirmationModal
+                card={selectedItem}
+                onDelete={handleItemDelete}
+                onClose={handleCloseModal}
+                onOverlayClick={handleOverlayClick}
+              />
+            )}
+            <Footer />
+          </div>
+        </CurrentUserContext.Provider>
       )}
     </>
   );
