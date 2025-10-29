@@ -11,9 +11,10 @@ import Main from "../Main/Main.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Profile from "../Profile/Profile.jsx";
-import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal.jsx";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
+import LoginModal from "../LoginModal/LoginModal.jsx";
 
 //Utility/API imports
 import { coordinates, apiKey } from "../../utils/constants.js";
@@ -24,6 +25,7 @@ import {
   removeClothingItem,
 } from "../../utils/api.js";
 import * as auth from "../../utils/auth.js";
+import * as jwt from "../../utils/token.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
@@ -38,6 +40,8 @@ function App() {
   // Authorization state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
+  // HELPERS
 
   const handleOpenModal = (modal) => {
     setActiveModal(modal);
@@ -70,10 +74,18 @@ function App() {
       : setCurrentTemperatureUnit("F");
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpened(!isMobileMenuOpened);
+  };
+
+  // HANDLERS
+
   // App handles navigation and routing and controls global state like isLoggedIn
-  // so it makes sense to handle registration here. We just need to pass the data
-  // from the Register component up to here.
+  // so it makes sense to handle registration and login here. We just need to pass the data
+  // from the Register and login components up to App(here).
   const handleRegistration = (data) => {
+    // Take the data (userInput) from the Register component and send it to the
+    // WTWR API. Then set the app state with the response data (user).
     auth
       .register(data)
       .then((user) => {
@@ -82,10 +94,38 @@ function App() {
         handleCloseModal();
       })
       .catch((err) => {
-        console.error("Registration failed", err);
+        console.error("Registration failed: ", err);
       });
   };
 
+  // The authentication system used used in this app follows a two route process:
+  // STEP 1: login and store token /signin. STEP 2: fetch user data with token /users/me.
+  // This approach has several benefits:
+  // - Security: Separates authentication from user data. Every route other than
+  //   /signup is protected on the back end with authorization middleware.
+  // - Flexibility: User data can be updated without re-authentication.
+  // - Consistency: Same endpoint (/users/me) can be used to check token validity on app startup.
+  const handleLogin = async ({ email, password }) => {
+    try {
+      const data = await auth.login(email, password);
+      if (data.token) {
+        jwt.setToken(data.token);
+        const user = await auth.getCurrentUser(data.token);
+        if (user) {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+          handleCloseModal();
+        }
+      }
+    } catch (err) {
+      console.error("Login failed: ", err);
+    }
+  };
+
+  // Why not in a useEffect hook? These are user-triggered actions. They should
+  // only happen when the user decides to perform them.
+  // Use useEffect for API calls that should happen automatically (side effects).
+  // Use event handlers for API calls triggered by user actions.
   const handleAddItemSubmit = (item) => {
     //async fetch request
     addClothingItem(item)
@@ -108,10 +148,29 @@ function App() {
       .catch((error) => console.error("Failed to remove item:", error));
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpened(!isMobileMenuOpened);
-  };
+  // SIDE-EFFECTS
 
+  // We use the token at login and check for it on inital page load to keep users
+  // logged in for the life of the token or until they explicitly log out.
+  useEffect(() => {
+    const token = jwt.getToken();
+    if (token) {
+      auth
+        .getCurrentUser(token)
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        })
+        .catch(() => {
+          jwt.removeToken();
+          setIsLoggedIn(false);
+        });
+    }
+  }, []);
+
+  // These run automatically when the app starts. They're side effects of the
+  // component mounting. Use useEffect.
+  // Weather data, loads automatically (side-effect), when component mounts (renders).
   useEffect(() => {
     getWeatherData(coordinates, apiKey)
       .then((data) => {
@@ -127,8 +186,11 @@ function App() {
         setIsLoading(false);
         console.error("Failed to fetch data:", error);
       });
+    // Note the empty array dependency. This means the useEffect will run once
+    // on page load.
   }, []);
 
+  // Initial clothing items. Loads when component mounts (side-effect). useEffect...
   useEffect(() => {
     getClothingItems()
       .then((data) => {
@@ -163,7 +225,7 @@ function App() {
           </div>
         </div>
       ) : (
-        // Global source of truth for authorization state
+        // Global source of truth for authorization state. No prop drilling.
         <CurrentUserContext.Provider value={{ currentUser, isLoggedIn }}>
           <div className="page">
             <CurrentTemperatureUnitContext.Provider
@@ -205,6 +267,13 @@ function App() {
                 onClose={handleCloseModal}
                 onOverlayClick={handleOverlayClick}
                 handleRegistration={handleRegistration}
+              />
+            )}
+            {activeModal === "log in" && (
+              <LoginModal
+                onClose={handleCloseModal}
+                onOverlayClick={handleOverlayClick}
+                handleLogin={handleLogin}
               />
             )}
             {activeModal === "add-garment" && (

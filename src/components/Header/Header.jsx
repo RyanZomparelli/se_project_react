@@ -6,7 +6,6 @@ import "./Header.css";
 
 //Internal component imports
 import headerLogo from "../../assets/wtwr.svg";
-import headerAvatar from "../../assets/header__avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import MobileMenu from "../MobileMenu/MobileMenu";
 
@@ -67,7 +66,12 @@ function Header({
             >
               Sign Up
             </button>
-            <button className="header__login-btn">Log In</button>
+            <button
+              className="header__login-btn"
+              onClick={() => onModalOpen("log in")}
+            >
+              Log In
+            </button>
           </>
         ) : (
           <>
@@ -80,7 +84,7 @@ function Header({
 
             <Link to="/profile" className="header__name">
               {currentUser.user.name}
-              {!currentUser.avatar ? (
+              {!currentUser.user.avatar ? (
                 <h2 className="header__avatar_placeholder">{firstLetter}</h2>
               ) : (
                 <img
