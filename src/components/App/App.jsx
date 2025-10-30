@@ -21,11 +21,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 //Utility/API imports
 import { coordinates, apiKey } from "../../utils/constants.js";
 import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
-import {
-  getClothingItems,
-  addClothingItem,
-  removeClothingItem,
-} from "../../utils/api.js";
+import * as api from "../../utils/api.js";
 import * as auth from "../../utils/auth.js";
 import * as jwt from "../../utils/token.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
@@ -177,8 +173,10 @@ function App() {
   // Use useEffect for API calls that should happen automatically (side effects).
   // Use event handlers for API calls triggered by user actions.
   const handleAddItemSubmit = (item) => {
+    const token = jwt.getToken();
     //async fetch request
-    addClothingItem(item)
+    api
+      .addClothingItem(item, token)
       .then((data) => {
         setClothingItems([data, ...clothingItems]);
         handleCloseModal();
@@ -187,7 +185,8 @@ function App() {
   };
 
   const handleItemDelete = (removeId) => {
-    removeClothingItem(removeId)
+    api
+      .removeClothingItem(removeId)
       .then((data) => {
         const remainingCards = clothingItems.filter((item) => {
           return item._id !== removeId;
@@ -242,7 +241,8 @@ function App() {
 
   // Initial clothing items. Loads when component mounts (side-effect). useEffect...
   useEffect(() => {
-    getClothingItems()
+    api
+      .getClothingItems()
       .then((data) => {
         setClothingItems(data);
       })

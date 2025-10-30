@@ -1,12 +1,9 @@
-import { baseUrl, handleResponse } from "./api";
+import { baseUrl, handleResponse, getRequestHeaders } from "./api";
 
 export const register = ({ email, password, name, avatar }) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+    headers: getRequestHeaders(),
     body: JSON.stringify({
       email,
       password,
@@ -22,10 +19,7 @@ export const register = ({ email, password, name, avatar }) => {
 export const login = (email, password) => {
   return fetch(`${baseUrl}/signin`, {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+    headers: getRequestHeaders(),
     body: JSON.stringify({
       email,
       password,
@@ -39,10 +33,6 @@ export const login = (email, password) => {
 export const getCurrentUser = (token) => {
   return fetch(`${baseUrl}/users/me`, {
     method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: getRequestHeaders(token),
   }).then(handleResponse);
 };
