@@ -1,7 +1,9 @@
 export const baseUrl = "http://localhost:3001";
 
 export function handleResponse(res) {
-  return res.ok ? res.json() : Promise.reject(new Error("Error:", res.status));
+  // Parse the response even for errors to have access to the err.message than throw
+  // it to the catch block.
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 
 //Avoid variable shadowing but pass baseUrl as a default value for the parameter

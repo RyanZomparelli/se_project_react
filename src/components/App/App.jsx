@@ -15,6 +15,7 @@ import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmationModal.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
+import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
 //Utility/API imports
 import { coordinates, apiKey } from "../../utils/constants.js";
@@ -40,6 +41,8 @@ function App() {
   // Authorization state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [confirmMsg, setConfirmMsg] = useState("");
 
   // HELPERS
 
@@ -83,19 +86,56 @@ function App() {
   // App handles navigation and routing and controls global state like isLoggedIn
   // so it makes sense to handle registration and login here. We just need to pass the data
   // from the Register and login components up to App(here).
-  const handleRegistration = (data) => {
-    // Take the data (userInput) from the Register component and send it to the
-    // WTWR API. Then set the app state with the response data (user).
-    auth
-      .register(data)
-      .then((user) => {
-        setCurrentUser(user);
-        setIsLoggedIn(true);
-        handleCloseModal();
-      })
-      .catch((err) => {
-        console.error("Registration failed: ", err);
-      });
+  const handleRegistration = async (data) => {
+    // Registration should automatically log in new users after regestration and
+    //  notify the user at each stage if there is an issue and how to proceed.
+    setIsLoading(true);
+    let userData;
+    try {
+      userData = await auth.register(data);
+      if (userData) {
+        // Future update: enhanced loading component or message modal with a
+        // setTimout that says successful registration with a spinner that says logging in.
+        // This changes the loading message rendered at the top of App's jsx.
+        setConfirmMsg(`Registration successful! Logging in...`);
+
+        // Nested try and catch block to handle errors at each stage of registration.
+        // This try/catch will handle login only if registration is successful.
+        try {
+          // Sneaky... WTWR API /signup route doesn't return the password. Use the input data instead.
+          const tokenData = await auth.login(
+            userData.user.email,
+            data.password
+          );
+
+          jwt.setToken(tokenData.token);
+          const user = await auth.getCurrentUser(tokenData.token);
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+          handleCloseModal();
+        } catch (err) {
+          setErrorMessage(`Login failed...`);
+          console.error(err.message);
+          handleOpenModal("error");
+          // Clean up.
+        } finally {
+          setTimeout(() => {
+            setIsLoading(false);
+            setConfirmMsg("");
+          }, 2000);
+        }
+      }
+      // This will notify the user and handle registration errors before login is triggered.
+    } catch (err) {
+      setErrorMessage(`Registration failed, ${err.message}`);
+      handleOpenModal("error");
+      setTimeout(() => {
+        setIsLoading(false);
+        setConfirmMsg("");
+      }, 2000);
+      // Stop here if registration fails.
+      return;
+    }
   };
 
   // The authentication system used used in this app follows a two route process:
@@ -106,7 +146,9 @@ function App() {
   // - Flexibility: User data can be updated without re-authentication.
   // - Consistency: Same endpoint (/users/me) can be used to check token validity on app startup.
   const handleLogin = async ({ email, password }) => {
+    setIsLoading(true);
     try {
+      setConfirmMsg("Logging in...");
       const data = await auth.login(email, password);
       if (data.token) {
         jwt.setToken(data.token);
@@ -118,7 +160,14 @@ function App() {
         }
       }
     } catch (err) {
-      console.error("Login failed: ", err);
+      setErrorMessage("We're sorry, login failed...");
+      console.error("Login failed", err.message);
+      handleOpenModal("error");
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+        setConfirmMsg("");
+      }, 2000);
     }
   };
 
@@ -221,7 +270,9 @@ function App() {
       {isLoading ? (
         <div className="page">
           <div className="page__loading-overlay">
-            <p className="page__loading-message">Loading...😎</p>
+            <p className="page__loading-message">
+              {confirmMsg ? confirmMsg : "Loading...😎"}
+            </p>
           </div>
         </div>
       ) : (
@@ -262,6 +313,13 @@ function App() {
                 />
               </Routes>
             </CurrentTemperatureUnitContext.Provider>
+            {activeModal === "error" && (
+              <ErrorModal
+                onClose={handleCloseModal}
+                onOverlayClick={handleOverlayClick}
+                error={errorMessage}
+              />
+            )}
             {activeModal === "sign up" && (
               <RegisterModal
                 onClose={handleCloseModal}
