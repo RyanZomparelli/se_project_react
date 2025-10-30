@@ -16,6 +16,7 @@ import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmati
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 
 //Utility/API imports
 import { coordinates, apiKey } from "../../utils/constants.js";
@@ -303,12 +304,14 @@ function App() {
                 <Route
                   path="/profile"
                   element={
-                    <Profile
-                      clothingItems={clothingItems}
-                      handleItemCardClick={handleItemCardClick}
-                      onModalOpen={handleOpenModal}
-                      isMobileMenuOpened={isMobileMenuOpened}
-                    />
+                    <ProtectedRoute>
+                      <Profile
+                        clothingItems={clothingItems}
+                        handleItemCardClick={handleItemCardClick}
+                        onModalOpen={handleOpenModal}
+                        isMobileMenuOpened={isMobileMenuOpened}
+                      />
+                    </ProtectedRoute>
                   }
                 />
                 {/* Catch all route for non existing endpoints */}

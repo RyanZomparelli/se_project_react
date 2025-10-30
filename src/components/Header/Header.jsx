@@ -104,16 +104,14 @@ function Header({
                 />
               )}
             </Link>
-            <button
-              className={
-                isMobileMenuOpened
-                  ? "mobile-menu__btn_opened"
-                  : "mobile-menu__btn"
-              }
-              onClick={onMobileMenuToggle}
-            ></button>
           </>
         )}
+        <button
+          className={
+            isMobileMenuOpened ? "mobile-menu__btn_opened" : "mobile-menu__btn"
+          }
+          onClick={onMobileMenuToggle}
+        ></button>
       </div>
     </header>
   );
