@@ -1,5 +1,6 @@
 //External library imports
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
 
 //Component CSS file
 import "./Header.css";
@@ -11,7 +12,6 @@ import MobileMenu from "../MobileMenu/MobileMenu";
 
 // Utility imports
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import { useContext } from "react";
 
 function Header({
   weather,
@@ -25,6 +25,12 @@ function Header({
   // Extract the first letter of user's name to create the placeholder avatar as
   // a fall back.
   const firstLetter = currentUser.user?.name[0];
+
+  // Future improvment: Create an Avatar component that manages state and handles
+  // avatar styling across different components. With the current implementation
+  // existing links that are also broken are fixed here in Header but not in Sidebar
+  // or MobileMenu.
+  const [showPlaceholder, setShowPlaceholder] = useState(false);
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -84,13 +90,17 @@ function Header({
 
             <Link to="/profile" className="header__name">
               {currentUser.user.name}
-              {!currentUser.user.avatar ? (
+              {showPlaceholder ? (
                 <h2 className="header__avatar_placeholder">{firstLetter}</h2>
               ) : (
+                // onError is a React eventListener like onClick. When used on
+                // an <img> element it executes a provided callback when the
+                // image fails to load (like when the URL is broken or the image doesn't exist).
                 <img
                   src={currentUser.user.avatar}
                   alt="Profile image."
                   className="header__avatar"
+                  onError={() => setShowPlaceholder(true)}
                 />
               )}
             </Link>

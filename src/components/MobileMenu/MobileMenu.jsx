@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 import "./MobileMenu.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import headerAvatar from "../../assets/header__avatar.svg";
 
 const MobileMenu = ({ menuOpened, onToggle, onOpen }) => {
+  const { currentUser } = useContext(CurrentUserContext);
   return (
     <nav className="mobile-menu">
       <div
@@ -15,11 +18,11 @@ const MobileMenu = ({ menuOpened, onToggle, onOpen }) => {
       >
         <button className="mobile-menu__btn-close" onClick={onToggle}></button>
         <Link to="/profile" className="mobile-menu__profile" onClick={onToggle}>
-          Terrence Tegegne
+          Zomp
           <img
             src={headerAvatar}
             alt="Profile image."
-            className="mobile-menu__avatar"
+            className="header__avatar"
           />
         </Link>
         <button
