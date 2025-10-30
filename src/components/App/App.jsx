@@ -1,6 +1,6 @@
 //External library imports
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 //Component CSS file
 import "./App.css";
@@ -311,6 +311,8 @@ function App() {
                     />
                   }
                 />
+                {/* Catch all route for non existing endpoints */}
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </CurrentTemperatureUnitContext.Provider>
             {activeModal === "error" && (
