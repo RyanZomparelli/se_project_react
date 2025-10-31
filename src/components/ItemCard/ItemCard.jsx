@@ -1,9 +1,37 @@
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "../ItemCard/ItemCard.css";
 
-function ItemCard({ clothingItem, handleItemCardClick }) {
+function ItemCard({ clothingItem, handleItemCardClick, handleCardLike }) {
+  console.log("From ItemCard, ITEMS: ", clothingItem);
+  const { currentUser } = useContext(CurrentUserContext);
+
+  // Here and in ClothesSection to track liked status.
+  const isLiked = clothingItem.likes.some(
+    (_id) => _id === currentUser.user._id
+  );
+
+  const handleLike = () => {
+    console.log("From handleLike in ItemCard: ", isLiked);
+    handleCardLike({ _id: clothingItem._id, isLiked });
+  };
+
   return (
     <li className="clothing__card">
-      <p className="clothing__card-title">{clothingItem.name}</p>
+      <div className="clothing__card-header">
+        <p className="clothing__card-title">{clothingItem.name}</p>
+        {isLiked ? (
+          <button
+            className="clothing__card-likebtn"
+            onClick={handleLike}
+          ></button>
+        ) : (
+          <button
+            className="clothing__card-unlikedbtn"
+            onClick={handleLike}
+          ></button>
+        )}
+      </div>
       <img
         src={clothingItem.imageUrl}
         alt={clothingItem.name}

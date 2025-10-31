@@ -28,7 +28,7 @@ export function getClothingItems(base = baseUrl) {
   return fetch(`${base}/items`, {}).then(handleResponse);
 }
 
-//I just spent longer than I want to admit on a bug where my object kept returning undefined.
+// A bug where my object kept returning undefined.
 //The culprit? A parameter order bug. I had the 'base' parameter and the object flipped: (base = baseUrl, { name, imageUrl, weather })
 //but in my App component, I was only calling the function with the object which was being mapped to base.
 export function addClothingItem(
@@ -49,9 +49,10 @@ export function addClothingItem(
   }).then(handleResponse);
 }
 
-export function removeClothingItem(id, base = baseUrl) {
+export function removeClothingItem(id, token, base = baseUrl) {
   return fetch(`${base}/items/${id}`, {
     method: "DELETE",
+    headers: getRequestHeaders(token),
   }).then(handleResponse);
 }
 
@@ -63,5 +64,22 @@ export const editProfile = ({ name, avatar }, token) => {
       name,
       avatar,
     }),
+  }).then(handleResponse);
+};
+
+export const addCardLike = (_id, token) => {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: "PUT",
+    headers: getRequestHeaders(token),
+    body: JSON.stringify({
+      _id,
+    }),
+  }).then(handleResponse);
+};
+
+export const removeCardLike = (_id, token) => {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: "DELETE",
+    headers: getRequestHeaders(token),
   }).then(handleResponse);
 };

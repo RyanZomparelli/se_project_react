@@ -37,6 +37,7 @@
 
 .profile__clothing-list {
   max-width: 1015px;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;

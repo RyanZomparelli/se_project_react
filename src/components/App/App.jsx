@@ -36,13 +36,15 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [confirmMsg, setConfirmMsg] = useState("");
   // Authorization state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [errorMessage, setErrorMessage] = useState("");
-  const [confirmMsg, setConfirmMsg] = useState("");
 
   // HELPERS
+
+  console.log("From App ClothingItems: ", clothingItems);
 
   const handleOpenModal = (modal) => {
     setActiveModal(modal);
@@ -175,7 +177,6 @@ function App() {
   // Use event handlers for API calls triggered by user actions.
   const handleAddItemSubmit = (item) => {
     const token = jwt.getToken();
-    //async fetch request
     api
       .addClothingItem(item, token)
       .then((data) => {
@@ -186,8 +187,9 @@ function App() {
   };
 
   const handleItemDelete = (removeId) => {
+    const token = jwt.getToken();
     api
-      .removeClothingItem(removeId)
+      .removeClothingItem(removeId, token)
       .then((data) => {
         const remainingCards = clothingItems.filter((item) => {
           return item._id !== removeId;
@@ -217,6 +219,35 @@ function App() {
         setConfirmMsg("");
       }, 2000);
     }
+  };
+
+  const handleCardLike = ({ _id, isLiked }) => {
+    // Get token for the request
+    const token = jwt.getToken();
+    // Check if the card is or isn't liked..
+    !isLiked // If not liked, send a request to add the user's id to the card's likes array in the DB.
+      ? api
+          .addCardLike(_id, token) // The first parameter is the item id.
+          .then((updatedItem) => {
+            // WTWR API: returns an updated clothing card with a new Object_id(userId) in it's likes array.
+            setClothingItems((clothingItems) => {
+              return clothingItems.map((item) => {
+                return item._id === _id ? updatedItem : item; // item id match the id passed in the request?
+              }); // Return the updated item, otherwise keep the same item.
+            });
+          })
+          .catch(console.error)
+      : // if not, send a request to remove the user's id from the card's likes array
+        api
+          .removeCardLike(_id, token)
+          .then((updatedItem) => {
+            setClothingItems((clothingItems) => {
+              return clothingItems.map((item) => {
+                return item._id === _id ? updatedItem : item;
+              });
+            });
+          })
+          .catch(console.error);
   };
 
   // SIDE-EFFECTS
@@ -320,6 +351,7 @@ function App() {
                       clothingItems={clothingItems}
                       handleItemCardClick={handleItemCardClick}
                       isMobileMenuOpened={isMobileMenuOpened}
+                      handleCardLike={handleCardLike}
                     />
                   }
                 />
@@ -331,7 +363,7 @@ function App() {
                         clothingItems={clothingItems}
                         handleItemCardClick={handleItemCardClick}
                         onModalOpen={handleOpenModal}
-                        isMobileMenuOpened={isMobileMenuOpened}
+                        handleCardLike={handleCardLike}
                       />
                     </ProtectedRoute>
                   }

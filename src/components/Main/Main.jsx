@@ -14,6 +14,7 @@ function Main({
   clothingItems,
   handleItemCardClick,
   isMobileMenuOpened,
+  handleCardLike,
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
@@ -41,6 +42,7 @@ function Main({
                   handleItemCardClick={handleItemCardClick}
                   key={item._id}
                   clothingItem={item}
+                  handleCardLike={handleCardLike}
                 />
               );
             })}

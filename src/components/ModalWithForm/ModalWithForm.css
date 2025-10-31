@@ -10,6 +10,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* Because of clothing__card-header in ItemCard.css */
+  z-index: 2;
 }
 
 .modal__container {

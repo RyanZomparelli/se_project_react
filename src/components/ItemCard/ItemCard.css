@@ -10,16 +10,45 @@
   margin: 0;
 }
 
+.clothing__card-header {
+  position: absolute; /* Position over the image */
+  top: 15px;
+  left: 15px; /* Distance from left */
+  right: 15px; /* Distance from right */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align to top */
+  gap: 10px;
+  z-index: 1; /* Make sure it's above the image */
+}
+
 .clothing__card-title {
-  position: absolute;
   top: 15px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 4px;
   padding: 2px 12px;
-  margin: 15px 0 0;
+  margin: 0;
   font-size: 16px;
   line-height: 1.2;
   font-weight: 700;
+}
+
+.clothing__card-unlikedbtn,
+.clothing__card-likebtn {
+  width: 18px;
+  height: 15px;
+  border: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.clothing__card-unlikedbtn {
+  background-image: url("../../assets/unLikedBtn.svg");
+}
+
+.clothing__card-likebtn {
+  background-image: url("../../assets/likedBtn.svg");
 }
 
 .clothing__card-image {

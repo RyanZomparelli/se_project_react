@@ -8,7 +8,7 @@ const Profile = ({
   clothingItems,
   handleItemCardClick,
   onModalOpen,
-  isMobileMenuOpen,
+  handleCardLike,
 }) => {
   return (
     <div className="profile">
@@ -31,6 +31,7 @@ const Profile = ({
                 key={item._id}
                 clothingItem={item}
                 handleItemCardClick={handleItemCardClick}
+                handleCardLike={handleCardLike}
               />
             );
           })}
