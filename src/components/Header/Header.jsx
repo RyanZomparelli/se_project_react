@@ -68,13 +68,13 @@ function Header({
           <>
             <button
               className="header__signup-btn"
-              onClick={() => onModalOpen("sign up")}
+              onClick={() => onModalOpen("sign-up")}
             >
               Sign Up
             </button>
             <button
               className="header__login-btn"
-              onClick={() => onModalOpen("log in")}
+              onClick={() => onModalOpen("log-in")}
             >
               Log In
             </button>

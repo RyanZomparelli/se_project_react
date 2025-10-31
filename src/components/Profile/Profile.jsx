@@ -12,7 +12,7 @@ const Profile = ({
 }) => {
   return (
     <div className="profile">
-      <Sidebar />
+      <Sidebar onModalOpen={onModalOpen} />
       <div className="profile__clothing-container">
         <div className="profile__btn-container">
           <p className="profile__text">Your Items</p>

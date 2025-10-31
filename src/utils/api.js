@@ -54,3 +54,14 @@ export function removeClothingItem(id, base = baseUrl) {
     method: "DELETE",
   }).then(handleResponse);
 }
+
+export const editProfile = ({ name, avatar }, token) => {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: getRequestHeaders(token),
+    body: JSON.stringify({
+      name,
+      avatar,
+    }),
+  }).then(handleResponse);
+};

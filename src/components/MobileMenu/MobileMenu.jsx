@@ -21,13 +21,13 @@ const MobileMenu = ({ menuOpened, onToggle, onOpen }) => {
           <>
             <button
               className="header__signup-btn"
-              onClick={() => onOpen("sign up")}
+              onClick={() => onOpen("sign-up")}
             >
               Sign Up
             </button>
             <button
               className="header__login-btn"
-              onClick={() => onOpen("log in")}
+              onClick={() => onOpen("log-in")}
             >
               Log In
             </button>

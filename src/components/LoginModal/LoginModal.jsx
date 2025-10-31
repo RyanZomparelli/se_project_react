@@ -16,7 +16,7 @@ const LoginModal = ({ onClose, onOverlayClick, handleLogin }) => {
   return (
     <ModalWithForm
       title="Log in"
-      name="log in"
+      name="log-in"
       buttonText="Log In"
       onClose={onClose}
       onOverlayClick={onOverlayClick}

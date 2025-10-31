@@ -20,7 +20,7 @@ const RegisterModal = ({ onClose, onOverlayClick, handleRegistration }) => {
   return (
     <ModalWithForm
       title="Sign up"
-      name="sign up"
+      name="sign-up"
       buttonText="Sign Up"
       onClose={onClose}
       onOverlayClick={onOverlayClick}

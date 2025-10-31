@@ -16,6 +16,7 @@ import DeleteConfirmationModal from "../DeleteConfirmationModal/DeleteConfirmati
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 
 //Utility/API imports
@@ -157,7 +158,7 @@ function App() {
         }
       }
     } catch (err) {
-      setErrorMessage("We're sorry, login failed...");
+      setErrorMessage(`Sorry, login failed... ${err.message}`);
       console.error("Login failed", err.message);
       handleOpenModal("error");
     } finally {
@@ -195,6 +196,27 @@ function App() {
         handleCloseModal();
       })
       .catch((error) => console.error("Failed to remove item:", error));
+  };
+
+  const handleEditProfile = async (values) => {
+    setIsLoading(true);
+    setConfirmMsg("Saving...");
+    try {
+      const token = jwt.getToken();
+      const user = await api.editProfile(values, token);
+      setCurrentUser(user);
+      handleCloseModal();
+      setTimeout(() => setConfirmMsg("Save successful!"), 1000);
+    } catch (err) {
+      setErrorMessage("We're sorry, failed to save update..");
+      console.error(err.message);
+      handleOpenModal("error");
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+        setConfirmMsg("");
+      }, 2000);
+    }
   };
 
   // SIDE-EFFECTS
@@ -325,18 +347,25 @@ function App() {
                 error={errorMessage}
               />
             )}
-            {activeModal === "sign up" && (
+            {activeModal === "sign-up" && (
               <RegisterModal
                 onClose={handleCloseModal}
                 onOverlayClick={handleOverlayClick}
                 handleRegistration={handleRegistration}
               />
             )}
-            {activeModal === "log in" && (
+            {activeModal === "log-in" && (
               <LoginModal
                 onClose={handleCloseModal}
                 onOverlayClick={handleOverlayClick}
                 handleLogin={handleLogin}
+              />
+            )}
+            {activeModal === "edit-profile" && (
+              <EditProfileModal
+                onClose={handleCloseModal}
+                onOverlayClick={handleOverlayClick}
+                handleEditProfile={handleEditProfile}
               />
             )}
             {activeModal === "add-garment" && (

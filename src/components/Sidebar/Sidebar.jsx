@@ -2,7 +2,7 @@ import "./Sidebar.css";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ onModalOpen }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
@@ -14,7 +14,12 @@ const Sidebar = () => {
       />
       <div className="sidebar__content">
         <h2 className="sidebar__profile">{currentUser.user.name}</h2>
-        <button className="sidebar__profile-data">Change profile data</button>
+        <button
+          className="sidebar__profile-data"
+          onClick={() => onModalOpen("edit-profile")}
+        >
+          Change profile data
+        </button>
         <button className="sidebar__profile-logout">Log out</button>
       </div>
     </section>
