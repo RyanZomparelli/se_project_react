@@ -2,7 +2,15 @@
 
 ## About the Project
 
-The idea is simple: we fetch the daily weather forecast from an API, process the data, and then recommend clothing based on the current weather conditions. This project is designed to demonstrate core React concepts like state, effects, context, routing, and more.
+## The idea is simple: we fetch the daily weather forecast from an API, process the data, and then recommend clothing based on the current weather conditions. This project is designed to demonstrate core React concepts like state, effects, context, routing, and more.
+
+### Now using my express back-end API!
+
+Click the link to check it out:
+
+- [WTWR API GitHub repo](https://github.com/RyanZomparelli/se_project_express)
+
+---
 
 ## Table of Contents
 
