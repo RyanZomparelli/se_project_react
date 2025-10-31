@@ -7,8 +7,8 @@ const EditProfileModal = ({ onClose, onOverlayClick, handleEditProfile }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
   const { values, handleChange } = useForm({
-    name: currentUser.user.name,
-    avatar: currentUser.user.avatar,
+    name: currentUser.user?.name,
+    avatar: currentUser.user?.avatar,
   });
 
   const handleSubmit = (e) => {

@@ -3,7 +3,6 @@ import { useContext } from "react";
 import "./MobileMenu.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import headerAvatar from "../../assets/header__avatar.svg";
 
 const MobileMenu = ({ menuOpened, onToggle, onOpen }) => {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);

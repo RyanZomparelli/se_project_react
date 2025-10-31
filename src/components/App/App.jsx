@@ -169,6 +169,18 @@ function App() {
     }
   };
 
+  const handleSignOut = () => {
+    setIsLoading(true);
+    setConfirmMsg("Come back soon ☀️");
+    jwt.removeToken();
+    setIsLoggedIn(false);
+    setCurrentUser({});
+    setTimeout(() => {
+      setIsLoading(false);
+      setConfirmMsg("");
+    }, 2000);
+  };
+
   // Why not in a useEffect hook? These are user-triggered actions. They should
   // only happen when the user decides to perform them.
   // Use useEffect for API calls that should happen automatically (side effects).
@@ -246,17 +258,6 @@ function App() {
             });
           })
           .catch(console.error);
-  };
-
-  const handleSignOut = () => {
-    setIsLoading(true);
-    setConfirmMsg("Come back soon ☀️");
-    jwt.removeToken();
-    setIsLoggedIn(false);
-    setTimeout(() => {
-      setIsLoading(false);
-      setConfirmMsg("");
-    }, 2000);
   };
 
   // SIDE-EFFECTS

@@ -24,7 +24,7 @@ function Header({
 
   // Extract the first letter of user's name to create the placeholder avatar as
   // a fall back.
-  const firstLetter = currentUser.user?.name[0];
+  const firstLetter = currentUser.user?.name?.[0];
 
   // Future improvment: Create an Avatar component that manages state and handles
   // avatar styling across different components. With the current implementation

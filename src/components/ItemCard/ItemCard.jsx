@@ -3,7 +3,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "../ItemCard/ItemCard.css";
 
 function ItemCard({ clothingItem, handleItemCardClick, handleCardLike }) {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
 
   // Here and in ClothesSection to track liked status.
   const isLiked = clothingItem.likes.some(
@@ -18,7 +18,7 @@ function ItemCard({ clothingItem, handleItemCardClick, handleCardLike }) {
     <li className="clothing__card">
       <div className="clothing__card-header">
         <p className="clothing__card-title">{clothingItem.name}</p>
-        {currentUser.user &&
+        {isLoggedIn &&
           (isLiked ? (
             <button
               className="clothing__card-likebtn"

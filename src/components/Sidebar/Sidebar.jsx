@@ -8,12 +8,12 @@ const Sidebar = ({ onModalOpen, handleSignOut }) => {
   return (
     <section className="sidebar">
       <img
-        src={currentUser.user.avatar}
+        src={currentUser.user?.avatar}
         alt="Profile image."
         className="sidebar__avatar"
       />
       <div className="sidebar__content">
-        <h2 className="sidebar__profile">{currentUser.user.name}</h2>
+        <h2 className="sidebar__profile">{currentUser.user?.name}</h2>
         <button
           className="sidebar__profile-data"
           onClick={() => onModalOpen("edit-profile")}

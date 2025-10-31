@@ -9,7 +9,7 @@ export default function ItemModal({
   onModalOpen,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
-  const isOwnCard = card.owner === currentUser.user._id;
+  const isOwnCard = card.owner === currentUser?.user?._id;
 
   return (
     <section className="modal" onClick={onOverlayClick}>
