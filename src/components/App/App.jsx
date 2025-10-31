@@ -248,6 +248,17 @@ function App() {
           .catch(console.error);
   };
 
+  const handleSignOut = () => {
+    setIsLoading(true);
+    setConfirmMsg("Come back soon ☀️");
+    jwt.removeToken();
+    setIsLoggedIn(false);
+    setTimeout(() => {
+      setIsLoading(false);
+      setConfirmMsg("");
+    }, 2000);
+  };
+
   // SIDE-EFFECTS
 
   // We use the token at login and check for it on inital page load to keep users
@@ -362,6 +373,7 @@ function App() {
                         handleItemCardClick={handleItemCardClick}
                         onModalOpen={handleOpenModal}
                         handleCardLike={handleCardLike}
+                        handleSignOut={handleSignOut}
                       />
                     </ProtectedRoute>
                   }

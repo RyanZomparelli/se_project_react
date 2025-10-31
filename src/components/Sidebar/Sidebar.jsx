@@ -1,8 +1,8 @@
 import "./Sidebar.css";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-const Sidebar = ({ onModalOpen }) => {
+const Sidebar = ({ onModalOpen, handleSignOut }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
@@ -20,7 +20,9 @@ const Sidebar = ({ onModalOpen }) => {
         >
           Change profile data
         </button>
-        <button className="sidebar__profile-logout">Log out</button>
+        <button className="sidebar__profile-logout" onClick={handleSignOut}>
+          Log out
+        </button>
       </div>
     </section>
   );

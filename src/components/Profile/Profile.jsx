@@ -9,10 +9,11 @@ const Profile = ({
   handleItemCardClick,
   onModalOpen,
   handleCardLike,
+  handleSignOut,
 }) => {
   return (
     <div className="profile">
-      <Sidebar onModalOpen={onModalOpen} />
+      <Sidebar onModalOpen={onModalOpen} handleSignOut={handleSignOut} />
       <div className="profile__clothing-container">
         <div className="profile__btn-container">
           <p className="profile__text">Your Items</p>
