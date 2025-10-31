@@ -44,8 +44,6 @@ function App() {
 
   // HELPERS
 
-  console.log("From App ClothingItems: ", clothingItems);
-
   const handleOpenModal = (modal) => {
     setActiveModal(modal);
   };

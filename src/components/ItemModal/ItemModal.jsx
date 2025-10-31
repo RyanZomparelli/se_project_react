@@ -10,7 +10,6 @@ export default function ItemModal({
 }) {
   const { currentUser } = useContext(CurrentUserContext);
   const isOwnCard = card.owner === currentUser.user._id;
-  console.log("From ItemModal: ", card);
 
   return (
     <section className="modal" onClick={onOverlayClick}>

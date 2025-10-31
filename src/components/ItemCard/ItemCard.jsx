@@ -3,16 +3,14 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "../ItemCard/ItemCard.css";
 
 function ItemCard({ clothingItem, handleItemCardClick, handleCardLike }) {
-  console.log("From ItemCard, ITEMS: ", clothingItem);
   const { currentUser } = useContext(CurrentUserContext);
 
   // Here and in ClothesSection to track liked status.
   const isLiked = clothingItem.likes.some(
-    (_id) => _id === currentUser.user._id
-  );
+    (_id) => _id === currentUser.user?._id // .user?._id Optional chaining to keep
+  ); // the app from crashing when not logged in.
 
   const handleLike = () => {
-    console.log("From handleLike in ItemCard: ", isLiked);
     handleCardLike({ _id: clothingItem._id, isLiked });
   };
 
@@ -20,17 +18,18 @@ function ItemCard({ clothingItem, handleItemCardClick, handleCardLike }) {
     <li className="clothing__card">
       <div className="clothing__card-header">
         <p className="clothing__card-title">{clothingItem.name}</p>
-        {isLiked ? (
-          <button
-            className="clothing__card-likebtn"
-            onClick={handleLike}
-          ></button>
-        ) : (
-          <button
-            className="clothing__card-unlikedbtn"
-            onClick={handleLike}
-          ></button>
-        )}
+        {currentUser.user &&
+          (isLiked ? (
+            <button
+              className="clothing__card-likebtn"
+              onClick={handleLike}
+            ></button>
+          ) : (
+            <button
+              className="clothing__card-unlikedbtn"
+              onClick={handleLike}
+            ></button>
+          ))}
       </div>
       <img
         src={clothingItem.imageUrl}
