@@ -1,0 +1,26 @@
+<svg class="wtwr-storm-icon" width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="Error: storm cloud" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="cloudClip">
+      <path d="M68 44c7.2 0 13 5.8 13 13s-5.8 13-13 13H28c-8.3 0-15-6.7-15-15 0-7.4 5.4-13.6 12.6-14.8 1.3-9.5 9.5-16.9 19.3-16.9 7.6 0 14.2 4.2 17.5 10.3 1.6-.5 3.3-.8 5.1-.8z"></path>
+    </clipPath>
+  </defs>
+
+  <!-- Cloud -->
+  <path d="M68 44c7.2 0 13 5.8 13 13s-5.8 13-13 13H28c-8.3 0-15-6.7-15-15 0-7.4 5.4-13.6 12.6-14.8 1.3-9.5 9.5-16.9 19.3-16.9 7.6 0 14.2 4.2 17.5 10.3 1.6-.5 3.3-.8 5.1-.8z" fill="var(--cloud, #bac4cf)"></path>
+  <!-- Subtle shadow at bottom of cloud -->
+  <rect x="13" y="60" width="68" height="10" fill="var(--shadow, #9aa6b2)" opacity="0.35" clip-path="url(#cloudClip)"></rect>
+
+  <!-- Sad eyes -->
+  <circle cx="44" cy="53" r="3.2" fill="var(--face, #1c1c1c)"></circle>
+  <circle cx="58" cy="53" r="3.2" fill="var(--face, #1c1c1c)"></circle>
+  <!-- Frown -->
+  <path d="M50.8 64c-3.6 0-6.2-.8-7.9-2.4a1.6 1.6 0 0 1 2.2-2.3c1.1 1 3 1.5 5.7 1.5s4.6-.5 5.7-1.5a1.6 1.6 0 1 1 2.2 2.3c-1.7 1.6-4.3 2.4-7.9 2.4z" fill="var(--face, #1c1c1c)"></path>
+
+  <!-- Tiny raindrops -->
+  <path d="M30 78c0 2.2-1.8 4-4 4s-4-1.8 0-6 4 1.8 4 2z" fill="var(--drop, #6aa7ff)"></path>
+  <path d="M48 82c0 2.2-1.8 4-4 4s-4-1.8 0-6 4 1.8 4 2z" fill="var(--drop, #6aa7ff)"></path>
+  <path d="M66 78c0 2.2-1.8 4-4 4s-4-1.8 0-6 4 1.8 4 2z" fill="var(--drop, #6aa7ff)"></path>
+
+  <!-- Small bolt -->
+  <path d="M58 70l6-8h-4l4-7-10 10h4l-4 5z" fill="var(--bolt, #ffd166)" opacity="0.95"></path>
+</svg>

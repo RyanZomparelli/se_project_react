@@ -28,7 +28,6 @@ const RegisterModal = ({
       name="sign-up"
       buttonText="Sign Up"
       onClose={onClose}
-      onOverlayClick={onOverlayClick}
       onSubmit={handleSubmit}
     >
       <fieldset className="modal__text-inputs">

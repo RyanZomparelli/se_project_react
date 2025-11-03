@@ -3,7 +3,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-const EditProfileModal = ({ onClose, onOverlayClick, handleEditProfile }) => {
+const EditProfileModal = ({ onClose, handleEditProfile, activeModal }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
   const { values, handleChange } = useForm({
@@ -22,7 +22,7 @@ const EditProfileModal = ({ onClose, onOverlayClick, handleEditProfile }) => {
       name="edit-profile"
       buttonText="Save changes"
       onClose={onClose}
-      onOverlayClick={onOverlayClick}
+      activeModal={activeModal}
       onSubmit={handleSubmit}
     >
       <fieldset className="modal__text-inputs">

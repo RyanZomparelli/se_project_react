@@ -1,18 +1,26 @@
-const ErrorModal = ({ onOverlayClick, onClose, error }) => {
+import Modal from "../Modal/Modal";
+import stormCloud from "../../assets/storm-cloud.svg";
+import "./ErrorModal.css";
+
+const ErrorModal = ({ onClose, error, activeModal }) => {
   return (
-    <section onClick={onOverlayClick} className="modal">
-      <div className="modal__container modal__container_type_delete">
-        <button onClick={onClose} className="modal__btn-close"></button>
-        <p className="delete-modal__text">{error} 😔</p>
-        <p className="delete-modal__text">
+    <Modal modalName="error-modal" onClose={onClose} activeModal={activeModal}>
+      <img
+        src={stormCloud}
+        alt="Storm cloud image."
+        className="error-modal__img"
+      />
+      <div className="error-modal__text-container">
+        <p className="error-modal__text">{error}</p>
+        <p className="error-modal__text">
           {error.startsWith("Login")
-            ? "Please log in manually"
-            : "please try again"}{" "}
-          😀
+            ? "Please log in manually."
+            : "Please try again."}{" "}
         </p>
       </div>
-    </section>
+    </Modal>
   );
 };
 
 export default ErrorModal;
+//  <div className="modal__container modal__container_type_delete"></div>

@@ -1,3 +1,4 @@
+import Modal from "../Modal/Modal";
 import "./ModalWithForm.css";
 
 /*
@@ -17,25 +18,26 @@ export default function ModalWithForm({
   buttonText,
   onClose,
   children,
-  onOverlayClick,
   onSubmit,
+  activeModal,
 }) {
   return (
-    <section className="modal" onClick={onOverlayClick}>
-      <div className="modal__container">
-        <button className="modal__btn-close" onClick={onClose}></button>
-        <form
-          name={name}
-          className={`modal__form modal__form_type_${name}`}
-          onSubmit={onSubmit}
-        >
-          <h3 className="modal__form-title">{title}</h3>
-          {children}
-          <button type="submit" className="modal__btn-submit">
-            {buttonText}
-          </button>
-        </form>
-      </div>
-    </section>
+    <Modal
+      modalName="modal-with-form"
+      onClose={onClose}
+      activeModal={activeModal}
+    >
+      <form
+        name={name}
+        className={`modal__form modal__form_type_${name}`}
+        onSubmit={onSubmit}
+      >
+        <h3 className="modal__form-title">{title}</h3>
+        {children}
+        <button type="submit" className="modal__btn-submit">
+          {buttonText}
+        </button>
+      </form>
+    </Modal>
   );
 }

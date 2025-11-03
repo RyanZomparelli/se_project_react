@@ -1,17 +1,3 @@
-.item-modal__btn-close {
-  background-image: url(../../assets/close_btn_trans.svg);
-  background-color: transparent;
-  width: 20px;
-  height: 20px;
-  border: none;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 20px;
-  right: 28px;
-  cursor: pointer;
-}
-
 .item-modal__img {
   max-width: 498px;
   width: 100%;
