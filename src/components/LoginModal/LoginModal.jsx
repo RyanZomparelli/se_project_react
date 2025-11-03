@@ -2,7 +2,12 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
 import "./LoginModal.css";
 
-const LoginModal = ({ onClose, onOverlayClick, handleLogin }) => {
+const LoginModal = ({
+  onClose,
+  onOverlayClick,
+  handleLogin,
+  handleOpenModal,
+}) => {
   const { values, handleChange } = useForm({
     email: "",
     password: "",
@@ -51,7 +56,14 @@ const LoginModal = ({ onClose, onOverlayClick, handleLogin }) => {
         </label>
       </fieldset>
       <div className="login-modal-btn__container">
-        <button className="login-modal__register-btn" type="button">
+        <button
+          className="login-modal__register-btn"
+          type="button"
+          onClick={() => {
+            handleOpenModal("sign-up");
+          }}
+        >
+          {" "}
           or Sign Up
         </button>
       </div>

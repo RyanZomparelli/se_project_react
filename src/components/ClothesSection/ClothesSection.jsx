@@ -1,50 +1,49 @@
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import ItemCard from "../ItemCard/ItemCard";
+import "./ClothesSection.css";
+
+// ClothesSection = The container/section for the profile page.
+// - Holds the "Your Items" heading and "+ Add new" btn.
+// - Contains the "Add New" button.
+// - Contains the <ul> that wraps all clothing items.
+// - Manages the overall layout of the clothes section.
 
 const ClothesSection = ({
-  clothingItem,
+  onModalOpen,
+  clothingItems,
   handleItemCardClick,
   handleCardLike,
 }) => {
   const { currentUser } = useContext(CurrentUserContext);
-  const isOwnCard = clothingItem.owner === currentUser.user._id;
-
-  const isLiked = clothingItem.likes.some(
-    (_id) => _id === currentUser.user._id
-  );
-
-  const handleLike = () => {
-    console.log("From handleLike in ItemCard: ", isLiked);
-    handleCardLike({ _id: clothingItem._id, isLiked });
-  };
 
   return (
-    <>
-      {isOwnCard && (
-        <li className="clothing__card">
-          <div className="clothing__card-header">
-            <p className="clothing__card-title">{clothingItem.name}</p>
-            {isLiked ? (
-              <button
-                className="clothing__card-likebtn"
-                onClick={handleLike}
-              ></button>
-            ) : (
-              <button
-                className="clothing__card-unlikedbtn"
-                onClick={handleLike}
-              ></button>
-            )}
-          </div>
-          <img
-            src={clothingItem.imageUrl}
-            alt={clothingItem.name}
-            className="clothing__card-image"
-            onClick={() => handleItemCardClick(clothingItem)}
-          />
-        </li>
-      )}
-    </>
+    <section className="clothing-section">
+      <div className="clothing-section__btn-container">
+        <p className="clothing-section__text">Your Items</p>
+
+        <button
+          className="clothing-section__add-btn"
+          onClick={() => onModalOpen("add-garment")}
+        >
+          + Add new
+        </button>
+      </div>
+      <ul className="clothing-section__clothing-list">
+        {clothingItems.map((item) => {
+          if (item.owner === currentUser.user._id) {
+            return (
+              <ItemCard
+                key={item._id}
+                clothingItem={item}
+                handleItemCardClick={handleItemCardClick}
+                handleCardLike={handleCardLike}
+              />
+            );
+          }
+        })}
+      </ul>
+    </section>
   );
 };
 

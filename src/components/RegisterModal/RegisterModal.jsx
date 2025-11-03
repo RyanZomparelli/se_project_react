@@ -2,7 +2,12 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
 import "./RegisterModal.css";
 
-const RegisterModal = ({ onClose, onOverlayClick, handleRegistration }) => {
+const RegisterModal = ({
+  onClose,
+  onOverlayClick,
+  handleRegistration,
+  handleOpenModal,
+}) => {
   // Destructure the return values from the custom useForm hook and create a state
   // object containing all the necessary values.
   const { values, handleChange } = useForm({
@@ -83,7 +88,13 @@ const RegisterModal = ({ onClose, onOverlayClick, handleRegistration }) => {
         </label>
       </fieldset>
       <div className="register-modal-btn__container">
-        <button className="register-modal__login-btn" type="button">
+        <button
+          className="register-modal__login-btn"
+          type="button"
+          onClick={() => {
+            handleOpenModal("log-in");
+          }}
+        >
           or Log In
         </button>
       </div>

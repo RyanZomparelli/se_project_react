@@ -394,6 +394,7 @@ function App() {
               <RegisterModal
                 onClose={handleCloseModal}
                 onOverlayClick={handleOverlayClick}
+                handleOpenModal={handleOpenModal}
                 handleRegistration={handleRegistration}
               />
             )}
@@ -401,6 +402,7 @@ function App() {
               <LoginModal
                 onClose={handleCloseModal}
                 onOverlayClick={handleOverlayClick}
+                handleOpenModal={handleOpenModal}
                 handleLogin={handleLogin}
               />
             )}
