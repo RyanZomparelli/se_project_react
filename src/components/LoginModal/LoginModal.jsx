@@ -7,6 +7,7 @@ const LoginModal = ({
   onOverlayClick,
   handleLogin,
   handleOpenModal,
+  activeModal,
 }) => {
   const { values, handleChange } = useForm({
     email: "",
@@ -24,8 +25,8 @@ const LoginModal = ({
       name="log-in"
       buttonText="Log In"
       onClose={onClose}
-      onOverlayClick={onOverlayClick}
       onSubmit={handleSubmit}
+      activeModal={activeModal}
     >
       <fieldset className="modal__text-inputs">
         <label htmlFor="email" className="modal__form-label">

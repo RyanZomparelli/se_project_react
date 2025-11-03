@@ -1,0 +1,65 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Because of clothing__card-header in ItemCard.css */
+  z-index: 2;
+}
+
+.modal__container {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  max-width: 496px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  position: relative;
+}
+
+.modal__container_type_delete-modal {
+  padding: 60px 0;
+  max-width: 670px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__container_type_error-modal {
+  padding: 60px 20px 60px 50px;
+  display: flex;
+}
+
+.modal__btn-close {
+  background-image: url(../../assets/greyClose.svg);
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  cursor: pointer;
+}
+
+.modal__btn-close_type_item-modal {
+  background-image: url(../../assets/close_btn_trans.svg);
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  cursor: pointer;
+}

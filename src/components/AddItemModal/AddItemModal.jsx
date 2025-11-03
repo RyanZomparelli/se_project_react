@@ -1,7 +1,7 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm.js";
 
-const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
+const AddItemModal = ({ onClose, onOverlayClick, onAddItem, activeModal }) => {
   // Without the custom useForm hook I would have to use seperate state variables
   // for each form input and create an item object upon submission. The commented
   // out code in this component reflects that.
@@ -42,7 +42,7 @@ const AddItemModal = ({ onClose, onOverlayClick, onAddItem }) => {
       name="new-garment"
       buttonText="Add garment"
       onClose={onClose}
-      onOverlayClick={onOverlayClick}
+      activeModal={activeModal}
       onSubmit={handleSubmit}
     >
       <fieldset className="modal__text-inputs">

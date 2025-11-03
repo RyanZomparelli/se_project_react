@@ -52,20 +52,8 @@ function App() {
     setActiveModal("");
   };
 
-  const handleEscClose = (e) => {
-    if (e.key === "Escape") {
-      handleCloseModal();
-    }
-  };
-
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      handleCloseModal();
-    }
-  };
-
   const handleItemCardClick = (card) => {
-    setActiveModal("preview-item");
+    setActiveModal("item-modal");
     setSelectedItem(card);
   };
 
@@ -114,7 +102,7 @@ function App() {
         } catch (err) {
           setErrorMessage(`Login failed...`);
           console.error(err.message);
-          handleOpenModal("error");
+          handleOpenModal("error-modal");
           // Clean up.
         } finally {
           setTimeout(() => {
@@ -125,8 +113,8 @@ function App() {
       }
       // This will notify the user and handle registration errors before login is triggered.
     } catch (err) {
-      setErrorMessage(`Registration failed, ${err.message}`);
-      handleOpenModal("error");
+      setErrorMessage(`Registration failed. ${err.message}.`);
+      handleOpenModal("error-modal");
       setTimeout(() => {
         setIsLoading(false);
         setConfirmMsg("");
@@ -158,9 +146,9 @@ function App() {
         }
       }
     } catch (err) {
-      setErrorMessage(`Sorry, login failed... ${err.message}`);
+      setErrorMessage(`Sorry, ${err.message}`);
       console.error("Login failed", err.message);
-      handleOpenModal("error");
+      handleOpenModal("error-modal");
     } finally {
       setTimeout(() => {
         setIsLoading(false);
@@ -222,7 +210,7 @@ function App() {
     } catch (err) {
       setErrorMessage("We're sorry, failed to save update..");
       console.error(err.message);
-      handleOpenModal("error");
+      handleOpenModal("error-modal");
     } finally {
       setTimeout(() => {
         setIsLoading(false);
@@ -312,23 +300,6 @@ function App() {
       .catch((error) => console.error(error));
   }, []);
 
-  // When interacting with the DOM directly in React, it must be done in a useEffect
-  // hook. Here we add a listener to the document only when the activeModal state
-  // is truthy. To prevent a build-up of old listeners (memory leaks) remove
-  // them with Reacts cleanup pattern. Return a callback to the useEffect hook for
-  // deferred execution.
-  useEffect(() => {
-    if (activeModal) {
-      document.addEventListener("keyup", handleEscClose);
-      document.addEventListener("click", handleOverlayClick);
-    }
-
-    return () => {
-      document.removeEventListener("keyup", handleEscClose);
-      document.removeEventListener("click", handleOverlayClick);
-    };
-  }, [activeModal]);
-
   return (
     <>
       {isLoading ? (
@@ -383,57 +354,57 @@ function App() {
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </CurrentTemperatureUnitContext.Provider>
-            {activeModal === "error" && (
+            {activeModal === "error-modal" && (
               <ErrorModal
                 onClose={handleCloseModal}
-                onOverlayClick={handleOverlayClick}
                 error={errorMessage}
+                activeModal={activeModal}
               />
             )}
             {activeModal === "sign-up" && (
               <RegisterModal
                 onClose={handleCloseModal}
-                onOverlayClick={handleOverlayClick}
                 handleOpenModal={handleOpenModal}
                 handleRegistration={handleRegistration}
+                activeModal={activeModal}
               />
             )}
             {activeModal === "log-in" && (
               <LoginModal
                 onClose={handleCloseModal}
-                onOverlayClick={handleOverlayClick}
                 handleOpenModal={handleOpenModal}
                 handleLogin={handleLogin}
+                activeModal={activeModal}
               />
             )}
             {activeModal === "edit-profile" && (
               <EditProfileModal
                 onClose={handleCloseModal}
-                onOverlayClick={handleOverlayClick}
                 handleEditProfile={handleEditProfile}
+                activeModal={activeModal}
               />
             )}
             {activeModal === "add-garment" && (
               <AddItemModal
                 onClose={handleCloseModal}
-                onOverlayClick={handleOverlayClick}
                 onAddItem={handleAddItemSubmit}
+                activeModal={activeModal}
               />
             )}
-            {activeModal === "preview-item" && (
+            {activeModal === "item-modal" && (
               <ItemModal
                 onClose={handleCloseModal}
                 card={selectedItem}
-                onOverlayClick={handleOverlayClick}
                 onModalOpen={handleOpenModal}
+                activeModal={activeModal}
               />
             )}
-            {activeModal === "delete-item" && (
+            {activeModal === "delete-modal" && (
               <DeleteConfirmationModal
                 card={selectedItem}
                 onDelete={handleItemDelete}
                 onClose={handleCloseModal}
-                onOverlayClick={handleOverlayClick}
+                activeModal={activeModal}
               />
             )}
             <Footer />
