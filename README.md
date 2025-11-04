@@ -1,25 +1,48 @@
 # WTWR (What to Wear?)
 
+Weather-aware outfits, powered by React and an Express API.
+
 ## About the Project
 
-## The idea is simple: we fetch the daily weather forecast from an API, process the data, and then recommend clothing based on the current weather conditions. This project is designed to demonstrate core React concepts like state, effects, context, routing, and more.
+### The idea is simple: we fetch the daily weather forecast from an API, process the data, and then recommend clothing based on the current weather conditions. This project is designed to demonstrate core React concepts like state, effects, context, routing, and more.
 
-### Now using my express back-end API!
+### Features
+
+🔐 JWT authentication & protected routes
+
+👕 CRUD for clothing items (likes included)
+
+🌦️ Live weather via OpenWeatherMap (F/°C toggle)
+
+📱 Responsive UI with accessible modals
+
+## Table of Contents
+
+- [About the Project](#about-the-project)
+- [Latest updates](#latest-updates)
+- [React Concepts](#react-concepts-used)
+- [Backend API](#backend-api)
+- [Figma Design](#figma-design)
+- [Screenshots](#screenshots)
+- [Tech Stack](#tech-stack)
+- [Future Improvements](#future-improvements)
+
+---
+
+## Latest Updates
+
+### Now using my Express.js app as the back-end API!
+
+- Supports user authentication/authorization.
+- Manages app-wide CRUD operations for users and clothing cards.
 
 Click the link to check it out:
 
 - [WTWR API GitHub repo](https://github.com/RyanZomparelli/se_project_express)
 
----
+Registration Modal on the non protected home route.
 
-## Table of Contents
-
-- [About the Project](#about-the-project)
-- [React Concepts](#react-concepts-used)
-- [Figma Design](#figma-design)
-- [Screenshots](#screenshots)
-- [Tech Stack](#tech-stack)
-- [Future Improvements](#future-improvements)
+![Registration Modal](./src/assets/registration1440.png)
 
 ---
 
@@ -106,9 +129,32 @@ export default useForm;
 - The app uses `react-router-dom` to support multiple views (`/` for Main and `/profile` for Profile).
 - Routes are defined using `<Routes>` and `<Route>`, and navigation is handled via `<Link>` components.
 
+## Backend API
+
+The app uses my Express API:
+
+Repo: https://github.com/RyanZomparelli/se_project_express
+
+Endpoints (sample):
+
+- POST /signup – create user
+
+- POST /signin – get JWT
+
+- GET /users/me – current user (auth)
+
+- GET /items – list clothing items
+
+- POST /items – create (auth)
+
+- PUT /items/:id/likes / DELETE /items/:id/likes – like/unlike (auth)
+
+- DELETE /items/:id – owner only
+
 ## Figma Design
 
 - [Original design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
+- [Latest design](https://www.figma.com/design/bfVOvqlLmoKZ5lpro8WWBe/Sprint-14_-WTWR?node-id=0-1&p=f&t=Xc9CgXVm1ME3OSbW-0)
 
 ## Screenshots
 
@@ -130,16 +176,45 @@ Garment Modal
 
 ## Tech Stack
 
-- **Frontend:** React, React Router
-- **State Management:** React Context + useState
-- **Data Fetching:** Fetch API with async handling
-- **Styling:** CSS
-- **Design:** Figma
-- **Weather API:** OpenWeatherMap
+**Frontend**
+
+- React (Vite)
+- React Router
+- Context API
+- Fetch API
+- CSS (custom)
+- ESLint (Vite config)
+
+**Backend / API**
+
+- Node.js + Express
+- RESTful routes (items, auth, profile)
+
+**Database**
+
+- MongoDB
+- Mongoose (schemas, validation)
+
+**Auth & Security**
+
+- JWT (jsonwebtoken) for auth
+- bcryptjs for password hashing
+- Protected routes
+- Basic input validation (server-side)
+
+**External Services**
+
+- OpenWeatherMap (current weather)
+
+**Tooling & DX**
+
+- npm scripts (`dev`, `build`, `preview`, `lint`)
+- Vite dev server + HMR
+- GitHub for version control/PRs
 
 ---
 
 ## Future Improvements
 
-- Add user authentication
-- Replace mock data with a real MongoDB backend
+- Cloud Deployment!
+- Tests
