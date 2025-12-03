@@ -1,4 +1,5 @@
-import { baseUrl, handleResponse, getRequestHeaders } from "./api";
+import { handleResponse, getRequestHeaders } from "./api";
+import { baseUrl } from "./constants";
 
 export const register = ({ email, password, name, avatar }) => {
   return fetch(`${baseUrl}/signup`, {

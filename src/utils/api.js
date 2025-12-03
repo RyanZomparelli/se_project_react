@@ -1,6 +1,6 @@
-// 'DRY' HELPERS
+import { baseUrl } from "./constants";
 
-export const baseUrl = "http://localhost:3001";
+// 'DRY' HELPERS
 
 export const getRequestHeaders = (token = null) => {
   if (!token)
