@@ -188,7 +188,7 @@ function App() {
     const token = jwt.getToken();
     api
       .removeClothingItem(removeId, token)
-      .then((data) => {
+      .then(() => {
         const remainingCards = clothingItems.filter((item) => {
           return item._id !== removeId;
         });

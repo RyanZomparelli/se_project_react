@@ -2,12 +2,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
 import "./RegisterModal.css";
 
-const RegisterModal = ({
-  onClose,
-  onOverlayClick,
-  handleRegistration,
-  handleOpenModal,
-}) => {
+const RegisterModal = ({ onClose, handleRegistration, handleOpenModal }) => {
   // Destructure the return values from the custom useForm hook and create a state
   // object containing all the necessary values.
   const { values, handleChange } = useForm({

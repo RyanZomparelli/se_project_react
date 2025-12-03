@@ -2,13 +2,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useForm from "../../hooks/useForm";
 import "./LoginModal.css";
 
-const LoginModal = ({
-  onClose,
-  onOverlayClick,
-  handleLogin,
-  handleOpenModal,
-  activeModal,
-}) => {
+const LoginModal = ({ onClose, handleLogin, handleOpenModal, activeModal }) => {
   const { values, handleChange } = useForm({
     email: "",
     password: "",
