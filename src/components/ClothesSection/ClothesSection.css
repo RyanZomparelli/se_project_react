@@ -1,6 +1,11 @@
 .clothing-section {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+}
+
+.clothing-section__message {
+  padding-top: 250px;
 }
 
 .clothing-section__btn-container {
@@ -37,4 +42,5 @@
   gap: 20px;
   padding: 0;
   margin: 0;
+  flex-grow: 1;
 }

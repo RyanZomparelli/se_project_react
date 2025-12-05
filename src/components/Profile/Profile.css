@@ -4,6 +4,7 @@
   align-items: flex-start;
   justify-content: space-between;
   padding-top: 47px;
+  flex-grow: 1;
 }
 
 @media screen and (max-width: 650px) {

@@ -30,18 +30,22 @@ const ClothesSection = ({
         </button>
       </div>
       <ul className="clothing-section__clothing-list">
-        {clothingItems.map((item) => {
-          if (item.owner === currentUser.user._id) {
-            return (
-              <ItemCard
-                key={item._id}
-                clothingItem={item}
-                handleItemCardClick={handleItemCardClick}
-                handleCardLike={handleCardLike}
-              />
-            );
-          }
-        })}
+        {clothingItems.length === 0 ? (
+          <p className="clothing-section__message">No added items yet</p>
+        ) : (
+          clothingItems.map((item) => {
+            if (item.owner === currentUser.user._id) {
+              return (
+                <ItemCard
+                  key={item._id}
+                  clothingItem={item}
+                  handleItemCardClick={handleItemCardClick}
+                  handleCardLike={handleCardLike}
+                />
+              );
+            }
+          })
+        )}
       </ul>
     </section>
   );
