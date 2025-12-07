@@ -20,17 +20,20 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 
 //Utility/API imports
-import { coordinates, apiKey } from "../../utils/constants.js";
-import { getWeatherData, filterWeatherData } from "../../utils/weatherApi.js";
+import { defaultCoordinates, apiKey } from "../../utils/constants.js";
+import { filterWeatherData } from "../../utils/helpers.js";
+import * as weatherApi from "../../utils/weatherApi.js";
 import * as api from "../../utils/api.js";
 import * as auth from "../../utils/auth.js";
 import * as jwt from "../../utils/token.js";
+import * as location from "../../utils/location.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [weather, setWeather] = useState({});
+  const [locationName, setLocationName] = useState("");
   const [clothingItems, setClothingItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
   const [activeModal, setActiveModal] = useState("");
@@ -67,6 +70,58 @@ function App() {
     setIsMobileMenuOpened(!isMobileMenuOpened);
   };
 
+  async function setUserWeather(zip, key) {
+    try {
+      if (!zip) {
+        setDefaultWeather(defaultCoordinates, key);
+      }
+
+      const locationData = await weatherApi.getCoordinates(zip, key);
+      const userCoordinates = {
+        latitude: locationData.lat,
+        longitude: locationData.lon,
+      };
+      //  The location api name field can be different between the weather api's
+      // location.name field so I use the getCoordinates() data from the location api for the name.
+      setLocationName(locationData.name);
+      location.saveLocation(locationData.name);
+      location.saveUserCoordinates(userCoordinates);
+
+      // Fetch the weather for the user location and set weather state.
+      const weatherData = await weatherApi.getWeatherData(userCoordinates, key);
+      const weather = filterWeatherData(weatherData);
+      setWeather(weather);
+    } catch (error) {
+      console.error("User location failed: ", error.message);
+      setErrorMessage("Location failed. Using default location");
+      setDefaultWeather(defaultCoordinates, key);
+      handleOpenModal("error-modal");
+    }
+  }
+
+  async function setDefaultWeather(coordinates, key) {
+    // If a user is not logged in, but has cached data in their browser, we will use
+    // it to display persistant weather location on their device. Otherwise we will use
+    // the default global coordinates variable hardcoded to Baltimore, MD.
+    const storedLocation = location.getLocation();
+
+    if (storedLocation) {
+      setLocationName(storedLocation);
+    }
+
+    const storedCoords = location.getUserCoordinates();
+
+    let weatherData;
+    if (storedCoords) {
+      weatherData = await weatherApi.getWeatherData(storedCoords, key);
+    } else {
+      weatherData = await weatherApi.getWeatherData(coordinates, key);
+    }
+
+    const weather = filterWeatherData(weatherData);
+    setWeather(weather);
+  }
+
   // HANDLERS
 
   // App handles navigation and routing and controls global state like isLoggedIn
@@ -97,6 +152,7 @@ function App() {
           jwt.setToken(tokenData.token);
           const user = await auth.getCurrentUser(tokenData.token);
           setCurrentUser(user);
+          setUserWeather(user?.user?.zip, apiKey);
           setIsLoggedIn(true);
           handleCloseModal();
         } catch (err) {
@@ -139,6 +195,7 @@ function App() {
       if (data.token) {
         jwt.setToken(data.token);
         const user = await auth.getCurrentUser(data.token);
+        setUserWeather(user?.user?.zip, apiKey);
         if (user) {
           setCurrentUser(user);
           setIsLoggedIn(true);
@@ -259,37 +316,21 @@ function App() {
         .getCurrentUser(token)
         .then((user) => {
           setCurrentUser(user);
+          setUserWeather(user?.user?.zip, apiKey);
           setIsLoggedIn(true);
         })
         .catch(() => {
           jwt.removeToken();
           setIsLoggedIn(false);
+          setDefaultWeather(defaultCoordinates, apiKey);
         });
+    } else {
+      setDefaultWeather(defaultCoordinates, apiKey);
     }
   }, []);
 
   // These run automatically when the app starts. They're side effects of the
   // component mounting. Use useEffect.
-  // Weather data, loads automatically (side-effect), when component mounts (renders).
-  useEffect(() => {
-    getWeatherData(coordinates, apiKey)
-      .then((data) => {
-        if (data) {
-          const weatherData = filterWeatherData(data);
-          setWeather(weatherData);
-          //Somtimes loading happens so fast it creates a jarring flash
-          //This smooths out loading
-          setTimeout(() => setIsLoading(false), 1000);
-        }
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        console.error("Failed to fetch data:", error);
-      });
-    // Note the empty array dependency. This means the useEffect will run once
-    // on page load.
-  }, []);
-
   // Initial clothing items. Loads when component mounts (side-effect). useEffect...
   useEffect(() => {
     api
@@ -297,7 +338,9 @@ function App() {
       .then((data) => {
         setClothingItems(data);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .finally(setTimeout(() => setIsLoading(false), 1000));
+    // Note the empty array dependency. This means the useEffect will run once
   }, []);
 
   return (
@@ -319,6 +362,7 @@ function App() {
             >
               <Header
                 weather={weather}
+                locationName={locationName}
                 onModalOpen={handleOpenModal}
                 isMobileMenuOpened={isMobileMenuOpened}
                 onMobileMenuToggle={toggleMobileMenu}

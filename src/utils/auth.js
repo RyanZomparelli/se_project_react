@@ -1,7 +1,7 @@
 import { handleResponse, getRequestHeaders } from "./api";
 import { baseUrl } from "./constants";
 
-export const register = ({ email, password, name, avatar }) => {
+export const register = ({ email, password, name, avatar, zip }) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: getRequestHeaders(),
@@ -10,6 +10,7 @@ export const register = ({ email, password, name, avatar }) => {
       password,
       name,
       avatar,
+      zip,
     }),
   }).then(handleResponse);
 };

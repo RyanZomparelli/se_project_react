@@ -15,6 +15,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Header({
   weather,
+  locationName,
   isMobileMenuOpened,
   onMobileMenuToggle,
   onModalOpen,
@@ -25,6 +26,7 @@ function Header({
   // Extract the first letter of user's name to create the placeholder avatar as
   // a fall back.
   const firstLetter = currentUser.user?.name?.[0];
+  const city = locationName ? locationName : weather.location;
 
   // Future improvment: Create an Avatar component that manages state and handles
   // avatar styling across different components. With the current implementation
@@ -59,7 +61,10 @@ function Header({
             isMobileMenuOpened ? "header__date_menu_opened" : "header__date"
           }
         >
-          {currentDate}, {weather.location}
+          {/* The location api name field can be different between the weather 
+          api's location.name field so I use the getCoordinates() data from the 
+          location api for the name.*/}
+          {currentDate}, {city}
         </h1>
       </div>
       <div className="header__nav-bar">

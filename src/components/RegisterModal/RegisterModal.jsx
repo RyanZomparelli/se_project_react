@@ -10,6 +10,7 @@ const RegisterModal = ({ onClose, handleRegistration, handleOpenModal }) => {
     password: "",
     name: "",
     avatar: "",
+    zip: "",
   });
 
   const handleSubmit = (e) => {
@@ -76,6 +77,19 @@ const RegisterModal = ({ onClose, handleRegistration, handleOpenModal }) => {
             placeholder="Avatar URL"
             name="avatar"
             value={values.avatar}
+            required
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="zip" className="modal__form-label">
+          Zipcode*
+          <input
+            className="modal__form-input"
+            id="zip"
+            type="text"
+            placeholder="format: 21211"
+            name="zip"
+            value={values.zip}
             required
             onChange={handleChange}
           />

@@ -75,7 +75,9 @@ export const baseUrl =
     ? "https://api.wtwr.host2go.net"
     : "http://localhost:3001";
 
-export const coordinates = {
+export const defaultCoordinates = {
   latitude: "39.290386",
   longitude: "-76.61219",
 };
+
+export const countryCode = "US";
