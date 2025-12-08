@@ -30,7 +30,7 @@ const ClothesSection = ({
         </button>
       </div>
       <ul className="clothing-section__clothing-list">
-        {clothingItems.length === 0 ? (
+        {!clothingItems.some((item) => item.owner === currentUser.user._id) ? (
           <p className="clothing-section__message">No added items yet</p>
         ) : (
           clothingItems.map((item) => {
