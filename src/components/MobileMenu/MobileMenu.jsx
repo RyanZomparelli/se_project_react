@@ -3,6 +3,7 @@ import { useContext } from "react";
 import "./MobileMenu.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import Avatar from "../Avatar/Avatar";
 
 const MobileMenu = ({ menuOpened, onToggle, onOpen }) => {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
@@ -39,11 +40,7 @@ const MobileMenu = ({ menuOpened, onToggle, onOpen }) => {
               onClick={onToggle}
             >
               {currentUser.user.name}
-              <img
-                src={currentUser.user.avatar}
-                alt="Profile image."
-                className="header__avatar"
-              />
+              <Avatar src={currentUser?.user?.avatar} />
             </Link>
             <button
               className="mobile-menu__add-btn"

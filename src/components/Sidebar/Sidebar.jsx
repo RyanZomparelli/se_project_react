@@ -2,15 +2,18 @@ import "./Sidebar.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
+import Avatar from "../Avatar/Avatar";
+
 const Sidebar = ({ onModalOpen, handleSignOut }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <section className="sidebar">
-      <img
-        src={currentUser.user?.avatar}
-        alt="Profile image."
+      <Avatar
+        src={currentUser?.user?.avatar}
+        alt="Profile image"
         className="sidebar__avatar"
+        placeHolderClassName="sidebar__avatar_placeholder"
       />
       <div className="sidebar__content">
         <h2 className="sidebar__profile">{currentUser.user?.name}</h2>
