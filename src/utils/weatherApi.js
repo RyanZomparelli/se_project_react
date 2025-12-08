@@ -4,7 +4,7 @@ import { countryCode } from "./constants";
 // Get coordinates from users zip codes.
 export function getCoordinates(zipCode, key) {
   return fetch(
-    `http://api.openweathermap.org/geo/1.0/zip?zip=${zipCode},${countryCode}&appid=${key}`
+    `https://api.openweathermap.org/geo/1.0/zip?zip=${zipCode},${countryCode}&appid=${key}`
   ).then(handleResponse);
 }
 
