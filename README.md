@@ -46,8 +46,8 @@ Weather-aware outfits, powered by React and an Express API.
 Check out these videos, where I describe my project
 and some challenges I faced while building it:
 
-- **UI & Frontend Overview (5 min):** https://youtu.be/your-frontend-video
-- **Backend & API Overview (5 min):** https://youtu.be/your-backend-video
+- **UI & Frontend Overview (7 min):** https://youtu.be/rKyM2rYG5Po
+- **Backend & API Overview (5 min):** Coming soon
 
 ## Install WTWR as a PWA
 
