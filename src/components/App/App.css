@@ -1,3 +1,7 @@
+#root {
+  background-color: rgba(243, 243, 243, 1);
+}
+
 .page {
   font-family: "Cabinet Grotesk", sans-serif;
   padding: 0 40px;

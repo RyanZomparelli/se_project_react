@@ -156,7 +156,7 @@ function App() {
           setIsLoggedIn(true);
           handleCloseModal();
         } catch (err) {
-          setErrorMessage(`Login failed...`);
+          setErrorMessage(`Account created, please log in.`);
           console.error(err.message);
           handleOpenModal("error-modal");
           // Clean up.

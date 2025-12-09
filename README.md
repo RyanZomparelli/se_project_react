@@ -2,6 +2,8 @@
 
 Weather-aware outfits, powered by React and an Express API.
 
+**Now Live on GCP! Scroll down for more info.**
+
 ## About the Project
 
 ### The idea is simple: we fetch the daily weather forecast from an API, process the data, and then recommend clothing based on the current weather conditions. This project is designed to demonstrate core React concepts like state, effects, context, routing, and more.
@@ -19,6 +21,8 @@ Weather-aware outfits, powered by React and an Express API.
 ## Table of Contents
 
 - [About the Project](#about-the-project)
+- [Accessing the Application](#accessing-the-application)
+- [Install WTWR as a PWA](#install-wtwr-as-a-pwa)
 - [Latest updates](#latest-updates)
 - [React Concepts](#react-concepts-used)
 - [Backend API](#backend-api)
@@ -29,7 +33,53 @@ Weather-aware outfits, powered by React and an Express API.
 
 ---
 
+## Accessing the Application
+
+**Production domain (frontend app):** https://wtwr.host2go.net
+
+**Backend GitHub repo:** https://github.com/RyanZomparelli/se_project_express
+
+**API base URL (backend):** https://api.wtwr.host2go.net
+
+## 🎥 Project Pitch Videos
+
+Check out these videos, where I describe my project
+and some challenges I faced while building it:
+
+- **UI & Frontend Overview (5 min):** https://youtu.be/your-frontend-video
+- **Backend & API Overview (5 min):** https://youtu.be/your-backend-video
+
+## Install WTWR as a PWA
+
+The WTWR application can be installed as a PWA (Progressive Web App) on your phone. This means it behaves almost exactly like a native app that you'd download from an app store.
+
+**Android | Chrome**
+
+1. Open this page in Chrome.
+
+2. Tap the menu icon (three vertical dots in the upper right corner).
+
+3. Select “Add to Home Screen.”
+
+4. Give your shortcut a name (or use the default), and tap Install or Add.
+
+The icon will now appear on your home screen.
+
+**iPhone | Safari**
+
+Open this page in Safari.
+
+1. Look at the bottom navigation toolbar and tap the Share icon — it’s the rectangle with an upward arrow.
+
+2. A menu will slide up from the bottom. Swipe through the options until you find “Add to Home Screen.”
+
+3. Tap it, give your icon a name (or leave the default), and tap Add.
+
 ## Latest Updates
+
+### Now fully deployed on GCP.
+
+Check out the sections above, _Accessing the Application_, and/or _Install WTWR as a PWA_ to see how to access the app!
 
 ### Now using my Express.js app as the back-end API!
 
