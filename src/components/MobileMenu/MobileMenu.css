@@ -1,3 +1,14 @@
+/* Potential update: You might also want to add pointer-events to prevent interaction when closed:
+
+.mobile-nav__dropdown {
+  /* ... other styles ... */
+/* pointer-events: none; Prevent clicks when closed */
+/*
+
+.mobile-nav__dropdown_open {
+  height: 230px;
+  pointer-events: auto; /* Allow clicks when open */
+
 .mobile-menu {
   margin-top: 18px;
   position: absolute;
