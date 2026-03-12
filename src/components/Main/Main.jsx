@@ -18,6 +18,18 @@ function Main({
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
+  const selectedItems = (() => {
+    const range = weather?.tempFeel;
+    if (!range) return [];
+
+    const exact = clothingItems.filter((item) => item.weather === range);
+    // Back-compat: if a user has no "cool" items yet, fall back to "cold" items.
+    if (range === "cool" && exact.length === 0) {
+      return clothingItems.filter((item) => item.weather === "cold");
+    }
+    return exact;
+  })();
+
   return (
     <main className="main page__section">
       <WeatherCard weather={weather} isMobileMenuOpened={isMobileMenuOpened} />
@@ -32,20 +44,16 @@ function Main({
           / You may want to wear:
         </p>
         <ul className="clothing__list">
-          {clothingItems
-            .filter((item) => {
-              return item.weather === weather.tempFeel;
-            })
-            .map((item) => {
-              return (
-                <ItemCard
-                  handleItemCardClick={handleItemCardClick}
-                  key={item._id}
-                  clothingItem={item}
-                  handleCardLike={handleCardLike}
-                />
-              );
-            })}
+          {selectedItems.map((item) => {
+            return (
+              <ItemCard
+                handleItemCardClick={handleItemCardClick}
+                key={item._id}
+                clothingItem={item}
+                handleCardLike={handleCardLike}
+              />
+            );
+          })}
         </ul>
       </section>
     </main>

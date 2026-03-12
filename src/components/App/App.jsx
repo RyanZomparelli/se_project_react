@@ -355,9 +355,6 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    console.log("isLoggedIn:", isLoggedIn);
-    console.log("isDemoMode:", isDemoMode);
-
       setIsDemoMode(!isLoggedIn);
   }, [isLoggedIn]);
 
@@ -366,8 +363,6 @@ useEffect(() => {
   if (!isDemoMode) return;
 
   let i = 0;
-
-  console.log("Demo mode scene:", demoScenes[i]);
 
   const applyScene = (scene) => {
     setLocationName(scene.location);

@@ -10,13 +10,15 @@ export function getWeatherCard(isDay, condition) {
 }
 
 export function setTemperatureRange(temperature) {
-  if (temperature >= 80) {
-    return "hot";
-  } else if (temperature >= 66) {
-    return "warm";
-  } else {
-    return "cold";
-  }
+  // Ranges (°F):
+  // - hot:  tempF >= 80
+  // - warm: 60 <= tempF < 80
+  // - cool: 32 <= tempF < 60
+  // - cold: tempF < 32
+  if (temperature >= 80) return "hot";
+  if (temperature >= 60) return "warm";
+  if (temperature >= 32) return "cool";
+  return "cold";
 }
 
 export function filterWeatherData(data) {

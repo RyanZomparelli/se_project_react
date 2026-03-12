@@ -110,6 +110,23 @@ const AddItemModal = ({ onClose, onAddItem, activeModal }) => {
         </label>
 
         <label
+          htmlFor="Cool"
+          className="modal__form-label modal__form-label_type_radio"
+        >
+          <input
+            type="radio"
+            name="weather"
+            id="Cool"
+            value="cool"
+            className="modal__radio-input"
+            required
+            checked={values.weather === "cool"}
+            onChange={handleChange}
+          />
+          Cool
+        </label>
+
+        <label
           htmlFor="Cold"
           className="modal__form-label modal__form-label_type_radio"
         >

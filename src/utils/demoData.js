@@ -1,4 +1,5 @@
 import { weatherCards } from "./constants";
+import { setTemperatureRange } from "./helpers";
 
 // Shape these to match real clothing items from the API
 // so that components like ItemCard and ClothesSection can
@@ -23,7 +24,7 @@ export const defaultClothingItems = [
   {
     _id: 2,
     name: "Jacket",
-    weather: "warm",
+    weather: "cool",
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad",
     likes: [],
@@ -31,7 +32,7 @@ export const defaultClothingItems = [
   {
     _id: 3,
     name: "Sneakers",
-    weather: "cold",
+    weather: "cool",
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png?etag=3efeec41c1c78b8afe26859ca7fa7b6f",
     likes: [],
@@ -52,7 +53,7 @@ export const defaultClothingItems = [
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
     likes: [],
   },
-  // Extra warm-weather items (Clouds / mild)
+  // Extra warm-weather items (60–79°F)
   {
     _id: 6,
     name: "Cardigan",
@@ -77,7 +78,7 @@ export const defaultClothingItems = [
       "https://www.patagonia.com/dw/image/v2/BDJB_PRD/on/demandware.static/-/Sites-patagonia-master/default/dwb0648ed2/images/hi-res/20320_AQT.jpg?sw=1400&sh=1400&sfrm=png&q=90&bgcolor=f3f4ef",
     likes: [],
   },
-  // Extra hot-weather items (Clear / sunny)
+  // Extra hot-weather items (80°F+)
   {
     _id: 9,
     name: "Tank Top",
@@ -94,7 +95,32 @@ export const defaultClothingItems = [
       "https://res.cloudinary.com/yerdle/image/upload/w_800,h_800,c_fit,q_auto:good,f_auto/v1719330863/production/partners/8/inventoryItem/6149083/ydufrqsgrzul5nbe8wmn.jpg",
     likes: [],
   },
-  // Extra cold-weather items (Rain, Snow, Fog, Thunderstorm)
+  // Cool-weather items (32–59°F)
+  {
+    _id: 14,
+    name: "Jeans",
+    weather: "cool",
+    imageUrl:
+      "https://image.hm.com/assets/hm/8a/7d/8a7db64db36d0770c77c6c27ac30c687d319e794.jpg?imwidth=2160",
+    likes: [],
+  },
+  {
+    _id: 15,
+    name: "Sweater",
+    weather: "cool",
+    imageUrl:
+      "https://i.ebayimg.com/images/g/qQkAAOSwp8FnHZQ~/s-l1200.jpg",
+    likes: [],
+  },
+  {
+    _id: 16,
+    name: "Rain Jacket",
+    weather: "cool",
+    imageUrl:
+      "https://cdni.llbean.net/is/image/wim/234241_467_44?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/234241_467_41",
+    likes: [],
+  },
+  // Cold-weather items (<32°F)
   {
     _id: 11,
     name: "Scarf",
@@ -121,26 +147,30 @@ export const defaultClothingItems = [
   },
 ];
 
-// Helper: map a weather condition -> tempRange used by clothing items
-const conditionToTempRange = (condition) => {
-    switch (condition) {
-      case "Clear":
-        return "hot";
-      case "Clouds":
-        return "warm";
-      case "Rain":
-      case "Thunderstorm":
-      case "Snow":
-      case "Fog":
-        return "cold";
-      default:
-        return "warm";
-    }
-  };
+// Helper: map a weather condition -> tempRange used by clothing items.
+// In demo mode we prefer using the scene's temperature for accurate range selection,
+// and only fall back to condition mapping if tempF isn't provided.
+const conditionToTempRange = (condition, tempF) => {
+  if (typeof tempF === "number") return setTemperatureRange(tempF);
+  switch (condition) {
+    case "Clear":
+      return "hot";
+    case "Clouds":
+      return "warm";
+    case "Rain":
+      return "cool";
+    case "Thunderstorm":
+    case "Snow":
+    case "Fog":
+      return "cold";
+    default:
+      return "warm";
+  }
+};
   
-  // Use a high count so all items for each weather type show (hot: 4, warm: 5, cold: 5)
-  const pickItemsForRange = (items, range, count = 6) =>
-    items.filter((i) => i.weather === range).slice(0, count);
+// Use a high count so all items for each range can show.
+const pickItemsForRange = (items, range, count = 12) =>
+  items.filter((i) => i.weather === range).slice(0, count);
   
   // Demo scenes (cycle through this array)
   export const demoScenes = [
@@ -153,8 +183,8 @@ const conditionToTempRange = (condition) => {
         (c) => c.isDay === true && c.weather === "Clear"
       ).url,
       temp: { F: 88, C: 31 },
-      tempRange: conditionToTempRange("Clear"),
-      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Clear")),
+      tempRange: conditionToTempRange("Clear", 88),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Clear", 88)),
     },
     {
       id: "seattle-day-clouds",
@@ -165,10 +195,10 @@ const conditionToTempRange = (condition) => {
         (c) => c.isDay === true && c.weather === "Clouds"
       ).url,
       temp: { F: 66, C: 19 },
-      tempRange: conditionToTempRange("Clouds"),
+      tempRange: conditionToTempRange("Clouds", 66),
       items: pickItemsForRange(
         defaultClothingItems,
-        conditionToTempRange("Clouds")
+        conditionToTempRange("Clouds", 66)
       ),
     },
     {
@@ -180,8 +210,8 @@ const conditionToTempRange = (condition) => {
         (c) => c.isDay === true && c.weather === "Rain"
       ).url,
       temp: { F: 52, C: 11 },
-      tempRange: conditionToTempRange("Rain"),
-      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Rain")),
+      tempRange: conditionToTempRange("Rain", 52),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Rain", 52)),
     },
     {
       id: "denver-night-snow",
@@ -192,8 +222,8 @@ const conditionToTempRange = (condition) => {
         (c) => c.isDay === false && c.weather === "Snow"
       ).url,
       temp: { F: 28, C: -2 },
-      tempRange: conditionToTempRange("Snow"),
-      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Snow")),
+      tempRange: conditionToTempRange("Snow", 28),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Snow", 28)),
     },
     {
       id: "sf-night-fog",
@@ -204,8 +234,8 @@ const conditionToTempRange = (condition) => {
         (c) => c.isDay === false && c.weather === "Fog"
       ).url,
       temp: { F: 48, C: 9 },
-      tempRange: conditionToTempRange("Fog"),
-      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Fog")),
+      tempRange: conditionToTempRange("Fog", 48),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Fog", 48)),
     },
     {
       id: "atl-night-thunderstorm",
@@ -216,10 +246,10 @@ const conditionToTempRange = (condition) => {
         (c) => c.isDay === false && c.weather === "Thunderstorm"
       ).url,
       temp: { F: 44, C: 7 },
-      tempRange: conditionToTempRange("Thunderstorm"),
+      tempRange: conditionToTempRange("Thunderstorm", 44),
       items: pickItemsForRange(
         defaultClothingItems,
-        conditionToTempRange("Thunderstorm")
+        conditionToTempRange("Thunderstorm", 44)
       ),
     },
   ];
