@@ -148,7 +148,7 @@ function App() {
           // Sneaky... WTWR API /signup route doesn't return the password. Use the input data instead.
           const tokenData = await auth.login(
             userData.user.email,
-            data.password
+            data.password,
           );
 
           jwt.setToken(tokenData.token);
@@ -171,7 +171,14 @@ function App() {
       }
       // This will notify the user and handle registration errors before login is triggered.
     } catch (err) {
-      setErrorMessage(`Registration failed. ${err.message}.`);
+      // Prefer Joi/Celebrate validation message when available (e.g. avatar URL errors),
+      // fall back to the generic backend message otherwise.
+      const validationMsg =
+        err?.validation?.body?.message ||
+        err?.validation?.body?.details?.[0]?.message;
+      const friendlyMessage =
+        validationMsg || err?.message || "Something went wrong";
+      setErrorMessage(`Registration failed, ${friendlyMessage}`);
       handleOpenModal("error-modal");
       setTimeout(() => {
         setIsLoading(false);
@@ -359,40 +366,40 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-      setIsDemoMode(!isLoggedIn);
+    setIsDemoMode(!isLoggedIn);
   }, [isLoggedIn]);
 
-// 3) Demo loop only when NOT logged in
-useEffect(() => {
-  if (!isDemoMode) return;
+  // 3) Demo loop only when NOT logged in
+  useEffect(() => {
+    if (!isDemoMode) return;
 
-  let i = 0;
+    let i = 0;
 
-  const applyScene = (scene) => {
-    setLocationName(scene.location);
+    const applyScene = (scene) => {
+      setLocationName(scene.location);
 
-    setWeather({
-      temp: scene.temp,
-      tempFeel: scene.tempRange,
-      isDay: scene.isDay,
-      condition: scene.condition,
-      location: scene.location,
-      weatherCardUrl: scene.weatherCardUrl,
-    });
+      setWeather({
+        temp: scene.temp,
+        tempFeel: scene.tempRange,
+        isDay: scene.isDay,
+        condition: scene.condition,
+        location: scene.location,
+        weatherCardUrl: scene.weatherCardUrl,
+      });
 
-    setClothingItems(scene.items);
-  };
+      setClothingItems(scene.items);
+    };
 
-  applyScene(demoScenes[i]);
-  setTimeout(() => setIsLoading(false), 800);
-
-  const intervalId = setInterval(() => {
-    i = (i + 1) % demoScenes.length;
     applyScene(demoScenes[i]);
-  }, 6000);
+    setTimeout(() => setIsLoading(false), 800);
 
-  return () => clearInterval(intervalId);
-}, [isDemoMode]);
+    const intervalId = setInterval(() => {
+      i = (i + 1) % demoScenes.length;
+      applyScene(demoScenes[i]);
+    }, 6000);
+
+    return () => clearInterval(intervalId);
+  }, [isDemoMode]);
 
   return (
     <>

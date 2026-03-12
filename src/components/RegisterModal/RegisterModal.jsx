@@ -15,7 +15,13 @@ const RegisterModal = ({ onClose, handleRegistration, handleOpenModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegistration(values);
+    // Create a copy of the values object and delete the avatar property if it is empty.
+    const payload = { ...values };
+    
+    if (!payload.avatar || !payload.avatar.trim()) {
+      delete payload.avatar;
+    }
+    handleRegistration(payload);
   };
 
   return (
@@ -69,7 +75,7 @@ const RegisterModal = ({ onClose, handleRegistration, handleOpenModal }) => {
           />
         </label>
         <label htmlFor="avatar" className="modal__form-label">
-          Avatar URL*
+          Avatar URL (optional)
           <input
             className="modal__form-input"
             id="avatar"
@@ -77,7 +83,6 @@ const RegisterModal = ({ onClose, handleRegistration, handleOpenModal }) => {
             placeholder="Avatar URL"
             name="avatar"
             value={values.avatar}
-            required
             onChange={handleChange}
           />
         </label>
