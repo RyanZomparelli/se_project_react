@@ -244,6 +244,10 @@ function App() {
   };
 
   const handleItemDelete = (removeId) => {
+    // Demo mode / demo items are never deletable.
+    if (isDemoMode || selectedItem?.isDemo) {
+      return;
+    }
     const token = jwt.getToken();
     api
       .removeClothingItem(removeId, token)

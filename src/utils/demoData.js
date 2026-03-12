@@ -12,6 +12,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 1,
@@ -20,6 +21,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 2,
@@ -28,6 +30,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 3,
@@ -36,6 +39,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png?etag=3efeec41c1c78b8afe26859ca7fa7b6f",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 4,
@@ -44,6 +48,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 5,
@@ -52,6 +57,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
     likes: [],
+    isDemo: true,
   },
   // Extra warm-weather items (60–79°F)
   {
@@ -61,6 +67,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://images.garmentory.com/images/8419165/xl/LOOP----Babaa-Cardigan-Sweater---82--20221206210656.jpg?1670360818",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 7,
@@ -69,6 +76,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://i.ebayimg.com/images/g/Q1AAAOSwuc9iFomP/s-l1200.jpg",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 8,
@@ -77,6 +85,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://www.patagonia.com/dw/image/v2/BDJB_PRD/on/demandware.static/-/Sites-patagonia-master/default/dwb0648ed2/images/hi-res/20320_AQT.jpg?sw=1400&sh=1400&sfrm=png&q=90&bgcolor=f3f4ef",
     likes: [],
+    isDemo: true,
   },
   // Extra hot-weather items (80°F+)
   {
@@ -86,6 +95,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://www.citysport.it/sync/foto/P25---nike---95A773R78.JPG",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 10,
@@ -94,6 +104,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://res.cloudinary.com/yerdle/image/upload/w_800,h_800,c_fit,q_auto:good,f_auto/v1719330863/production/partners/8/inventoryItem/6149083/ydufrqsgrzul5nbe8wmn.jpg",
     likes: [],
+    isDemo: true,
   },
   // Cool-weather items (32–59°F)
   {
@@ -103,6 +114,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://image.hm.com/assets/hm/8a/7d/8a7db64db36d0770c77c6c27ac30c687d319e794.jpg?imwidth=2160",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 15,
@@ -111,6 +123,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://i.ebayimg.com/images/g/qQkAAOSwp8FnHZQ~/s-l1200.jpg",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 16,
@@ -119,6 +132,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://cdni.llbean.net/is/image/wim/234241_467_44?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/234241_467_41",
     likes: [],
+    isDemo: true,
   },
   // Cold-weather items (<32°F)
   {
@@ -128,6 +142,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://i.etsystatic.com/17244086/r/il/8e4a39/3299464612/il_fullxfull.3299464612_5cm8.jpg",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 12,
@@ -136,6 +151,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://static.vecteezy.com/system/resources/thumbnails/050/519/746/small/a-black-knit-hat-is-sitting-on-a-gray-surface-free-photo.jpeg",
     likes: [],
+    isDemo: true,
   },
   {
     _id: 13,
@@ -144,6 +160,7 @@ export const defaultClothingItems = [
     imageUrl:
       "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86dGltYmVybGFuZHB3cg/ddbbe286-b20c-558b-83f9-eb341a7dce25",
     likes: [],
+    isDemo: true,
   },
 ];
 
