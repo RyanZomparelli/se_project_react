@@ -29,6 +29,7 @@ import * as jwt from "../../utils/token.js";
 import * as location from "../../utils/location.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import { demoScenes } from "../../utils/demoData.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +45,7 @@ function App() {
   // Authorization state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   // HELPERS
 
@@ -325,14 +327,24 @@ function App() {
           setDefaultWeather(defaultCoordinates, apiKey);
         });
     } else {
-      setDefaultWeather(defaultCoordinates, apiKey);
+      // Not logged in: show first demo scene (e.g. Miami) so weather and
+      // clothing match; the demo effect will then cycle through scenes.
+      const scene = demoScenes[0];
+      setLocationName(scene.location);
+      setWeather({
+        temp: scene.temp,
+        tempFeel: scene.tempRange,
+        isDay: scene.isDay,
+        condition: scene.condition,
+        location: scene.location,
+        weatherCardUrl: scene.weatherCardUrl,
+      });
+      setClothingItems(scene.items);
     }
   }, []);
 
-  // These run automatically when the app starts. They're side effects of the
-  // component mounting. Use useEffect.
-  // Initial clothing items. Loads when component mounts (side-effect). useEffect...
   useEffect(() => {
+    if (!isLoggedIn) return;
     api
       .getClothingItems()
       .then((data) => {
@@ -340,8 +352,48 @@ function App() {
       })
       .catch((error) => console.error(error))
       .finally(setTimeout(() => setIsLoading(false), 1000));
-    // Note the empty array dependency. This means the useEffect will run once
-  }, []);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    console.log("isLoggedIn:", isLoggedIn);
+    console.log("isDemoMode:", isDemoMode);
+
+      setIsDemoMode(!isLoggedIn);
+  }, [isLoggedIn]);
+
+// 3) Demo loop only when NOT logged in
+useEffect(() => {
+  if (!isDemoMode) return;
+
+  let i = 0;
+
+  console.log("Demo mode scene:", demoScenes[i]);
+
+  const applyScene = (scene) => {
+    setLocationName(scene.location);
+
+    setWeather({
+      temp: scene.temp,
+      tempFeel: scene.tempRange,
+      isDay: scene.isDay,
+      condition: scene.condition,
+      location: scene.location,
+      weatherCardUrl: scene.weatherCardUrl,
+    });
+
+    setClothingItems(scene.items);
+  };
+
+  applyScene(demoScenes[i]);
+  setTimeout(() => setIsLoading(false), 800);
+
+  const intervalId = setInterval(() => {
+    i = (i + 1) % demoScenes.length;
+    applyScene(demoScenes[i]);
+  }, 6000);
+
+  return () => clearInterval(intervalId);
+}, [isDemoMode]);
 
   return (
     <>
