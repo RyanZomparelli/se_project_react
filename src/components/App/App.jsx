@@ -424,6 +424,7 @@ useEffect(() => {
                       handleItemCardClick={handleItemCardClick}
                       isMobileMenuOpened={isMobileMenuOpened}
                       handleCardLike={handleCardLike}
+                      isDemoMode={isDemoMode}
                     />
                   }
                 />

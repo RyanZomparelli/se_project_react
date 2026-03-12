@@ -15,6 +15,7 @@ function Main({
   handleItemCardClick,
   isMobileMenuOpened,
   handleCardLike,
+  isDemoMode,
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
@@ -34,15 +35,21 @@ function Main({
     <main className="main page__section">
       <WeatherCard weather={weather} isMobileMenuOpened={isMobileMenuOpened} />
       <section className="clothing">
-        <p className="clothing__paragraph">
-          Today is {weather.temp[currentTemperatureUnit]}
-          {currentTemperatureUnit === "F" ? (
-            <span>&deg;F</span>
-          ) : (
-            <span>&deg;C</span>
-          )}{" "}
-          / You may want to wear:
-        </p>
+        {isDemoMode ? (
+          <p className="clothing__paragraph">
+            Log in to use your location and add/like your own clothing items.
+          </p>
+        ) : (
+          <p className="clothing__paragraph">
+            Today is {weather.temp[currentTemperatureUnit]}
+            {currentTemperatureUnit === "F" ? (
+              <span>&deg;F</span>
+            ) : (
+              <span>&deg;C</span>
+            )}{" "}
+            / You may want to wear:
+          </p>
+        )}
         <ul className="clothing__list">
           {selectedItems.map((item) => {
             return (
