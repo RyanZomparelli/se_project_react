@@ -94,6 +94,25 @@ Registration Modal on the non protected home route.
 
 ![Registration Modal](./src/assets/registration1440.png)
 
+### Revolving demo homepage for logged-out users (Demo Mode)
+
+- Added a rotating “demo scenes” experience when visiting WTWR **not logged in**:
+  - Cycles through multiple **locations**, **weather cards**, and **clothing suggestions** to showcase the app’s functionality.
+- Expanded clothing recommendation ranges to increase variety (now includes a **cool** range in addition to hot/warm/cold).
+- Demo mode is isolated from real user data and preserves normal authenticated behavior.
+
+### Improved auth UX + safer signup defaults
+
+- **Avatar URL is now optional** during signup. If no avatar is provided (or it’s invalid), the UI falls back to a **generated initials avatar**.
+- Registration/login error handling now surfaces **clear validation messages** in the error modal (instead of generic failures).
+
+### UI improvements & bug fixes
+
+- Mobile menu now **auto-closes** after successful login/signup and when auth modals close (better mobile UX).
+- Logged-in users no longer see “global” clothing suggestions by default:
+  - The main page shows a message when the user has **0 uploaded items** (instead of showing other users’ items).
+  - The profile page includes a friendly empty-state message when the user has no items yet.
+
 ---
 
 ## React Concepts Used
@@ -266,5 +285,6 @@ Garment Modal
 
 ## Future Improvements
 
-- Cloud Deployment!
-- Tests
+- Automated testing (unit/integration)
+- Improved security hardening (rate limiting, stronger auth practices, etc.)
+- Enhanced demo mode polish (more scenes, smoother transitions, richer empty states)

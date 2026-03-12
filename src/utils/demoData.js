@@ -1,0 +1,272 @@
+import { weatherCards } from "./constants";
+import { setTemperatureRange } from "./helpers";
+
+// Shape these to match real clothing items from the API
+// so that components like ItemCard and ClothesSection can
+// use them without extra guards.
+export const defaultClothingItems = [
+  {
+    _id: 0,
+    name: "Cap",
+    weather: "hot",
+    imageUrl:
+      "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Cap.png?etag=f3dad389b22909cafa73cff9f9a3d591",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 1,
+    name: "Hoodie",
+    weather: "warm",
+    imageUrl:
+      "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 2,
+    name: "Jacket",
+    weather: "cool",
+    imageUrl:
+      "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 3,
+    name: "Sneakers",
+    weather: "cool",
+    imageUrl:
+      "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sneakers.png?etag=3efeec41c1c78b8afe26859ca7fa7b6f",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 4,
+    name: "T-Shirt",
+    weather: "hot",
+    imageUrl:
+      "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 5,
+    name: "Coat",
+    weather: "cold",
+    imageUrl:
+      "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Coat.png?etag=298717ed89d5e40b1954a1831ae0bdd4",
+    likes: [],
+    isDemo: true,
+  },
+  // Extra warm-weather items (60–79°F)
+  {
+    _id: 6,
+    name: "Cardigan",
+    weather: "warm",
+    imageUrl:
+      "https://images.garmentory.com/images/8419165/xl/LOOP----Babaa-Cardigan-Sweater---82--20221206210656.jpg?1670360818",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 7,
+    name: "Long Sleeve Shirt",
+    weather: "warm",
+    imageUrl:
+      "https://i.ebayimg.com/images/g/Q1AAAOSwuc9iFomP/s-l1200.jpg",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 8,
+    name: "Light Jacket",
+    weather: "warm",
+    imageUrl:
+      "https://www.patagonia.com/dw/image/v2/BDJB_PRD/on/demandware.static/-/Sites-patagonia-master/default/dwb0648ed2/images/hi-res/20320_AQT.jpg?sw=1400&sh=1400&sfrm=png&q=90&bgcolor=f3f4ef",
+    likes: [],
+    isDemo: true,
+  },
+  // Extra hot-weather items (80°F+)
+  {
+    _id: 9,
+    name: "Tank Top",
+    weather: "hot",
+    imageUrl:
+      "https://www.citysport.it/sync/foto/P25---nike---95A773R78.JPG",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 10,
+    name: "Shorts",
+    weather: "hot",
+    imageUrl:
+      "https://res.cloudinary.com/yerdle/image/upload/w_800,h_800,c_fit,q_auto:good,f_auto/v1719330863/production/partners/8/inventoryItem/6149083/ydufrqsgrzul5nbe8wmn.jpg",
+    likes: [],
+    isDemo: true,
+  },
+  // Cool-weather items (32–59°F)
+  {
+    _id: 14,
+    name: "Jeans",
+    weather: "cool",
+    imageUrl:
+      "https://image.hm.com/assets/hm/8a/7d/8a7db64db36d0770c77c6c27ac30c687d319e794.jpg?imwidth=2160",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 15,
+    name: "Sweater",
+    weather: "cool",
+    imageUrl:
+      "https://i.ebayimg.com/images/g/qQkAAOSwp8FnHZQ~/s-l1200.jpg",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 16,
+    name: "Rain Jacket",
+    weather: "cool",
+    imageUrl:
+      "https://cdni.llbean.net/is/image/wim/234241_467_44?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/234241_467_41",
+    likes: [],
+    isDemo: true,
+  },
+  // Cold-weather items (<32°F)
+  {
+    _id: 11,
+    name: "Scarf",
+    weather: "cold",
+    imageUrl:
+      "https://i.etsystatic.com/17244086/r/il/8e4a39/3299464612/il_fullxfull.3299464612_5cm8.jpg",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 12,
+    name: "Beanie",
+    weather: "cold",
+    imageUrl:
+      "https://static.vecteezy.com/system/resources/thumbnails/050/519/746/small/a-black-knit-hat-is-sitting-on-a-gray-surface-free-photo.jpeg",
+    likes: [],
+    isDemo: true,
+  },
+  {
+    _id: 13,
+    name: "Boots",
+    weather: "cold",
+    imageUrl:
+      "https://photos-us.bazaarvoice.com/photo/2/cGhvdG86dGltYmVybGFuZHB3cg/ddbbe286-b20c-558b-83f9-eb341a7dce25",
+    likes: [],
+    isDemo: true,
+  },
+];
+
+// Helper: map a weather condition -> tempRange used by clothing items.
+// In demo mode we prefer using the scene's temperature for accurate range selection,
+// and only fall back to condition mapping if tempF isn't provided.
+const conditionToTempRange = (condition, tempF) => {
+  if (typeof tempF === "number") return setTemperatureRange(tempF);
+  switch (condition) {
+    case "Clear":
+      return "hot";
+    case "Clouds":
+      return "warm";
+    case "Rain":
+      return "cool";
+    case "Thunderstorm":
+    case "Snow":
+    case "Fog":
+      return "cold";
+    default:
+      return "warm";
+  }
+};
+  
+// Use a high count so all items for each range can show.
+const pickItemsForRange = (items, range, count = 12) =>
+  items.filter((i) => i.weather === range).slice(0, count);
+  
+  // Demo scenes (cycle through this array)
+  export const demoScenes = [
+    {
+      id: "miami-day-clear",
+      location: "Miami, FL",
+      isDay: true,
+      condition: "Clear",
+      weatherCardUrl: weatherCards.find(
+        (c) => c.isDay === true && c.weather === "Clear"
+      ).url,
+      temp: { F: 88, C: 31 },
+      tempRange: conditionToTempRange("Clear", 88),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Clear", 88)),
+    },
+    {
+      id: "seattle-day-clouds",
+      location: "Seattle, WA",
+      isDay: true,
+      condition: "Clouds",
+      weatherCardUrl: weatherCards.find(
+        (c) => c.isDay === true && c.weather === "Clouds"
+      ).url,
+      temp: { F: 66, C: 19 },
+      tempRange: conditionToTempRange("Clouds", 66),
+      items: pickItemsForRange(
+        defaultClothingItems,
+        conditionToTempRange("Clouds", 66)
+      ),
+    },
+    {
+      id: "dc-day-rain",
+      location: "Washington, DC",
+      isDay: true,
+      condition: "Rain",
+      weatherCardUrl: weatherCards.find(
+        (c) => c.isDay === true && c.weather === "Rain"
+      ).url,
+      temp: { F: 52, C: 11 },
+      tempRange: conditionToTempRange("Rain", 52),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Rain", 52)),
+    },
+    {
+      id: "denver-night-snow",
+      location: "Denver, CO",
+      isDay: false,
+      condition: "Snow",
+      weatherCardUrl: weatherCards.find(
+        (c) => c.isDay === false && c.weather === "Snow"
+      ).url,
+      temp: { F: 28, C: -2 },
+      tempRange: conditionToTempRange("Snow", 28),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Snow", 28)),
+    },
+    {
+      id: "sf-night-fog",
+      location: "San Francisco, CA",
+      isDay: false,
+      condition: "Fog",
+      weatherCardUrl: weatherCards.find(
+        (c) => c.isDay === false && c.weather === "Fog"
+      ).url,
+      temp: { F: 48, C: 9 },
+      tempRange: conditionToTempRange("Fog", 48),
+      items: pickItemsForRange(defaultClothingItems, conditionToTempRange("Fog", 48)),
+    },
+    {
+      id: "atl-night-thunderstorm",
+      location: "Atlanta, GA",
+      isDay: false,
+      condition: "Thunderstorm",
+      weatherCardUrl: weatherCards.find(
+        (c) => c.isDay === false && c.weather === "Thunderstorm"
+      ).url,
+      temp: { F: 44, C: 7 },
+      tempRange: conditionToTempRange("Thunderstorm", 44),
+      items: pickItemsForRange(
+        defaultClothingItems,
+        conditionToTempRange("Thunderstorm", 44)
+      ),
+    },
+  ];

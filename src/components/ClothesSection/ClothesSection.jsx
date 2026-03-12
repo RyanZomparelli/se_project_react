@@ -2,6 +2,7 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
+import { isOwnedByCurrentUser } from "../../utils/ownership";
 
 // ClothesSection = The container/section for the profile page.
 // - Holds the "Your Items" heading and "+ Add new" btn.
@@ -17,6 +18,10 @@ const ClothesSection = ({
 }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
+  const hasUserItems = clothingItems.some((item) =>
+    isOwnedByCurrentUser(item.owner, currentUser)
+  );
+
   return (
     <section className="clothing-section">
       <div className="clothing-section__btn-container">
@@ -30,20 +35,23 @@ const ClothesSection = ({
         </button>
       </div>
       <ul className="clothing-section__clothing-list">
-        {!clothingItems.some((item) => item.owner === currentUser.user._id) ? (
-          <p className="clothing-section__message">No added items yet</p>
+        {!hasUserItems ? (
+          <p className="clothing-section__message">
+            Welcome to your closet. Looks like you need to go shopping.
+          </p>
         ) : (
           clothingItems.map((item) => {
-            if (item.owner === currentUser.user._id) {
-              return (
-                <ItemCard
-                  key={item._id}
-                  clothingItem={item}
-                  handleItemCardClick={handleItemCardClick}
-                  handleCardLike={handleCardLike}
-                />
-              );
+            if (!isOwnedByCurrentUser(item.owner, currentUser)) {
+              return null;
             }
+            return (
+              <ItemCard
+                key={item._id}
+                clothingItem={item}
+                handleItemCardClick={handleItemCardClick}
+                handleCardLike={handleCardLike}
+              />
+            );
           })
         )}
       </ul>

@@ -15,28 +15,49 @@ function Main({
   handleItemCardClick,
   isMobileMenuOpened,
   handleCardLike,
+  isDemoMode,
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+
+  const selectedItems = (() => {
+    const range = weather?.tempFeel;
+    if (!range) return [];
+
+    const exact = clothingItems.filter((item) => item.weather === range);
+    // Back-compat: if a user has no "cool" items yet, fall back to "cold" items.
+    if (range === "cool" && exact.length === 0) {
+      return clothingItems.filter((item) => item.weather === "cold");
+    }
+    return exact;
+  })();
 
   return (
     <main className="main page__section">
       <WeatherCard weather={weather} isMobileMenuOpened={isMobileMenuOpened} />
       <section className="clothing">
-        <p className="clothing__paragraph">
-          Today is {weather.temp[currentTemperatureUnit]}
-          {currentTemperatureUnit === "F" ? (
-            <span>&deg;F</span>
-          ) : (
-            <span>&deg;C</span>
-          )}{" "}
-          / You may want to wear:
-        </p>
-        <ul className="clothing__list">
-          {clothingItems
-            .filter((item) => {
-              return item.weather === weather.tempFeel;
-            })
-            .map((item) => {
+        {isDemoMode ? (
+          <p className="clothing__paragraph">
+            Log in to use your location and add/like your own clothing items.
+          </p>
+        ) : (
+          <p className="clothing__paragraph">
+            Today is {weather.temp[currentTemperatureUnit]}
+            {currentTemperatureUnit === "F" ? (
+              <span>&deg;F</span>
+            ) : (
+              <span>&deg;C</span>
+            )}{" "}
+            / You may want to wear:
+          </p>
+        )}
+
+        {!isDemoMode && selectedItems.length === 0 ? (
+          <p className="clothing__empty-message">
+            Upload some clothes to view recommendations.
+          </p>
+        ) : (
+          <ul className="clothing__list">
+            {selectedItems.map((item) => {
               return (
                 <ItemCard
                   handleItemCardClick={handleItemCardClick}
@@ -46,7 +67,8 @@ function Main({
                 />
               );
             })}
-        </ul>
+          </ul>
+        )}
       </section>
     </main>
   );

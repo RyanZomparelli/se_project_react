@@ -10,11 +10,13 @@ const Avatar = ({ src, className = "", placeHolderClassName = "" }) => {
 
   const [showPlaceholder, setShowPlaceholder] = useState(false);
 
+  const explicitSrc = src || currentUser.user?.avatar;
+
   // Extract the first letter of user's name to create the placeholder avatar as
   // a fall back.
   const firstLetter = currentUser.user?.name?.[0];
 
-  return showPlaceholder ? (
+  return showPlaceholder || !explicitSrc ? (
     <h2 className={`avatar__placeholder ${placeHolderClassName}`}>
       {firstLetter}
     </h2>

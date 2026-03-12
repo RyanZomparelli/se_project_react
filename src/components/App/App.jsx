@@ -27,8 +27,10 @@ import * as api from "../../utils/api.js";
 import * as auth from "../../utils/auth.js";
 import * as jwt from "../../utils/token.js";
 import * as location from "../../utils/location.js";
+import { isOwnedByCurrentUser } from "../../utils/ownership.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
+import { demoScenes } from "../../utils/demoData.js";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,6 +46,7 @@ function App() {
   // Authorization state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   // HELPERS
 
@@ -53,6 +56,9 @@ function App() {
 
   const handleCloseModal = () => {
     setActiveModal("");
+    // Ensure the mobile menu never stays open after closing any modal,
+    // including auth modals that may have been opened from the menu.
+    setIsMobileMenuOpened(false);
   };
 
   const handleItemCardClick = (card) => {
@@ -146,7 +152,7 @@ function App() {
           // Sneaky... WTWR API /signup route doesn't return the password. Use the input data instead.
           const tokenData = await auth.login(
             userData.user.email,
-            data.password
+            data.password,
           );
 
           jwt.setToken(tokenData.token);
@@ -169,7 +175,14 @@ function App() {
       }
       // This will notify the user and handle registration errors before login is triggered.
     } catch (err) {
-      setErrorMessage(`Registration failed. ${err.message}.`);
+      // Prefer Joi/Celebrate validation message when available (e.g. avatar URL errors),
+      // fall back to the generic backend message otherwise.
+      const validationMsg =
+        err?.validation?.body?.message ||
+        err?.validation?.body?.details?.[0]?.message;
+      const friendlyMessage =
+        validationMsg || err?.message || "Something went wrong";
+      setErrorMessage(`Registration failed, ${friendlyMessage}`);
       handleOpenModal("error-modal");
       setTimeout(() => {
         setIsLoading(false);
@@ -242,6 +255,10 @@ function App() {
   };
 
   const handleItemDelete = (removeId) => {
+    // Demo mode / demo items are never deletable.
+    if (isDemoMode || selectedItem?.isDemo) {
+      return;
+    }
     const token = jwt.getToken();
     api
       .removeClothingItem(removeId, token)
@@ -325,14 +342,24 @@ function App() {
           setDefaultWeather(defaultCoordinates, apiKey);
         });
     } else {
-      setDefaultWeather(defaultCoordinates, apiKey);
+      // Not logged in: show first demo scene (e.g. Miami) so weather and
+      // clothing match; the demo effect will then cycle through scenes.
+      const scene = demoScenes[0];
+      setLocationName(scene.location);
+      setWeather({
+        temp: scene.temp,
+        tempFeel: scene.tempRange,
+        isDay: scene.isDay,
+        condition: scene.condition,
+        location: scene.location,
+        weatherCardUrl: scene.weatherCardUrl,
+      });
+      setClothingItems(scene.items);
     }
   }, []);
 
-  // These run automatically when the app starts. They're side effects of the
-  // component mounting. Use useEffect.
-  // Initial clothing items. Loads when component mounts (side-effect). useEffect...
   useEffect(() => {
+    if (!isLoggedIn) return;
     api
       .getClothingItems()
       .then((data) => {
@@ -340,8 +367,43 @@ function App() {
       })
       .catch((error) => console.error(error))
       .finally(setTimeout(() => setIsLoading(false), 1000));
-    // Note the empty array dependency. This means the useEffect will run once
-  }, []);
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    setIsDemoMode(!isLoggedIn);
+  }, [isLoggedIn]);
+
+  // 3) Demo loop only when NOT logged in
+  useEffect(() => {
+    if (!isDemoMode) return;
+
+    let i = 0;
+
+    const applyScene = (scene) => {
+      setLocationName(scene.location);
+
+      setWeather({
+        temp: scene.temp,
+        tempFeel: scene.tempRange,
+        isDay: scene.isDay,
+        condition: scene.condition,
+        location: scene.location,
+        weatherCardUrl: scene.weatherCardUrl,
+      });
+
+      setClothingItems(scene.items);
+    };
+
+    applyScene(demoScenes[i]);
+    setTimeout(() => setIsLoading(false), 800);
+
+    const intervalId = setInterval(() => {
+      i = (i + 1) % demoScenes.length;
+      applyScene(demoScenes[i]);
+    }, 6000);
+
+    return () => clearInterval(intervalId);
+  }, [isDemoMode]);
 
   return (
     <>
@@ -373,10 +435,19 @@ function App() {
                   element={
                     <Main
                       weather={weather}
-                      clothingItems={clothingItems}
+                      // In demo mode we show rotating global demo items.
+                      // When logged in, only show items owned by the current user on Main.
+                      clothingItems={
+                        isDemoMode
+                          ? clothingItems
+                          : clothingItems.filter((item) =>
+                              isOwnedByCurrentUser(item.owner, currentUser)
+                            )
+                      }
                       handleItemCardClick={handleItemCardClick}
                       isMobileMenuOpened={isMobileMenuOpened}
                       handleCardLike={handleCardLike}
+                      isDemoMode={isDemoMode}
                     />
                   }
                 />
@@ -385,7 +456,10 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <Profile
-                        clothingItems={clothingItems}
+                        // Profile should only ever show the logged-in user's own items.
+                        clothingItems={clothingItems.filter((item) =>
+                          isOwnedByCurrentUser(item.owner, currentUser)
+                        )}
                         handleItemCardClick={handleItemCardClick}
                         onModalOpen={handleOpenModal}
                         handleCardLike={handleCardLike}

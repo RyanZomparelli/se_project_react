@@ -16,7 +16,7 @@ export const getRequestHeaders = (token = null) => {
 };
 
 export function handleResponse(res) {
-  // Parse the response even for errors to have access to the err.message than throw
+  // Parse the response even for errors to have access to the err.message then throw
   // it to the catch block.
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
