@@ -50,18 +50,25 @@ function Main({
             / You may want to wear:
           </p>
         )}
-        <ul className="clothing__list">
-          {selectedItems.map((item) => {
-            return (
-              <ItemCard
-                handleItemCardClick={handleItemCardClick}
-                key={item._id}
-                clothingItem={item}
-                handleCardLike={handleCardLike}
-              />
-            );
-          })}
-        </ul>
+
+        {!isDemoMode && selectedItems.length === 0 ? (
+          <p className="clothing__empty-message">
+            Upload some clothes to view recommendations.
+          </p>
+        ) : (
+          <ul className="clothing__list">
+            {selectedItems.map((item) => {
+              return (
+                <ItemCard
+                  handleItemCardClick={handleItemCardClick}
+                  key={item._id}
+                  clothingItem={item}
+                  handleCardLike={handleCardLike}
+                />
+              );
+            })}
+          </ul>
+        )}
       </section>
     </main>
   );

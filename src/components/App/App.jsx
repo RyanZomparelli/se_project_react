@@ -27,6 +27,7 @@ import * as api from "../../utils/api.js";
 import * as auth from "../../utils/auth.js";
 import * as jwt from "../../utils/token.js";
 import * as location from "../../utils/location.js";
+import { isOwnedByCurrentUser } from "../../utils/ownership.js";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 import { demoScenes } from "../../utils/demoData.js";
@@ -55,6 +56,9 @@ function App() {
 
   const handleCloseModal = () => {
     setActiveModal("");
+    // Ensure the mobile menu never stays open after closing any modal,
+    // including auth modals that may have been opened from the menu.
+    setIsMobileMenuOpened(false);
   };
 
   const handleItemCardClick = (card) => {
@@ -431,7 +435,15 @@ function App() {
                   element={
                     <Main
                       weather={weather}
-                      clothingItems={clothingItems}
+                      // In demo mode we show rotating global demo items.
+                      // When logged in, only show items owned by the current user on Main.
+                      clothingItems={
+                        isDemoMode
+                          ? clothingItems
+                          : clothingItems.filter((item) =>
+                              isOwnedByCurrentUser(item.owner, currentUser)
+                            )
+                      }
                       handleItemCardClick={handleItemCardClick}
                       isMobileMenuOpened={isMobileMenuOpened}
                       handleCardLike={handleCardLike}
@@ -444,7 +456,10 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <Profile
-                        clothingItems={clothingItems}
+                        // Profile should only ever show the logged-in user's own items.
+                        clothingItems={clothingItems.filter((item) =>
+                          isOwnedByCurrentUser(item.owner, currentUser)
+                        )}
                         handleItemCardClick={handleItemCardClick}
                         onModalOpen={handleOpenModal}
                         handleCardLike={handleCardLike}
